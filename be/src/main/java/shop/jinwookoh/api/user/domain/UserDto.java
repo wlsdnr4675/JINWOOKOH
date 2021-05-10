@@ -5,12 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import io.swagger.annotations.ApiModelProperty;
-
 import lombok.Data;
 
-@Component
 @Data
-public class MemberDto {
+@Component
+public class UserDto {
 
     @ApiModelProperty(position = 0)
     private String username;

@@ -23,16 +23,12 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@Table(name = "members")
-public class MemberVo {
+@Entity
+@Table(name = "users")
+public class UserVo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +42,10 @@ public class MemberVo {
     private String email;
     @Column(name = "name")
     private String name;
+    @Column(name = "reg_date")
+    private Date regDate;
+    @Column(name = "edit_date")
+    private String editDate;
 
     // 즉시 실행 와이? 접속하자마자 권한을 부여해줘야 하기 때문에
     @ElementCollection(fetch = FetchType.EAGER)

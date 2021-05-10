@@ -1,8 +1,8 @@
 package shop.jinwookoh.api.user.controller;
 
-import shop.jinwookoh.api.user.domain.MemberVo;
-import shop.jinwookoh.api.user.domain.MemberDto;
-import shop.jinwookoh.api.user.service.MemberServiceImpl;
+import shop.jinwookoh.api.user.domain.UserVo;
+import shop.jinwookoh.api.user.domain.UserDto;
+import shop.jinwookoh.api.user.service.UserServiceImpl;
 
 import java.util.List;
 
@@ -32,47 +32,47 @@ import lombok.extern.java.Log;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Log
-public class MemberController {
+public class UserController {
 
-    private final MemberServiceImpl memberService;
+    private final UserServiceImpl userService;
     private final ModelMapper modelMapper;
 
     @GetMapping(value = "/findAll")
-    public ResponseEntity<List<MemberVo>> fetch() {
+    public ResponseEntity<List<UserVo>> fetch() {
 
-        return ResponseEntity.ok(memberService.findAll());
+        return ResponseEntity.ok(userService.findAll());
     }
 
     @PostMapping("/signup")
-    @ApiOperation(value = "${MemberController.signup}")
+    @ApiOperation(value = "${userController.signup}")
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access Denied"),
             @ApiResponse(code = 422, message = "Username is already in use") })
-    public ResponseEntity<String> signup(@ApiParam("Signup Member") @RequestBody MemberDto member) {
-        return ResponseEntity.ok(memberService.signup(modelMapper.map(member, MemberVo.class)));
+    public ResponseEntity<String> signup(@ApiParam("Signup user") @RequestBody UserDto user) {
+        return ResponseEntity.ok(userService.signup(modelMapper.map(user, UserVo.class)));
     }
 
     @PostMapping("/signin")
-    @ApiOperation(value = "${MemberController.signin}")
+    @ApiOperation(value = "${userController.signin}")
     @ApiResponses(value = { @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access Denied"),
             @ApiResponse(code = 422, message = "Invalid Username / Password supplied") })
-    public ResponseEntity<MemberDto> signin(@RequestBody MemberDto member) {
-        return ResponseEntity.ok(memberService.signin(modelMapper.map(member, MemberVo.class)));
+    public ResponseEntity<UserDto> signin(@RequestBody UserDto user) {
+        return ResponseEntity.ok(userService.signin(modelMapper.map(user, UserVo.class)));
     }
 
     @PutMapping(value = "")
-    public ResponseEntity<Long> update(@RequestBody MemberDto member) {
+    public ResponseEntity<Long> update(@RequestBody UserDto user) {
         return ResponseEntity.ok(null);
     }
 
     @DeleteMapping(value = "")
-    public ResponseEntity<Long> delete(@RequestBody MemberDto member) {
+    public ResponseEntity<Long> delete(@RequestBody UserDto user) {
         return ResponseEntity.ok(null);
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<MemberDto>> all(@RequestBody MemberDto member) {
+    public ResponseEntity<List<UserDto>> all(@RequestBody UserDto user) {
         log.info("로그인 안한 사용자도 접근 가능");
         return ResponseEntity.ok(null);
     }
