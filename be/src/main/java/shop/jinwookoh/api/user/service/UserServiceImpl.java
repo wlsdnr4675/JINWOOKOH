@@ -47,6 +47,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto signin(UserVo user) {
         try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            log.info(" :::::::::: 암호와된 비밀번호 :::::::::: ", user.getPassword());
             UserVo loginedUser = userRepository.signin(user.getUsername(), user.getPassword());
             UserDto userDto = modelMapper.map(user, UserDto.class);
             String token = provider.createToken(user.getUsername(),

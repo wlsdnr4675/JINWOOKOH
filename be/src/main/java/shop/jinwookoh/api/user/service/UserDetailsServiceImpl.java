@@ -11,6 +11,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // TODO Auto-generated method stub
+        if ("user_id".equals(username)) {
+
+        }
         return null;
     }
 

@@ -33,12 +33,12 @@ public class Work {
     @Column(name = "main_img")
     private long mainImg;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    List<Category> categories;
+    // @ManyToOne
+    // @JoinColumn(name = "category_id")
+    // List<Category> categories;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    List<UserVo> users;
+    // @ManyToOne
+    // @JoinColumn(name = "user_id")
+    // List<UserVo> users;
 
 }

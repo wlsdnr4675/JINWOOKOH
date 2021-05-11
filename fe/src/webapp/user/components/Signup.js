@@ -14,31 +14,33 @@ const Signup = () => {
         name: "",
         email: ""
     });
+
+    const handleChange = useCallback(e =>{
+        const { name, value} = e.target;
+             setUser({
+            ...user,[name] : value
+        })
+    },[user])
     const onCreate = e =>{
         e.preventDefault();
-        if(user){
-            const newUser = { username: user.username, password: user.password, name: user.name, email: user.email };
-            dispatch(signup(newUser));
-            setUser("");
-        }else{
-            console.log("모든항목을 작성하세요")
-        }
+            dispatch(signup(user));
+            
     }
     
 
 
     return ( <>
-        <form onSubmit={onCreate} action=''>
+        <form onSubmit={onCreate} method={'post'}>
             
             <label>아이디</label>
-            <input className="u-full-width" type="text" name="username" value={user.username} onChange={e => setUser(e.target.value)} />
+            <input style={{background: 'black'}}className="u-full-width" type="text" name="username" value={user.username} onChange={handleChange} />
             <label>비밀번호</label>
-            <input className="u-full-width" type="password" name="password" value={user.password} onChange={e => setUser(e.target.value)} />
+            <input style={{background: 'black'}}className="u-full-width" type="password" name="password" value={user.password} onChange={handleChange} />
             <label>이름</label>
-            <input className="u-full-width" type="text" name="uname" value={user.uname} onChange={e => setUser(e.target.value)} />
+            <input style={{background: 'black'}}className="u-full-width" type="text" name="uname" value={user.uname} onChange={handleChange} />
             <label>이메일</label>
-            <input className="u-full-width" type="email" name="email" value={user.email} onChange={e => setUser(e.target.value)} />  
-            <button type='submit'>회원가입</button>
+            <input style={{background: 'black'}}className="u-full-width" type="email" name="email" value={user.email} onChange={handleChange} />  
+            <button type='submit' onClick={onCreate}>회원가입</button>
             <Link to={'/'}><button>취소</button></Link>
             
 

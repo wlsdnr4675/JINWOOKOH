@@ -15,6 +15,7 @@ spring:
       ddl-auto: update
   jwt:
     secret: jwtSecret
+
 UserController:
   signup: Creates user and returns its JWT token
   signin: Authenticates user and returns its JWT token

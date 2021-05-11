@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { Signup } from '..';
+
 
 
 const findAll = () => axios.get("http://localhost:8080/users/findAll")
 
-const signup = () =>{
+const signup = (newUser) =>{
    
     const del = window.confirm("회원가입 하시겠습니까? ")
     if(del){
@@ -12,11 +12,11 @@ const signup = () =>{
             url: `http://localhost:8080/users/signup`,
             method: 'post',
             headers: {'Content-Type': 'application/json', 'Authorization': 'JWT fefege..'},
-            data: Signup()
+            data: newUser
         })
         .then(resp =>{
             alert('회원가입이 완료되었습니다.')
-            //history.pushState("/")
+           //history.pushState("/")
         })
         .catch(err => {
             alert(err)
