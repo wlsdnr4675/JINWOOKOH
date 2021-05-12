@@ -6,7 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import shop.jinwookoh.api.supporter.domain.Supporter;
 
 @Entity
 @Table(name = "fundings")
@@ -31,7 +35,8 @@ public class Funding {
     private String totalAmount;
     @Column(name = "remain_amount") // 펀딩 상품 남은 수량
     private String remainundAmount;
-    @Column(name = "supporter_id") // 서포터가 펀딩 (fk)
-    private long supporterId;
+    @ManyToOne
+    @JoinColumn(name = "supporter_id") // 서포터가 펀딩 (fk)
+    private Supporter supporter;
 
 }

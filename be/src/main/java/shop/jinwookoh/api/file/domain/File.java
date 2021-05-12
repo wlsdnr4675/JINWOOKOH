@@ -26,13 +26,12 @@ public class File {
     @Column(name = "file_img")
     private String fileImg;
     @Column(name = "ofile_name")
-    private Date ofile_name;
+    private String ofile_name;
     @Column(name = "nfile_name")
-    private Date nfile_name;
+    private String nfile_name;
     @Column(name = "fsize")
-    private Date fsize;
+    private long fsize;
 
     // 작성자는 아티스트 엔티티에서 연결
-    // Works엔티티와 연결 (다 대 1)
 
 }

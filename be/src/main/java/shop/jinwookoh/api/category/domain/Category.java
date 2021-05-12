@@ -6,15 +6,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import shop.jinwookoh.api.resume.domain.Resume;
 
 @Entity
 @Table(name = "categories")
 public class Category {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private long categoryId;
     @Column
     private long name;
+    @ManyToOne
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
 }
