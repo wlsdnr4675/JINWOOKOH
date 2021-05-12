@@ -19,7 +19,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private long categoryId;
-    @Column
+    @Column(name = "name")
     private String name;
     @ManyToOne
     @JoinColumn(name = "resume_id")
