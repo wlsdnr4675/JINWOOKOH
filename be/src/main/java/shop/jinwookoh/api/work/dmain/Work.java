@@ -18,27 +18,30 @@ import shop.jinwookoh.api.user.domain.UserVo;
 @Entity
 @Table(name = "works")
 public class Work {
-    @Id
-    @GeneratedValue
-    @Column(name = "work_id")
-    private long workId;
-    @Column(name = "title")
-    private String title;
-    @Column(name = "description")
-    private long description;
-    @Column(name = "reg_date")
-    private long regDate;
-    @Column(name = "edit_date")
-    private long editDate;
-    @Column(name = "main_img")
-    private long mainImg;
+    @Entity
+    @Table(name = "works")
+    public class Work {
+        @Id
+        @GeneratedValue
+        @Column(name = "work_id")
+        private long workId;
+        @Column
+        private String title;
+        @Column
+        private String description;
+        @Column(name = "main_img")
+        private String mainImg;
+        @Column(name = "reg_date")
+        private Date regDate;
+        @Column(name = "edit_date")
+        private Date editDate;
+        
+        @ManyToOne
+        @JoinColumn(name = "artist_id")
+        Artist artist;
 
-    // @ManyToOne
-    // @JoinColumn(name = "category_id")
-    // List<Category> categories;
-
-    // @ManyToOne
-    // @JoinColumn(name = "user_id")
-    // List<UserVo> users;
+        @ManyToOne
+        @JoinColumn(name = "category_id")
+        Category category;
 
 }

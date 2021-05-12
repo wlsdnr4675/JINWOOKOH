@@ -31,12 +31,8 @@ import PortfolioPage from "./pages/inner/PortfolioPage";
 import PricingsPage from "./pages/inner/PricingsPage";
 import TestimonialsPage from "./pages/inner/TestimonialsPage";
 
-
-import NavBar from 'webapp/common/components/NavBar';
-import { Signin, Signup, UserBoard, UserEdit, UserRead } from 'webapp/user/index';
-
-const App= () => {
-  return (<>
+function App() {
+  return (
     <Router basename="/">
       <ScrollIntoView>
         <ScrollToTop>
@@ -152,13 +148,7 @@ const App= () => {
         </ScrollToTop>
       </ScrollIntoView>
     </Router>
-    <NavBar></NavBar>
-    <Route path="/user/signin" component={Signin}></Route>
-    <Route path="/user/signup" component={Signup}></Route>
-    <Route path="/user/user_board" component={UserBoard}></Route>
-    <Route path="/user/user_edit" component={UserEdit}></Route>
-    <Route path="/user/user_read" component={UserRead}></Route>
-  </>);
+  );
 }
 
 export default App;

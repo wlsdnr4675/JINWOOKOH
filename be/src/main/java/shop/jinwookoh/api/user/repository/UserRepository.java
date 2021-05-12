@@ -1,6 +1,7 @@
 package shop.jinwookoh.api.user.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import shop.jinwookoh.api.user.domain.UserVo;
 import shop.jinwookoh.api.user.domain.UserVo;
@@ -20,6 +21,6 @@ interface MemberCustomRepository {
 public interface UserRepository extends JpaRepository<UserVo, Long>, MemberCustomRepository {
     boolean existsByUsername(String username);
 
-    UserVo findByUsername(String username);
+    Optional<UserVo> findByUsername(String username);
 
 }

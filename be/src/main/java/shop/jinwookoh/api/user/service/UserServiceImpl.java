@@ -47,15 +47,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto signin(UserVo user) {
         try {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            log.info(" :::::::::: 암호와된 비밀번호 :::::::::: ", user.getPassword());
-            UserVo loginedUser = userRepository.signin(user.getUsername(), user.getPassword());
             UserDto userDto = modelMapper.map(user, UserDto.class);
-            String token = provider.createToken(user.getUsername(),
-                    userRepository.findByUsername(user.getUsername()).getRoles());
-            log.info(" :::::::::: ISSUED TOKEN :::::::::: ", token);
-            userDto.setToken(token);
+            userDto.setToken((passwordEncoder.matches(user.getPassword(),
+                    userRepository.findByUsername(user.getUsername()).get().getPassword()))
+                            ? provider.createToken(user.getUsername(),
+                                    userRepository.findByUsername(user.getUsername()).get().getRoles())
+                            : "Wrong Password");
             return userDto;
+
         } catch (Exception e) {
             throw new SecurityRuntimeException("Invalid Username / Password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
         }

@@ -12,8 +12,9 @@ import javax.persistence.Table;
 @Table(name = "categories")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "category_id")
     private long categoryId;
-
+    @Column
+    private long name;
 }
