@@ -1,4 +1,4 @@
-package shop.jinwookoh.api.common.util;
+package shop.jinwookoh.api.common.dummyGenerator;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +49,7 @@ public class DummyGenerator {
     }
 
     public String makeUsername() {
-        List<String> id = Arrays.asList("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split(""));
+        List<String> id = Arrays.asList("abcdefghijklmnopqrstuvwxyz1234567890".split(""));
         shuffle(id);
         id.subList(0, 4);
         StringBuffer sb = new StringBuffer();
@@ -61,6 +61,13 @@ public class DummyGenerator {
          * sb.delete(start-index, and-index); sb.deleteCharAt(index)
          */
         return sb.toString();
+    }
+
+    public String makeSchool() {
+        List<String> school = Arrays.asList("중앙대학교", "동국대학교", "한국예술종합학교", "서울예술대학교", "계원예술대학교", "백제예술대학교", "추계예술대학교",
+                "서울대학교", "경기대학교");
+        shuffle(school);
+        return school.get(0);
     }
 
     public String makeEmail() {
@@ -100,12 +107,24 @@ public class DummyGenerator {
     }
 
     public String makeGender() {
-        List<String> arr = Arrays.asList("M", "F");
+        List<String> arr = Arrays.asList("M", "F", "X");
         shuffle(arr);
         return arr.get(0);
     }
 
     public String makeRegdate() {
         return myCalendar(2019, 2020);
+    }
+
+    public String makePhone() {
+        List<String> phoneNo = Arrays.asList("0123456789".split(""));
+        shuffle(phoneNo);
+        phoneNo.subList(0, 4);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < 4; i++) {
+            sb.append(phoneNo.get(i));
+        }
+
+        return "010" + "-" + sb.toString() + "-" + sb.toString();
     }
 }
