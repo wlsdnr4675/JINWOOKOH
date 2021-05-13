@@ -19,7 +19,7 @@ public class Supporter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supporter_id")
-    private long supporterId;
+    private Long supporterId;
     @Column(unique = true, nullable = false)
     private String username;
     @Size(min = 8, message = "Minimum Passsword Length: 8 characters")
@@ -30,4 +30,8 @@ public class Supporter {
     private String supporterEmail;
     @Column(name = "supporter_number")
     private String supporterPhoneNumber;
+
+    public String toString() {
+        return username + "," + password + "," + name + "," + supporterEmail + "," + supporterPhoneNumber;
+    }
 }

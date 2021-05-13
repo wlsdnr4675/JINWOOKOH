@@ -1,6 +1,7 @@
 package shop.jinwookoh.api.crawl;
 
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -19,18 +20,17 @@ public class CrawlingMain {
     public static void main(String[] args) throws IOException {
         String url = "http://www.yck.kr/html/contents/magazine02_view?idx=6747&cate_idx=";
         String cssQuery = ".txt > p.tit ";
-        String filePath = "/Users/jinwookoh/JINWOOKOH/crawlingData/artist.cvs";
+        String filePath = "/Users/jinwookoh/JINWOOKOH/crawlingData/artist.csv";
         Crawler crawler = new Crawler();
         Service service = new Service();
         crawler.setUrl(url);
         crawler.setCssQuery(cssQuery);
-        Document artoisDocument = service.connectUrl(crawler.getUrl());
-        Elements aritisElements = artoisDocument.select(crawler.getCssQuery());
+        Document artistDocument = service.connectUrl(crawler.getUrl());
+        Elements aritisElements = artistDocument.select(crawler.getCssQuery());
         DummyGenerator dum = new DummyGenerator();
         List<Artist> list = new ArrayList<>();
         try {
-            BufferedWriter fw = new BufferedWriter(
-                    new OutputStreamWriter(new FileOutputStream(filePath, true), "EUC-KR"));
+            DataOutputStream fw = new DataOutputStream(new FileOutputStream(filePath, false));
 
             for (int i = 0; i < aritisElements.size(); i++) {
                 Artist artist = new Artist();
@@ -43,23 +43,13 @@ public class CrawlingMain {
                 artist.setAffiliation(dum.makeSchool());
 
                 System.out.println(artist.toString());
-
-                // private long artistId;
-                // private String username;
-                // private String password;
-                // private String name;
-                // private String email;
-                // private String phoneNumber;
-                // private String address;
-                // private String affiliation;
                 list.add(artist);
             }
             if (list.isEmpty()) {
                 System.out.println("크롤링 된 값이 없습니다. !");
             } else {
                 for (Artist a : list) {
-                    fw.write(a.toString() + ",");
-                    fw.newLine();
+                    fw.writeUTF(a.toString() + "\n");
                 }
             }
             fw.flush();
@@ -100,7 +90,6 @@ class Crawler {
     }
 
     public static class Artist {
-
         private String username;
         private String password;
         private String name;
@@ -181,7 +170,7 @@ class Service {
             artist.setName(artistElements.get(i).text());
             artist.setEmail(dum.makeBirthday() + dum.makeEmail());
             artist.setPhoneNumber(dum.makePhone());
-            artist.setAddress("서울시 정왕동");
+            artist.setAddress("서울시정왕동");
             artist.setAffiliation(dum.makeSchool());
 
             list.add(artist);
@@ -208,7 +197,7 @@ class Service {
             artist.setName(artistElements.get(i).text());
             artist.setEmail(dum.makeBirthday() + dum.makeEmail());
             artist.setPhoneNumber(dum.makePhone());
-            artist.setAddress("서울시 정왕동");
+            artist.setAddress("서울시정왕동");
             artist.setAffiliation(dum.makeSchool());
 
         }

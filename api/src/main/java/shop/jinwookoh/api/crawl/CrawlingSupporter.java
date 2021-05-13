@@ -19,7 +19,7 @@ public class CrawlingSupporter {
     public static void main(String[] args) throws IOException {
         String url = "http://www.yck.kr/html/contents/magazine02_view?idx=6787&cate_idx=7";
         String cssQuery = ".txt .tit";
-        String filePath = "/Users/jinwookoh/JINWOOKOH/crawlingData/supporter.cvs";
+        String filePath = "/Users/jinwookoh/JINWOOKOH/crawlingData/supporter.csv";
         SupporterCrawler crawler = new SupporterCrawler();
         Service service = new Service();
         crawler.setUrl(url);
@@ -30,7 +30,7 @@ public class CrawlingSupporter {
         List<Supporter> list = new ArrayList<>();
         try {
             BufferedWriter fw = new BufferedWriter(
-                    new OutputStreamWriter(new FileOutputStream(filePath, true), "EUC-KR"));
+                    new OutputStreamWriter(new FileOutputStream(filePath, true), "UTF-8"));
 
             for (int i = 0; i < supporterElements.size(); i++) {
                 Supporter supporter = new Supporter();

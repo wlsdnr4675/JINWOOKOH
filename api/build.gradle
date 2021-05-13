@@ -54,7 +54,11 @@ dependencies {
 	compile 'org.jsoup:jsoup:1.13.1'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.4.5'
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+	testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
 
+              
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.4.4'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
