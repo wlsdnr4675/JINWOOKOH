@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import shop.jinwookoh.api.crawl.Crawler.Artist;
+import shop.jinwookoh.api.artist.domain.Artist;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;

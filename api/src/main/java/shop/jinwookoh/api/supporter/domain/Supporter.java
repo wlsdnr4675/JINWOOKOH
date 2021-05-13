@@ -32,6 +32,6 @@ public class Supporter {
     private String supporterPhoneNumber;
 
     public String toString() {
-        return username + "," + password + "," + name + "," + supporterEmail + "," + supporterPhoneNumber;
+        return "," + name + "," + password + "," + supporterEmail + "," + supporterPhoneNumber + "," + username;
     }
 }
