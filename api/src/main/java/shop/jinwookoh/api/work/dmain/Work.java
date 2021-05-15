@@ -18,11 +18,12 @@ import shop.jinwookoh.api.resume.domain.Resume;
 
 @Entity
 @Table(name = "works")
+@Data
 public class Work {
     @Id
     @GeneratedValue
     @Column(name = "work_id")
-    private long workId;
+    private Long workId;
     @Column
     private String title;
     @Column
@@ -42,5 +43,9 @@ public class Work {
     @ManyToOne
     @JoinColumn(name = "resume_id")
     private Resume resume;
+
+    public String toString() {
+        return "," + title + ",";
+    }
 
 }

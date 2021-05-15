@@ -69,27 +69,27 @@
   {
     "id": 2,
     "title": "펀딩하기",
-    "path": "#feature"
+    "path": "/funding/funding-list"
   },
   {
     "id": 3,
     "title": "Resume",
-    "path": "#about"
+    "path": "/resume/resume-list"
   },
   {
     "id": 4,
-    "title": "Portfolio",
-    "path": "#portfolio"
+    "title": "Item",
+    "path": "/item/item-list"
   },
   {
     "id": 5,
-    "title": "저작권 감시",
-    "path": "#team"
+    "title": "작품 등록하기",
+    "path": "/work/work-list"
   },
   {
     "id": 6,
-    "title": "Pricing",
-    "path": "#pricing"
+    "title": "Review",
+    "path": "/review/review-list"
   },
   {
     "id": 7,

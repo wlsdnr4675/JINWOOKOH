@@ -13,17 +13,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import shop.jinwookoh.api.category.domain.Category;
-import shop.jinwookoh.api.file.domain.File;
-import shop.jinwookoh.api.work.dmain.Work;
+import shop.jinwookoh.api.common.util.ModelMapperUtils;
 
 @Entity
 @Table(name = "resumes")
+@NoArgsConstructor
+@Data
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "resume_id")
-    private long resumeId;
+    private Long resumeId;
     @Column(name = "title")
     private String title;
     @Column(name = "detail")
@@ -35,7 +39,7 @@ public class Resume {
     @Column(name = "main_pic_title")
     private String mainPicTitle;
     @Column(name = "main_pic_date")
-    private Date mainPicDate;
+    private String mainPicDate;
 
     // https://grafolio.naver.com/works/1931796
 
@@ -52,5 +56,10 @@ public class Resume {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public static Resume of(ResumeDto resumeDto) {
+        Resume resume = ModelMapperUtils.getModelMapper().map(resumeDto, Resume.class);
+        return resume;
+    }
 
 }
