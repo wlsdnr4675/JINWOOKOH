@@ -43,7 +43,7 @@ import FooterOne from "../Footer/FooterOne";
 
 import CountersOne from "../Counters/CountersOne";
 
-import Loader from "../Loader/Loader";
+import Loader from "webapp/common/Loader/Loader";
 
 
 const HomeVideoBg = () => (
