@@ -13,7 +13,6 @@ import WhatWeOfferSix from "webapp/common/WhatWeOffer/WhatWeOfferSix";
 import PortfolioWideMasonry from "webapp/common/Portfolio/PortfolioWideMasonry";
 import TeamOne from "webapp/common/Team/TeamOne";
 import CounterRowOne from "webapp/resume/component/Presention/CounterRowOne"
-import Loader from "webapp/common/Loader/Loader";
 import PresentationTwo from "webapp/resume/component/Presention/PresentationTwo";
 import AboutFive from "webapp/resume/component/Presention/AboutFive"
 
