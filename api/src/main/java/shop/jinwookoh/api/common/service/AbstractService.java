@@ -7,15 +7,13 @@ public abstract class AbstractService<T> {
 
     public abstract String save(T t);
 
-    public abstract Optional<T> findById(long id);
-
     public abstract List<T> findAll();
 
     public abstract Long count();
 
     public abstract Optional<T> getOne(long id);
 
-    public abstract Long delete(T t);
+    public abstract String delete(T t);
 
     public abstract void deleteAll();
 
