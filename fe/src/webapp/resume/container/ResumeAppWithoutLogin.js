@@ -18,7 +18,7 @@ import PortfolioWideMasonry from "webapp/common/Portfolio/PortfolioWideMasonry";
 import TeamOne from "webapp/common/Team/TeamOne";
 import CountersOne from "webapp/common/Counters/CountersOne";
 import Loader from "webapp/common/Loader/Loader";
-import PresentationTwo from "webapp/resume/component/Presention/PresentationTwo";
+import PresentationTwo from "webapp/resume/component/Presentation/PresentationTwo";
 
 
 

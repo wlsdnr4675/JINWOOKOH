@@ -52,7 +52,7 @@ const resumeSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(listResume.fulfilled, (state,{payload}) => {
-            return [...state, payload];
+            return [...payload];
         })
         .addCase(registerResume.fulfilled,(state,{payload}) => {
             return state.push(...payload)

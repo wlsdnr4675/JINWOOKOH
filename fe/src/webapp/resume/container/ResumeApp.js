@@ -3,22 +3,29 @@ import React from "react";
 import dataNavbar from "webapp/common/data/Navbar/main-navbar-data.json";
 import dataServices from "webapp/common/data/Services/services-studio-data.json";
 import dataSkills from "webapp/common/data/Skills/skills-data.json";
-import dataPortfolio from "webapp/common/data/Portfolio/masonry-portfolio-data.json";
 import dataCounters from "webapp/common/data/Counters/counters-data.json";
 import dataTeam from "webapp/common/data/Team/team-data.json";
 
 import HeaderTwo from "webapp/common/Header/HeaderTwo";
 import FooterOne from "webapp/common/Footer/FooterOne";
 import WhatWeOfferSix from "webapp/common/WhatWeOffer/WhatWeOfferSix";
-import PortfolioWideMasonry from "webapp/common/Portfolio/PortfolioWideMasonry";
 import TeamOne from "webapp/common/Team/TeamOne";
-import CounterRowOne from "webapp/resume/component/Presention/CounterRowOne"
-import PresentationTwo from "webapp/resume/component/Presention/PresentationTwo";
-import AboutFive from "webapp/resume/component/Presention/AboutFive"
+import CounterRowOne from "webapp/resume/component/Presentation/CounterRowOne"
+import PresentationTwo from "webapp/resume/component/Presentation/PresentationTwo";
+import AboutFive from "webapp/resume/component/Presentation/AboutFive"
+
+import {ResumeList} from "webapp/resume/index"
+
+import { useSelector } from "react-redux";
 
 
 
-const resumeApp = () => (<>
+
+const ResumeApp = () => {
+
+  const resumes = useSelector(state => state.resumes)
+  
+  return(<>
     <HeaderTwo data={dataNavbar} />
     <PresentationTwo
       title="언제, 어디서나 <br/> 당신의 포트폴리오를 관리해보세요."
@@ -32,10 +39,10 @@ const resumeApp = () => (<>
       pathBtn={"/"}
       data={dataServices}
     />
-    <PortfolioWideMasonry
+    <ResumeList
+        data = {resumes}
         tagline="Show Your Works"
         title= "Your Portfolio"
-        data={dataPortfolio}
         filter={true}
         categories={[
           "Branding",
@@ -70,6 +77,7 @@ const resumeApp = () => (<>
       combines with the others to work toward a common goal.
     </TeamOne>
     <FooterOne/>
-</>);
+</>)
+};
 
-export default resumeApp;
+export default ResumeApp;

@@ -36,12 +36,12 @@ public class Artist {
     private String phoneNumber;
     @Column(name = "address")
     private String address;
-    @Column(name = "affiliation")
-    private String affiliation;
+    @Column(name = "school")
+    private String school;
+    @Column(name = "department")
+    private String department;
 
-    public String toString() {
-        return "," + address + "," + affiliation + "," + email + "," + name + "," + password + "," + phoneNumber + ","
-                + username;
-    }
+    // @ElementCollection(fetch = FetchType.EAGER)
+    // List<Role> roles;
 
 }

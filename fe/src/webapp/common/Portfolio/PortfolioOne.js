@@ -1,6 +1,6 @@
 import React from "react";
 import parse from "html-react-parser";
-import PortfolioItem from "./PortfolioItem";
+import PortfolioItem from "webapp/resume/component/Presentation/PortfolioItem";
 import PortfolioFilter from "./PortfolioFilter";
 import LoadScript from "../helpers/LoadScript";
 

@@ -40,7 +40,7 @@ public class CrawlingMain {
                 artist.setEmail(dum.makeBirthday() + dum.makeEmail());
                 artist.setPhoneNumber(dum.makePhone());
                 artist.setAddress("서울시 정왕동");
-                artist.setAffiliation(dum.makeSchool());
+                artist.setSchool(dum.makeSchool());
 
                 System.out.println(artist.toString());
                 list.add(artist);
@@ -104,7 +104,7 @@ class Service {
             artist.setEmail(dum.makeBirthday() + dum.makeEmail());
             artist.setPhoneNumber(dum.makePhone());
             artist.setAddress("서울시정왕동");
-            artist.setAffiliation(dum.makeSchool());
+            artist.setSchool(dum.makeSchool());
 
             list.add(artist);
         }
@@ -131,7 +131,7 @@ class Service {
             artist.setEmail(dum.makeBirthday() + dum.makeEmail());
             artist.setPhoneNumber(dum.makePhone());
             artist.setAddress("서울시정왕동");
-            artist.setAffiliation(dum.makeSchool());
+            artist.setSchool(dum.makeSchool());
 
         }
 

@@ -1,4 +1,4 @@
-package shop.jinwookoh.api.work.dmain;
+package shop.jinwookoh.api.art.dmain;
 
 import java.util.Date;
 import java.util.List;
@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -17,35 +18,23 @@ import shop.jinwookoh.api.category.domain.Category;
 import shop.jinwookoh.api.resume.domain.Resume;
 
 @Entity
-@Table(name = "works")
+@Table(name = "arts")
 @Data
-public class Work {
+public class Art {
     @Id
     @GeneratedValue
-    @Column(name = "work_id")
+    @Column(name = "art_id")
     private Long workId;
-    @Column
+    @Column(name = "title")
     private String title;
-    @Column
+    @Column(name = "description")
     private String description;
-    @Column(name = "main_img")
-    private String mainImg;
-    @Column(name = "reg_date")
-    private Date regDate;
-    @Column(name = "edit_date")
-    private Date editDate;
+
     @ManyToOne
     @JoinColumn(name = "artist_id")
-    Artist artist;
+    private Artist artist;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-    @ManyToOne
-    @JoinColumn(name = "resume_id")
-    private Resume resume;
-
-    public String toString() {
-        return "," + title + ",";
-    }
 
 }
