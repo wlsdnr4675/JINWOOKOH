@@ -21,7 +21,7 @@ public class ResumeServiceImpl extends AbstractService<Resume> implements Resume
     private final ResumeRepository repo;
 
     @Override
-    public ResumeDto findById(Long resumeId) {
+    public ResumeDto findByResumeId(Long resumeId) {
         Resume resume = repo.findById(resumeId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + resumeId));
         ResumeDto resumeDto = ModelMapperUtils.getModelMapper().map(resume, ResumeDto.class);
@@ -47,7 +47,7 @@ public class ResumeServiceImpl extends AbstractService<Resume> implements Resume
     }
 
     @Override
-    public Optional<Resume> getOne(long id) {
+    public Optional<Resume> getOne(Long id) {
 
         return Optional.of(repo.getOne(id));
     }
@@ -66,16 +66,22 @@ public class ResumeServiceImpl extends AbstractService<Resume> implements Resume
     }
 
     @Override
-    public Boolean existsById(long id) {
+    public Boolean existsById(Long id) {
 
         return repo.existsById(id);
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
 
         repo.existsById(id);
 
+    }
+
+    @Override
+    public Optional<Resume> findById(Long id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

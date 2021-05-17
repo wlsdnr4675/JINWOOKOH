@@ -63,9 +63,16 @@ public class DummyGenerator {
         return sb.toString();
     }
 
+    public String makeSubject() {
+        List<String> school = Arrays.asList("사진학과", "광고사진영상학과", "공연사진학과", "인물사진학과", "사진영상드론학과", "사진예술과", "풍경사진학과",
+                "스냅사진학과");
+        shuffle(school);
+        return school.get(0);
+    }
+
     public String makeSchool() {
-        List<String> school = Arrays.asList("중앙대학교", "동국대학교", "한국예술종합학교", "서울예술대학교", "계원예술대학교", "백제예술대학교", "추계예술대학교",
-                "서울대학교", "경기대학교");
+        List<String> school = Arrays.asList("백석예술대학교", "국제예술대학교", "정화예술대학교", "계원예술대학교", "부산예술대학교", "백제예술대학교",
+                "동아방송예술대학교", "서울예술대학교", "대구예술대학교", "예원예술대학교", "추계예술대학교", "한국예술종합학교");
         shuffle(school);
         return school.get(0);
     }

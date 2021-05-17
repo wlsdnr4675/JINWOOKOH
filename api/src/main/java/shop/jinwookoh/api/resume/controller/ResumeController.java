@@ -54,7 +54,7 @@ public class ResumeController {
     @ApiOperation(value = "${ResumeContorller.read}")
     public ResponseEntity<ResumeDto> findById(@PathVariable("resumeId") Long resumeId) {
 
-        return ResponseEntity.ok(service.findById(resumeId));
+        return ResponseEntity.ok(service.findByResumeId(resumeId));
     }
 
     @PutMapping("/edit")

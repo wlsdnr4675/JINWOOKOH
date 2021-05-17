@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import shop.jinwookoh.api.art.dmain.Art;
+import shop.jinwookoh.api.art.domain.Art;
 
 @Entity
 @Table(name = "work_files")

@@ -17,8 +17,9 @@ spring:
     hibernate:
       ddl-auto: update
 
+security:
   jwt:
-    secret: jwtSecret
+    secret: secret-value
 
 UserController:
   signup: Creates user and returns its JWT token

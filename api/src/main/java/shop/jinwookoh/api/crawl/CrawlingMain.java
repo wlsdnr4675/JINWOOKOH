@@ -18,29 +18,36 @@ import shop.jinwookoh.api.common.dummyGenerator.DummyGenerator;
 
 public class CrawlingMain {
     public static void main(String[] args) throws IOException {
-        String url = "http://www.yck.kr/html/contents/magazine02_view?idx=6747&cate_idx=";
+        String url = "http://www.yck.kr/html/contents/magazine02";
+        String url2 = "https://namu.wiki/w/%EC%98%88%EC%88%A0%EB%8C%80%ED%95%99";
         String cssQuery = ".txt > p.tit ";
-        String filePath = "/Users/jinwookoh/JINWOOKOH/crawlingData/artist.csv";
+        String cssQuery2 = ".wiki-list .wiki-paragraph > a.wiki-link-internal";
+        String filePath = "/Users/jinwookoh/JINWOOKOH/crawlingData/artist1.csv";
         Crawler crawler = new Crawler();
         Service service = new Service();
         crawler.setUrl(url);
+        crawler.setUrl2(url2);
         crawler.setCssQuery(cssQuery);
+        crawler.setCssQuery2(cssQuery2);
         Document artistDocument = service.connectUrl(crawler.getUrl());
-        Elements aritisElements = artistDocument.select(crawler.getCssQuery());
+        Elements artistElements = artistDocument.select(crawler.getCssQuery());
+        Document schoolDocument = service.connectUrl(crawler.getUrl2());
+        Elements schoolElements = schoolDocument.select(crawler.getCssQuery2());
         DummyGenerator dum = new DummyGenerator();
         List<Artist> list = new ArrayList<>();
         try {
-            DataOutputStream fw = new DataOutputStream(new FileOutputStream(filePath, false));
+            DataOutputStream fw = new DataOutputStream(new FileOutputStream(filePath, true));
 
-            for (int i = 0; i < aritisElements.size(); i++) {
+            for (int i = 0; i < artistElements.size(); i++) {
                 Artist artist = new Artist();
                 artist.setUsername(dum.makeUsername());
                 artist.setPassword("12345678");
-                artist.setName(aritisElements.get(i).text());
+                artist.setName(artistElements.get(i).text());
                 artist.setEmail(dum.makeBirthday() + dum.makeEmail());
                 artist.setPhoneNumber(dum.makePhone());
-                artist.setAddress("서울시 정왕동");
+                artist.setAddress("경기도 시흥시 정왕동 2002-12");
                 artist.setSchool(dum.makeSchool());
+                artist.setDepartment(dum.makeSubject());
 
                 System.out.println(artist.toString());
                 list.add(artist);
@@ -62,8 +69,26 @@ public class CrawlingMain {
 
 class Crawler {
     private String url;
+    private String url2;
     private String cssQuery;
+    private String cssQuery2;
     private String category;
+
+    public void setUrl2(String url2) {
+        this.url2 = url2;
+    }
+
+    public String getUrl2() {
+        return url2;
+    }
+
+    public void setCssQuery2(String cssQuery2) {
+        this.cssQuery2 = cssQuery2;
+    }
+
+    public String getCssQuery2() {
+        return cssQuery2;
+    }
 
     public String getCategory() {
         return category;
@@ -94,17 +119,20 @@ class Service {
     List<Artist> saveAll(Crawler crawler) throws IOException {
         Document artistDocument = connectUrl(crawler.getUrl());
         Elements artistElements = artistDocument.select(crawler.getCssQuery());
+        Document schoolDocument = connectUrl(crawler.getUrl2());
+        Elements schoolElements = schoolDocument.select(crawler.getCssQuery2());
         DummyGenerator dum = new DummyGenerator();
         List<Artist> list = new ArrayList<>();
         for (int i = 0; i < artistElements.size(); i++) {
             Artist artist = new Artist();
             artist.setUsername(dum.makeUsername());
-            artist.setPassword("1234567");
+            artist.setPassword("12345678");
             artist.setName(artistElements.get(i).text());
             artist.setEmail(dum.makeBirthday() + dum.makeEmail());
             artist.setPhoneNumber(dum.makePhone());
-            artist.setAddress("서울시정왕동");
+            artist.setAddress("경기도 시흥시 정왕동 2002-12");
             artist.setSchool(dum.makeSchool());
+            artist.setDepartment(dum.makeSubject());
 
             list.add(artist);
         }
@@ -122,16 +150,19 @@ class Service {
     List<?> scrapFunding(Crawler crawler) throws IOException {
         Document artistDocument = connectUrl(crawler.getUrl());
         Elements artistElements = artistDocument.select(crawler.getCssQuery());
+        Document schoolDocument = connectUrl(crawler.getUrl2());
+        Elements schoolElements = schoolDocument.select(crawler.getCssQuery2());
         DummyGenerator dum = new DummyGenerator();
         for (int i = 0; i < artistElements.size(); i++) {
             Artist artist = new Artist();
             artist.setUsername(dum.makeUsername());
-            artist.setPassword("1234567");
+            artist.setPassword("12345678");
             artist.setName(artistElements.get(i).text());
             artist.setEmail(dum.makeBirthday() + dum.makeEmail());
             artist.setPhoneNumber(dum.makePhone());
-            artist.setAddress("서울시정왕동");
+            artist.setAddress("경기도 시흥시 정왕동 2002-12");
             artist.setSchool(dum.makeSchool());
+            artist.setDepartment(dum.makeSubject());
 
         }
 

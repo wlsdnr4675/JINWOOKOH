@@ -1,4 +1,4 @@
-package shop.jinwookoh.api.art.dmain;
+package shop.jinwookoh.api.art.domain;
 
 import java.util.Date;
 import java.util.List;

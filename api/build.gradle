@@ -53,7 +53,7 @@ dependencies {
 	compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
 	compile 'org.jsoup:jsoup:1.13.1'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.4.5'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
 	testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
 	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'

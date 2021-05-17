@@ -4,6 +4,7 @@ import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;
 
 public interface ResumeService {
-    public ResumeDto findById(Long resumeId);
+    public ResumeDto findByResumeId(Long resumeId);
     // public Resume editResume(Long resumeId, Resume resume);
+
 }
