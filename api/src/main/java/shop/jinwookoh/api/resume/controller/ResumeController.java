@@ -38,43 +38,44 @@ public class ResumeController {
 
     private final ResumeServiceImpl service;
 
-    @GetMapping("/list")
-    public ResponseEntity<List<Resume>> findAll() {
+    // @GetMapping("/list")
+    // public ResponseEntity<List<Resume>> findAll() {
 
-        return ResponseEntity.ok(service.findAll());
-    }
+    // return ResponseEntity.ok(service.findAll());
+    // }
 
-    @PostMapping("/register")
-    @ApiOperation(value = "${ResumeController.register}")
-    public ResponseEntity<String> save(@RequestBody ResumeDto resume) {
-        return ResponseEntity.ok(service.save(Resume.of(resume)));
-    }
+    // @PostMapping("/register")
+    // @ApiOperation(value = "${ResumeController.register}")
+    // public ResponseEntity<String> save(@RequestBody ResumeDto resume) {
+    // return ResponseEntity.ok(service.save(Resume.of(resume)));
+    // }
 
-    @GetMapping("/read/{resumeId}")
-    @ApiOperation(value = "${ResumeContorller.read}")
-    public ResponseEntity<ResumeDto> findById(@PathVariable("resumeId") Long resumeId) {
+    // @GetMapping("/read/{resumeId}")
+    // @ApiOperation(value = "${ResumeContorller.read}")
+    // public ResponseEntity<ResumeDto> findById(@PathVariable("resumeId") Long
+    // resumeId) {
 
-        return ResponseEntity.ok(service.findByResumeId(resumeId));
-    }
+    // return ResponseEntity.ok(service.findByResumeId(resumeId));
+    // }
 
-    @PutMapping("/edit")
-    @ApiOperation(value = "${ResumeController.edit}")
-    public ResponseEntity<String> editResume(@RequestBody ResumeDto resume) {
-        System.out.println("ReusemeId: " + resume.getResumeId());
-        return ResponseEntity.ok(service.save(Resume.of(resume)));
-    }
+    // @PutMapping("/edit")
+    // @ApiOperation(value = "${ResumeController.edit}")
+    // public ResponseEntity<String> editResume(@RequestBody ResumeDto resume) {
+    // System.out.println("ReusemeId: " + resume.getResumeId());
+    // return ResponseEntity.ok(service.save(Resume.of(resume)));
+    // }
 
-    @DeleteMapping("/delete")
-    @ApiOperation(value = "${ResumeController.delete}")
-    public ResponseEntity<String> delete(@RequestBody ResumeDto resume) {
-        // TODO Auto-generated method stub
-        return ResponseEntity.ok(service.delete(Resume.of(resume)));
-    }
+    // @DeleteMapping("/delete")
+    // @ApiOperation(value = "${ResumeController.delete}")
+    // public ResponseEntity<String> delete(@RequestBody ResumeDto resume) {
+    // // TODO Auto-generated method stub
+    // return ResponseEntity.ok(service.delete(Resume.of(resume)));
+    // }
 
-    @GetMapping("/count")
-    public ResponseEntity<Long> count(long id) {
-        // TODO Auto-generated method stub
-        return ResponseEntity.ok(service.count());
-    }
+    // @GetMapping("/count")
+    // public ResponseEntity<Long> count(long id) {
+    // // TODO Auto-generated method stub
+    // return ResponseEntity.ok(service.count());
+    // }
 
 }

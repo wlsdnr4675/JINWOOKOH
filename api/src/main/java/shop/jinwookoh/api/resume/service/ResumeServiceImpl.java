@@ -16,72 +16,62 @@ import shop.jinwookoh.api.resume.repository.ResumeRepository;
 
 @Service
 @RequiredArgsConstructor
-public class ResumeServiceImpl extends AbstractService<Resume> implements ResumeService {
+public class ResumeServiceImpl extends AbstractService<ResumeDto> implements ResumeService {
 
     private final ResumeRepository repo;
 
     @Override
-    public ResumeDto findByResumeId(Long resumeId) {
-        Resume resume = repo.findById(resumeId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + resumeId));
-        ResumeDto resumeDto = ModelMapperUtils.getModelMapper().map(resume, ResumeDto.class);
-        return resumeDto;
+    public String save(ResumeDto t) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    @Transactional
-    public String save(Resume resume) {
-        return (repo.save(resume) != null) ? "Save Success" : "Failed";
+    public List<ResumeDto> findAll() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public List<Resume> findAll() {
-
-        return repo.findAll();
+    public ResumeDto findById(Long id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
     public Long count() {
-
-        return repo.count();
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public Optional<Resume> getOne(Long id) {
-
-        return Optional.of(repo.getOne(id));
+    public Optional<ResumeDto> getOne(Long id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public String delete(Resume resume) {
-        repo.delete(resume);
-        return (repo.findById(resume.getResumeId()).orElse(null) == null) ? "Delete Succes" : "Delete Failed";
+    public String delete(ResumeDto t) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
     public void deleteAll() {
-
-        repo.deleteAll();
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public Boolean existsById(Long id) {
-
-        return repo.existsById(id);
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
     public void deleteById(Long id) {
-
-        repo.existsById(id);
-
-    }
-
-    @Override
-    public Optional<Resume> findById(Long id) {
         // TODO Auto-generated method stub
-        return null;
+
     }
 
 }

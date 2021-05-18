@@ -17,11 +17,13 @@ import java.util.List;
 @Entity
 @Table(name = "artists")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "artist_id")
-    private long artistId;
+    private Long artistId;
     @Column(unique = true, nullable = false)
     private String username;
     @Size(min = 8, message = "Minimum Password Length: 8 characters")

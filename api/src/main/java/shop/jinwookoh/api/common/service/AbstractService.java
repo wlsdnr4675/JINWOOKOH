@@ -9,7 +9,7 @@ public abstract class AbstractService<T> {
 
     public abstract List<T> findAll();
 
-    public abstract Optional<T> findById(Long id);
+    public abstract T findById(Long id);
 
     public abstract Long count();
 

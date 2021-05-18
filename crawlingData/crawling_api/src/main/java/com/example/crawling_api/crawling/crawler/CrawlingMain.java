@@ -6,7 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.tomcat.jni.Time;
 import org.apache.tomcat.util.json.JSONParser;
@@ -15,17 +17,26 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import com.example.crawling_api.crawling.domain.*;
+import com.example.crawling_api.crawling.service.CrawlingService;
 import com.example.crawling_api.dummies.DummyGenerator;
 import com.example.crawling_api.repository.ArtistRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 
-@Controller
+@Component
+@NoArgsConstructor
 public class CrawlingMain {
-
     public static void main(String[] args) throws IOException {
+
         String url = "http://www.yck.kr/html/contents/magazine02";
         String cssQuery = ".txt > p.tit ";
         Crawler crawler = new Crawler();
@@ -47,14 +58,13 @@ public class CrawlingMain {
             artist.setAddress("경기도 시흥시 정왕동 2002-12");
             artist.setSchool(dum.makeSchool());
             artist.setDepartment(dum.makeSubject());
-
             list.add(artist);
-            // System.out.println(list + "\n");
 
         }
-        Time.sleep(60000);
-        service.saveAll(list);
+        System.out.println(list.size());
+        repo.saveAll(list);
     }
+
 }
 
 class Crawler {
@@ -89,13 +99,6 @@ class Crawler {
 
 class Service {
 
-    @Autowired
-    private ArtistRepository repo;
-
-    public List<Artist> saveAll(List<Artist> list) {
-        return repo.saveAll(list);
-    }
-
     Document connectUrl(String url) throws IOException {
         return Jsoup.connect(url) // 클래스 안에 이너클래스
                 .method(Connection.Method.GET)
@@ -103,4 +106,8 @@ class Service {
                         + "AppleWebKit/537.36 (KHTML, like Gecko) " + "Chrome/51.0.2704.106 Safari/537.36")
                 .execute().parse();
     }
+}
+
+interface Repository extends JpaRepository<Artist, Long> {
+
 }
