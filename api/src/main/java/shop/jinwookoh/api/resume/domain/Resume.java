@@ -35,12 +35,10 @@ public class Resume extends BaseEntity {
     private Long resumeId;
     @Column(name = "title")
     private String title;
+    @Column(name = "self_introduce")
+    private String selfIntroduce;
     @Column(name = "detail")
     private String detail;
-    @Column(name = "main_pic")
-    private String mainPic;
-    @Column(name = "main_pic_title")
-    private String mainPicTitle;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
@@ -53,11 +51,10 @@ public class Resume extends BaseEntity {
         this.title = title;
     }
 
-    public void saveResume(ResumeDto resume) {
-        this.title = resume.getTitle();
-        this.detail = resume.getDetail();
-        this.mainPic = resume.getMainPic();
-        this.mainPicTitle = resume.getMainPicTitle();
+    public void saveAll(ResumeDto resumeDto) {
+        this.title = resumeDto.getTitle();
+        this.selfIntroduce = resumeDto.getSelfIntroduce();
+        this.detail = resumeDto.getDetail();
     }
 
     public static Resume of(ResumeDto resumeDto) {

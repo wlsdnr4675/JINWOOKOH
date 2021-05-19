@@ -5,6 +5,8 @@ import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Commit;
 
 import lombok.RequiredArgsConstructor;
@@ -13,12 +15,16 @@ import shop.jinwookoh.api.artist.domain.Artist;
 import shop.jinwookoh.api.category.domain.Category;
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.repository.ResumeRepository;
+import shop.jinwookoh.api.resume.service.ResumeFileServiceImpl;
 
 @SpringBootTest
 @Log4j2
 public class RepoTest {
     @Autowired
     private ResumeRepository repo;
+
+    @Autowired
+    private ResumeFileServiceImpl se;
 
     @Transactional
     @Commit
@@ -28,8 +34,8 @@ public class RepoTest {
         Category category = Category.builder().categoryId(1L).build();
         Resume resume = Resume.builder().title("울랄라세션").detail(
                 "한 페이지 짜리를 열 장으로 늘리는 것과 열 장 짜리를 한 페이지로 줄이는 것 중에 더 어려운 일은 단연코 후자다. 말을 엿가락처럼 끊임없이 늘리는 건 쉬운 일이다. 하지만 무수히 많은 말들 중 핵심을 짚어내는 건 문맥을 완벽히 이해하는 건 물론, 글에 대한 통찰과 센스도 필요한 일이다. 디자인에서도 빼기가 더 어렵다고 하지 않나. 과잉이 디폴트가 된 세계 속에서 ‘짧음’의 미학을 제대로 보여주는 작가가 있다.")
-                .mainPic("http://www.yck.kr/_data/file/bbsData/3ed3af8515da48f03ff6bbd43d3de850.png")
-                .mainPicTitle("INTERVIEW").artist(artist).category(category).build();
+                .selfIntroduce("http://www.yck.kr/_data/file/bbsData/3ed3af8515da48f03ff6bbd43d3de850.png")
+                .artist(artist).category(category).build();
         repo.save(resume);
     }
 
@@ -38,6 +44,21 @@ public class RepoTest {
     @Test
     public void findAllResume() {
         repo.getAllResume();
+    }
+
+    @Transactional
+    @Commit
+    @Test
+    public void findAllResumeByPaging() {
+
+        Pageable pageable = PageRequest.of(0, 10);
+
+        repo.getAllDataPaging(pageable).get().forEach(resume -> {
+            log.info(resume);
+            log.info(resume.getArtist());
+            log.info(resume.getCategory());
+            log.info("--------------------");
+        });
     }
 
     @Transactional

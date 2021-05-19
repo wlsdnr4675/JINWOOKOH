@@ -1,9 +1,12 @@
 package shop.jinwookoh.api.resume.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import shop.jinwookoh.api.common.util.ModelMapperUtils;
@@ -11,19 +14,20 @@ import shop.jinwookoh.api.common.util.ModelMapperUtils;
 @Component
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ResumeDto {
 
     private long resumeId;
     private String title;
+    private String selfIntroduce;
     private String detail;
-    private String coworker;
-    private String mainPic;
-    private String mainPicTitle;
-    private String mainPicDate;
+    private ArrayList<ResumeFileDto> resumeFiles;
+    private LocalDateTime regDate;
+    private LocalDateTime modDate;
 
     public static ResumeDto of(Resume resume) {
         ResumeDto resumeDto = ModelMapperUtils.getModelMapper().map(resume, ResumeDto.class);
         return resumeDto;
     }
-
 }
