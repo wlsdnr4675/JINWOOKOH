@@ -1,5 +1,7 @@
 package shop.jinwookoh.api.artist.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,6 +18,8 @@ import java.util.List;
 @Table(name = "artists")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,11 +1,7 @@
 package shop.jinwookoh.api.resume.controller;
 
 import java.util.List;
-import java.util.Optional;
 
-import javax.websocket.server.PathParam;
-
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,10 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
-import shop.jinwookoh.api.common.util.ModelMapperUtils;
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;
 import shop.jinwookoh.api.resume.service.ResumeServiceImpl;
@@ -33,30 +26,28 @@ import shop.jinwookoh.api.resume.service.ResumeServiceImpl;
 @RequestMapping("/resume")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Log
 public class ResumeController {
 
     private final ResumeServiceImpl service;
 
-    // @GetMapping("/list")
-    // public ResponseEntity<List<Resume>> findAll() {
+    @PostMapping("/register")
+    @ApiOperation(value = "${ResumeController.register}")
+    public ResponseEntity<String> save(@RequestBody ResumeDto resume) {
+        return ResponseEntity.ok(service.save(resume));
+    }
 
-    // return ResponseEntity.ok(service.findAll());
-    // }
+    @GetMapping("/list")
+    public ResponseEntity<List<Resume>> findAll() {
 
-    // @PostMapping("/register")
-    // @ApiOperation(value = "${ResumeController.register}")
-    // public ResponseEntity<String> save(@RequestBody ResumeDto resume) {
-    // return ResponseEntity.ok(service.save(Resume.of(resume)));
-    // }
+        return ResponseEntity.ok(service.getAllResume());
+    }
 
-    // @GetMapping("/read/{resumeId}")
-    // @ApiOperation(value = "${ResumeContorller.read}")
-    // public ResponseEntity<ResumeDto> findById(@PathVariable("resumeId") Long
-    // resumeId) {
+    @GetMapping("/read/{resumeId}")
+    @ApiOperation(value = "${ResumeContorller.read}")
+    public ResponseEntity<ResumeDto> findById(@PathVariable("resumeId") Long resumeId) {
 
-    // return ResponseEntity.ok(service.findByResumeId(resumeId));
-    // }
+        return ResponseEntity.ok(service.findById(resumeId));
+    }
 
     // @PutMapping("/edit")
     // @ApiOperation(value = "${ResumeController.edit}")

@@ -7,14 +7,23 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import lombok.RequiredArgsConstructor;
+import shop.jinwookoh.api.artist.domain.Artist;
+import shop.jinwookoh.api.category.domain.Category;
+import shop.jinwookoh.api.resume.domain.Resume;
+import shop.jinwookoh.api.resume.repository.ResumeRepository;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 @SpringBootTest
+@RequiredArgsConstructor
 class SeleniumTestApplicationTests {
+	private final ResumeRepository repo;
 
 	@Test
 	void contextLoads() {

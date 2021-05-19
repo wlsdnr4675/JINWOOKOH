@@ -50,11 +50,11 @@ public class ArtistController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/{artistId}")
-    public Optional<Artist> findById(@PathVariable("artistId") Long artistId) {
-        System.out.println("회원정보 1개를 불러옵니다 ::::::::::");
-        return service.findById(artistId);
-    }
+    // @GetMapping("/{artistId}")
+    // public Optional<Artist> findById(@PathVariable("artistId") Long artistId) {
+    // System.out.println("회원정보 1개를 불러옵니다 ::::::::::");
+    // return service.findById(artistId);
+    // }
 
     @DeleteMapping("/{artistId}")
     @ApiOperation(value = "${ArtistController.delete}")

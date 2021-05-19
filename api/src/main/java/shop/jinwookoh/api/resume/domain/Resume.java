@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.jinwookoh.api.artist.domain.Artist;
@@ -22,8 +24,10 @@ import shop.jinwookoh.api.common.util.ModelMapperUtils;
 
 @Entity
 @Table(name = "resumes")
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Builder
 public class Resume extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,12 +42,23 @@ public class Resume extends BaseEntity {
     @Column(name = "main_pic_title")
     private String mainPicTitle;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "artist_id")
     private Artist artist;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public void changeTitle(String title) {
+        this.title = title;
+    }
+
+    public void saveResume(ResumeDto resume) {
+        this.title = resume.getTitle();
+        this.detail = resume.getDetail();
+        this.mainPic = resume.getMainPic();
+        this.mainPicTitle = resume.getMainPicTitle();
+    }
 
     public static Resume of(ResumeDto resumeDto) {
         Resume resume = ModelMapperUtils.getModelMapper().map(resumeDto, Resume.class);

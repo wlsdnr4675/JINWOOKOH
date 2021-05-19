@@ -95,10 +95,10 @@ public class ArtistServiceImpl extends AbstractService<Artist> implements Artist
         return null;
     }
 
-    @Override
-    public Optional<Artist> findById(Long artistId) {
-        return repository.findById(artistId);
-    }
+    // @Override
+    // public Optional<Artist> findById(Long artistId) {
+    // return repository.findById(artistId);
+    // }
 
     @Override
     public List<Artist> findAll() {
@@ -109,6 +109,12 @@ public class ArtistServiceImpl extends AbstractService<Artist> implements Artist
     public void deleteAll() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public Artist findById(Long id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

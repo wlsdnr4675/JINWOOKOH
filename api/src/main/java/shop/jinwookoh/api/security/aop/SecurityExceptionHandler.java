@@ -3,7 +3,6 @@ package shop.jinwookoh.api.security.aop;
 import shop.jinwookoh.api.security.domain.Messenger;
 import shop.jinwookoh.api.security.exception.ErrorCode;
 import shop.jinwookoh.api.security.exception.LoginRuntimeException;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

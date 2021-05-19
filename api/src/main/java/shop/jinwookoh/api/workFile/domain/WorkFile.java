@@ -12,19 +12,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.jinwookoh.api.art.domain.Art;
+import shop.jinwookoh.api.common.domain.BaseEntity;
 
 @Entity
 @Table(name = "work_files")
 @NoArgsConstructor
-@Data
-public class WorkFile {
+@AllArgsConstructor
+@Getter
+@Builder
+public class WorkFile extends BaseEntity {
     @Id
     @GeneratedValue
+    @Column(name = "work_file_no")
+    private Long workFileNo;
     @Column(name = "uuid")
-    private UUID uuid;
+    private String uuid;
     @Column(name = "ofile_name")
     private String ofileName;
     @Column(name = "rep_img")
