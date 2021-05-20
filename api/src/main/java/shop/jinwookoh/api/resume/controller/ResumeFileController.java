@@ -37,7 +37,7 @@ public class ResumeFileController {
 
     @PostMapping("/detail_register")
     public ResponseEntity<String> detailRegister(@RequestBody ResumeFileDto resumeFile) {
-        return null;
+        return ResponseEntity.ok(service.detailRegister(resumeFile));
     }
 
     @PostMapping("/upload_file")

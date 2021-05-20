@@ -65,7 +65,7 @@ public class ResumeFileServiceImpl implements ResumeFileService {
                 uploadFile.transferTo(savePath);
                 String thumbnailSaveName = uploadPath + "s_" + uuid + ofname;
                 Thumbnails.of(new File(saveName)).size(100, 100).outputFormat("jpg").toFile(thumbnailSaveName);
-                Thumbnails.of(new File(saveName))
+                Thumbnails.of(new File(saveName)).scale(1)
                         .watermark(Positions.BOTTOM_CENTER, ImageIO.read(new File(uploadPath + "watermark.png")), 0.5f)
                         .toFile(new File(uploadPath + "w_" + uuid + ofname));
                 ResumeFileDto resumeFileDto = ResumeFileDto.builder().uuid(uuid).fname(saveName).build();

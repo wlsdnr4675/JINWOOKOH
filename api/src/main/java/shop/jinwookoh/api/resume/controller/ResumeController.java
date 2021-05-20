@@ -64,8 +64,8 @@ public class ResumeController {
 
     @GetMapping("/count")
     public ResponseEntity<Long> count(long id) {
-    // TODO Auto-generated method stub
-    return ResponseEntity.ok(service.count());
+        // TODO Auto-generated method stub
+        return ResponseEntity.ok(service.count());
     }
 
 }
