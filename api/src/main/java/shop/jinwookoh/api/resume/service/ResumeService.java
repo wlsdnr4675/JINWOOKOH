@@ -1,6 +1,9 @@
 package shop.jinwookoh.api.resume.service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;

@@ -37,6 +37,7 @@ public class ResumeFile {
     private String fname;
     @Column(name = "rep_img")
     private Boolean repImg;
+
     @Column(name = "worked_date")
     private String workedDate;
 
@@ -47,12 +48,9 @@ public class ResumeFile {
         this.resume = resume;
     }
 
-    public void saveAll(ResumeFileDto resumeFileDto) {
-        this.uuid = resumeFileDto.getUuid();
+    public void saveFileDetail(ResumeFileDto resumeFileDto) {
         this.fileTitle = resumeFileDto.getFileTitle();
         this.fileDetail = resumeFileDto.getFileDetail();
-        this.fname = resumeFileDto.getFname();
-        this.repImg = resumeFileDto.getRepImg();
         this.workedDate = resumeFileDto.getWorkedDate();
     }
 

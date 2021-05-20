@@ -23,8 +23,6 @@ public class ResumeDto {
     private String selfIntroduce;
     private String detail;
     private ArrayList<ResumeFileDto> resumeFiles;
-    private LocalDateTime regDate;
-    private LocalDateTime modDate;
 
     public static ResumeDto of(Resume resume) {
         ResumeDto resumeDto = ModelMapperUtils.getModelMapper().map(resume, ResumeDto.class);

@@ -4,12 +4,10 @@ import shop.jinwookoh.api.artist.domain.Artist;
 import shop.jinwookoh.api.artist.domain.ArtistDto;
 import shop.jinwookoh.api.artist.repository.ArtistRepository;
 import shop.jinwookoh.api.common.service.AbstractService;
-import shop.jinwookoh.api.common.util.ModelMapperUtils;
 import shop.jinwookoh.api.security.domain.SecurityProvider;
 import shop.jinwookoh.api.security.exception.SecurityRuntimeException;
 import shop.jinwookoh.api.artist.domain.Role;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Log
 @RequiredArgsConstructor
 @Service
 public class ArtistServiceImpl extends AbstractService<Artist> implements ArtistService {
@@ -28,7 +25,6 @@ public class ArtistServiceImpl extends AbstractService<Artist> implements Artist
     private final ArtistRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final SecurityProvider provider;
-    private final AuthenticationManager manager;
     private final ModelMapper modelMapper;
 
     @Override

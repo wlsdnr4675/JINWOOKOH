@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,24 +48,24 @@ public class ResumeController {
         return ResponseEntity.ok(service.findById(resumeId));
     }
 
-    // @PutMapping("/edit")
-    // @ApiOperation(value = "${ResumeController.edit}")
-    // public ResponseEntity<String> editResume(@RequestBody ResumeDto resume) {
-    // System.out.println("ReusemeId: " + resume.getResumeId());
-    // return ResponseEntity.ok(service.save(Resume.of(resume)));
-    // }
+    @PutMapping("/edit")
+    @ApiOperation(value = "${ResumeController.edit}")
+    public ResponseEntity<String> editResume(@RequestBody ResumeDto resume) {
+        System.out.println("ReusemeId: " + resume.getResumeId());
+        return ResponseEntity.ok(service.save(resume));
+    }
 
-    // @DeleteMapping("/delete")
-    // @ApiOperation(value = "${ResumeController.delete}")
-    // public ResponseEntity<String> delete(@RequestBody ResumeDto resume) {
-    // // TODO Auto-generated method stub
-    // return ResponseEntity.ok(service.delete(Resume.of(resume)));
-    // }
+    @DeleteMapping("/delete")
+    @ApiOperation(value = "${ResumeController.delete}")
+    public ResponseEntity<String> delete(@RequestBody ResumeDto resume) {
+        // TODO Auto-generated method stub
+        return ResponseEntity.ok(service.delete(resume));
+    }
 
-    // @GetMapping("/count")
-    // public ResponseEntity<Long> count(long id) {
-    // // TODO Auto-generated method stub
-    // return ResponseEntity.ok(service.count());
-    // }
+    @GetMapping("/count")
+    public ResponseEntity<Long> count(long id) {
+    // TODO Auto-generated method stub
+    return ResponseEntity.ok(service.count());
+    }
 
 }

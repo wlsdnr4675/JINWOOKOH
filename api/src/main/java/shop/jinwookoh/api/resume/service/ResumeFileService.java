@@ -9,8 +9,11 @@ import shop.jinwookoh.api.resume.domain.ResumeFile;
 import shop.jinwookoh.api.resume.domain.ResumeFileDto;
 
 public interface ResumeFileService {
-    String registerFile(MultipartFile file);
 
-    Boolean getfile(String fileName);
+    String detailRegister(ResumeFileDto resumeFileDto);
+
+    ArrayList<ResumeFileDto> registerFile(List<MultipartFile> uploadFiles);
+
+    String deleteFile(Long fileId);
 
 }

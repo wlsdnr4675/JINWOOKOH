@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -32,17 +33,15 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
         Resume resume = Resume.of(resumeDto);
         resume.saveAll(resumeDto);
         log.info(resume.getDetail());
-
         ArrayList<ResumeFileDto> files = resumeDto.getResumeFiles();
         if (!files.isEmpty()) {
-
-            files.forEach(ResumeFileDto -> {
-                ResumeFile rf = dtoToEntityResumeFile(ResumeFileDto);
+            files.forEach(resumeFileDto -> {
+                ResumeFile rf = dtoToEntityResumeFile(resumeFileDto);
                 rf.confirmResume(resume);
                 fileRepo.save(rf);
-
             });
         }
+
         return (repo.save(resume) != null) ? "Save Success" : "Save Failed";
     }
 
