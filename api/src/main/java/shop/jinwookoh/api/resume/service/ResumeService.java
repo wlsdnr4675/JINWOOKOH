@@ -14,21 +14,12 @@ public interface ResumeService {
 
     List<Resume> getAllResume();
 
-    String ResumeSaveWithFile(ResumeDto resumeDto, ResumeFileDto resumeFileDto);
-
-    default Resume dtoToEntity(ResumeDto dto) {
-
-        Resume entity = Resume.builder().title(dto.getTitle()).selfIntroduce(dto.getSelfIntroduce())
-                .detail(dto.getDetail()).build();
-
-        return entity;
-    }
+    String resumeSaveWithFile(ResumeDto resumeDto);
 
     default ResumeFile dtoToEntityResumeFile(ResumeFileDto dto) {
 
-        ResumeFile picture = ResumeFile.builder().uuid(dto.getUuid()).fileTitle(dto.getFileTitle())
-                .fileDetail(dto.getFileDetail()).fname(dto.getFname()).repImg(dto.getRepImg())
-                .workedDate(dto.getWorkedDate()).build();
+        ResumeFile picture = ResumeFile.builder().uuid(dto.getUuid()).fname(dto.getFname()).repImg(dto.getRepImg())
+                .build();
         return picture;
     }
 

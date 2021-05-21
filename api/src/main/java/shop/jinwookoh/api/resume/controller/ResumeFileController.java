@@ -5,6 +5,9 @@ import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -38,14 +41,8 @@ public class ResumeFileController {
     @PostMapping("/upload_file")
     public ResponseEntity<List<ResumeFileDto>> uploadFile(List<MultipartFile> files) {
 
-        for (MultipartFile file : files) {
-            System.out.println("file" + file);
-            if (file.getContentType().startsWith("image") == false) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-            }
-        }
-
-        return ResponseEntity.ok(service.uploadFile(files));
+        return ResponseEntity.ok(service.uploadFile(files.stream()
+                .filter(file -> file.getContentType().startsWith("image") != true).collect(Collectors.toList())));
     }
 
     @Value("${shop.jinwookoh.upload.path}")

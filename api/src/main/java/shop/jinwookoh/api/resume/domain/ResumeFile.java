@@ -31,30 +31,29 @@ public class ResumeFile {
     private Long resumeFileId;
     @Column(name = "uuid")
     private String uuid;
-    @Column(name = "file_title")
-    private String fileTitle;
-    @Column(name = "file_detail")
-    private String fileDetail;
     @Column(name = "fname")
     private String fname;
     @Column(name = "rep_img")
     private Boolean repImg;
-
-    @Column(name = "worked_date")
-    private String workedDate;
+    @Column(name = "file_title")
+    private String fileTitle;
+    @Column(name = "file_detail")
+    private String fileDetail;
+    @Column(name = "file_worked_date")
+    private String fileWorkedDate;
 
     @ManyToOne
     @JoinColumn(name = "resume_id")
     private Resume resume;
 
-    public void confirmResume(Resume resume) {
-        this.resume = resume;
+    public void saveDetails(ResumeFileDto resumeFile) {
+        this.fileTitle = resumeFile.getFileTitle();
+        this.fileDetail = resumeFile.getFileDetail();
+        this.fileWorkedDate = resumeFile.getFileWorkedDate();
     }
 
-    public void saveFileDetail(ResumeFileDto resumeFileDto) {
-        this.fileTitle = resumeFileDto.getFileTitle();
-        this.fileDetail = resumeFileDto.getFileDetail();
-        this.workedDate = resumeFileDto.getWorkedDate();
+    public void confirmResume(Resume resume) {
+        this.resume = resume;
     }
 
     public static ResumeFile of(ResumeFileDto resumeFileDto) {

@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;
+import shop.jinwookoh.api.resume.domain.ResumeFileDto;
 import shop.jinwookoh.api.resume.service.ResumeServiceImpl;
 
 @Api
@@ -32,7 +33,7 @@ public class ResumeController {
     @PostMapping("/register")
     @ApiOperation(value = "${ResumeController.register}")
     public ResponseEntity<String> save(@RequestBody ResumeDto resume) {
-        return ResponseEntity.ok(service.save(resume));
+        return ResponseEntity.ok(service.resumeSaveWithFile(resume));
     }
 
     @GetMapping("/list")

@@ -23,6 +23,7 @@ public class ResumeDto {
     private String title;
     private String selfIntroduce;
     private String detail;
+
     private ArrayList<ResumeFileDto> resumeFiles;
 
     public static ResumeDto of(Resume resume) {

@@ -16,10 +16,11 @@ import lombok.NoArgsConstructor;
 public class ResumeFileDto {
 
     private String uuid;
-    private String fileTitle;
-    private String fileDetail;
     private String fname;
     private Boolean repImg;
-    private String workedDate;
+
+    private String fileTitle;
+    private String fileDetail;
+    private String fileWorkedDate;
 
 }

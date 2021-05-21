@@ -8,8 +8,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
@@ -29,20 +32,16 @@ import shop.jinwookoh.api.resume.repository.ResumeFileRepository;
 
 @Log4j2
 @Service
-@RequiredArgsConstructor
-
 public class ResumeFileServiceImpl implements ResumeFileService {
+
     @Value("${shop.jinwookoh.upload.path}")
     private String uploadPath;
 
-    private final ResumeFileRepository repo;
-
     @Override
-    public ArrayList<ResumeFileDto> uploadFile(@RequestBody List<MultipartFile> uploadFiles) {
+    public List<ResumeFileDto> uploadFile(List<MultipartFile> uploadFiles) {
 
-        ArrayList<ResumeFileDto> resultDtoList = new ArrayList<>();
+        List<ResumeFileDto> resultDtoList = new ArrayList<>();
         for (MultipartFile uploadFile : uploadFiles) {
-
             String ofname = uploadFile.getOriginalFilename();
             int idx = ofname.lastIndexOf(".");
             String ofheader = ofname.substring(0, idx);
@@ -58,7 +57,7 @@ public class ResumeFileServiceImpl implements ResumeFileService {
                 String thumbnailSaveName = uploadPath + "s_" + uuid + ofname;
                 Thumbnails.of(new File(saveName)).size(100, 100).outputFormat("jpg").toFile(thumbnailSaveName);
                 Thumbnails.of(new File(saveName)).scale(1)
-                        .watermark(Positions.BOTTOM_CENTER, ImageIO.read(new File(uploadPath + "watermark.png")), 0.5f)
+                        .watermark(Positions.BOTTOM_CENTER, ImageIO.read(new File(uploadPath + "watermark.jpg")), 0.5f)
                         .toFile(new File(uploadPath + "w_" + uuid + ofname));
                 ResumeFileDto resumeFileDto = ResumeFileDto.builder().uuid(uuid).fname(saveName).build();
                 resultDtoList.add(resumeFileDto);
@@ -89,12 +88,6 @@ public class ResumeFileServiceImpl implements ResumeFileService {
         // f.delete();
         // }
         // }
-
-        return null;
-    }
-
-    @Override
-    public String save(ResumeFileDto resumeFile) {
 
         return null;
     }
