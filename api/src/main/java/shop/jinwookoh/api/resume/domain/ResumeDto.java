@@ -8,17 +8,18 @@ import org.springframework.stereotype.Component;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.jinwookoh.api.common.util.ModelMapperUtils;
 
 @Component
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class ResumeDto {
 
-    private long resumeId;
+    private Long resumeId;
     private String title;
     private String selfIntroduce;
     private String detail;

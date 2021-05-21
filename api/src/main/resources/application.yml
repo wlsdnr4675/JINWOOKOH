@@ -7,6 +7,7 @@ spring:
     # username: wlsdnr4675
     # password: wlsdnr4675
     url: jdbc:mysql://192.168.0.17:3306/arte?useSSLd=false&characterEncoding=UTF-8&serverTimezone=UTC
+    # url: jdbc:mysql://112.169.196.99:3306/arte?useSSLd=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: arte
     password: Arte1234
     # url: jdbc:mysql://localhost/team_project?useSSLd=false&characterEncoding=UTF-8&serverTimezone=UTC

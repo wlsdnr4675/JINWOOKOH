@@ -35,14 +35,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ResumeFileController {
     private final ResumeFileServiceImpl service;
 
-    @PostMapping("/detail_register")
-    public ResponseEntity<String> detailRegister(@RequestBody ResumeFileDto resumeFile) {
-        return ResponseEntity.ok(service.detailRegister(resumeFile));
-    }
-
     @PostMapping("/upload_file")
     public ResponseEntity<List<ResumeFileDto>> uploadFile(List<MultipartFile> files) {
-        System.out.println("sdfsfdsfdsfdsfsdfsdf------" + files.toString());
 
         for (MultipartFile file : files) {
             System.out.println("file" + file);
@@ -51,7 +45,7 @@ public class ResumeFileController {
             }
         }
 
-        return ResponseEntity.ok(service.registerFile(files));
+        return ResponseEntity.ok(service.uploadFile(files));
     }
 
     @Value("${shop.jinwookoh.upload.path}")
@@ -76,7 +70,8 @@ public class ResumeFileController {
 
     @PutMapping(value = "/update_file/{resumeFileId}")
     public ResponseEntity<ArrayList<ResumeFileDto>> updatefile(List<MultipartFile> files) {
-        return ResponseEntity.ok(service.registerFile(files));
+        // return ResponseEntity.ok(service.registerFile(files));
+        return null;
     }
 
     @DeleteMapping(value = "/delete_file/{resumeFileId}")

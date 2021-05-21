@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.jinwookoh.api.resume.domain.Resume;
 
@@ -20,6 +21,7 @@ import shop.jinwookoh.api.resume.domain.Resume;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

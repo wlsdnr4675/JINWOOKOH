@@ -28,16 +28,17 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
 
     @Transactional
     @Override
-    public String save(ResumeDto resumeDto) {
+    public String ResumeSaveWithFile(ResumeDto resumeDto, ResumeFileDto resumeFileDto) {
 
         Resume resume = Resume.of(resumeDto);
         resume.saveAll(resumeDto);
         log.info(resume.getDetail());
         ArrayList<ResumeFileDto> files = resumeDto.getResumeFiles();
         if (!files.isEmpty()) {
-            files.forEach(resumeFileDto -> {
-                ResumeFile rf = dtoToEntityResumeFile(resumeFileDto);
+            files.forEach(resumeFileDtos -> {
+                ResumeFile rf = dtoToEntityResumeFile(resumeFileDtos);
                 rf.confirmResume(resume);
+                rf.saveFileDetail(resumeFileDto); // 중복되는지 확인해야함
                 fileRepo.save(rf);
             });
         }
@@ -102,6 +103,12 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
     public void deleteById(Long id) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public String save(ResumeDto t) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

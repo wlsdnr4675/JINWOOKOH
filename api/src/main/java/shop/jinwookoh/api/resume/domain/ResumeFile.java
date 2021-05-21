@@ -1,7 +1,9 @@
 package shop.jinwookoh.api.resume.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,6 +44,7 @@ public class ResumeFile {
     private String workedDate;
 
     @ManyToOne
+    @JoinColumn(name = "resume_id")
     private Resume resume;
 
     public void confirmResume(Resume resume) {

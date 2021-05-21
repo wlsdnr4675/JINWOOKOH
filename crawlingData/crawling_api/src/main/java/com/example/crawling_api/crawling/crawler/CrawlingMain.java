@@ -62,7 +62,7 @@ public class CrawlingMain {
 
         }
         System.out.println(list.size());
-        repo.saveAll(list);
+        
     }
 
 }

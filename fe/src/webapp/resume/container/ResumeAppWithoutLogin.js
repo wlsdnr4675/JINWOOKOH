@@ -14,7 +14,7 @@ import FooterOne from "webapp/common/Footer/FooterOne";
 import HeroCreativeAgency from "webapp/common/HeroSlider/HeroCreativeAgency";
 import WhatWeOfferSix from "webapp/common/WhatWeOffer/WhatWeOfferSix";
 import ProcessFour from "webapp/common/Process/ProcessFour";
-import PortfolioWideMasonry from "webapp/common/Portfolio/PortfolioWideMasonry";
+import PortfolioWideMasonry from "webapp/resume/component/ResumeList";
 import TeamOne from "webapp/common/Team/TeamOne";
 import CountersOne from "webapp/common/Counters/CountersOne";
 import Loader from "webapp/common/Loader/Loader";

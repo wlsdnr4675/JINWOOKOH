@@ -14,6 +14,8 @@ public interface ResumeService {
 
     List<Resume> getAllResume();
 
+    String ResumeSaveWithFile(ResumeDto resumeDto, ResumeFileDto resumeFileDto);
+
     default Resume dtoToEntity(ResumeDto dto) {
 
         Resume entity = Resume.builder().title(dto.getTitle()).selfIntroduce(dto.getSelfIntroduce())

@@ -10,10 +10,12 @@ import shop.jinwookoh.api.resume.domain.ResumeFileDto;
 
 public interface ResumeFileService {
 
-    String detailRegister(ResumeFileDto resumeFileDto);
+    ArrayList<ResumeFileDto> uploadFile(List<MultipartFile> uploadFiles);
 
-    ArrayList<ResumeFileDto> registerFile(List<MultipartFile> uploadFiles);
+    String deleteFile(Long resumeId);
 
-    String deleteFile(Long fileId);
+    String deleteFiles(Long resumeId);
+
+    String save(ResumeFileDto resumeFile);
 
 }

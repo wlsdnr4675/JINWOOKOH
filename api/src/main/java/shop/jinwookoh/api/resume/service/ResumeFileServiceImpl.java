@@ -30,23 +30,15 @@ import shop.jinwookoh.api.resume.repository.ResumeFileRepository;
 @Log4j2
 @Service
 @RequiredArgsConstructor
+
 public class ResumeFileServiceImpl implements ResumeFileService {
+    @Value("${shop.jinwookoh.upload.path}")
+    private String uploadPath;
 
     private final ResumeFileRepository repo;
 
     @Override
-    public String detailRegister(ResumeFileDto resumeFileDto) {
-        ResumeFile resumeFile = ResumeFile.of(resumeFileDto);
-        resumeFile.saveFileDetail(resumeFileDto);
-        return (repo.save(resumeFile) != null) ? "FileDetail save Success" : "FileDetail save Failed";
-    }
-
-    @Value("${shop.jinwookoh.upload.path}")
-    private String uploadPath;
-
-    @Transactional
-    @Override
-    public ArrayList<ResumeFileDto> registerFile(@RequestBody List<MultipartFile> uploadFiles) {
+    public ArrayList<ResumeFileDto> uploadFile(@RequestBody List<MultipartFile> uploadFiles) {
 
         ArrayList<ResumeFileDto> resultDtoList = new ArrayList<>();
         for (MultipartFile uploadFile : uploadFiles) {
@@ -81,9 +73,30 @@ public class ResumeFileServiceImpl implements ResumeFileService {
     }
 
     @Override
-    public String deleteFile(Long fileId) {
-        repo.deleteById(fileId);
-        return (repo.findById(fileId) == null) ? "Delete Success" : "Delete Failed";
+    public String deleteFile(Long resumeId) {
+
+        return null;
+    }
+
+    @Override
+    public String deleteFiles(Long resumeId) {
+
+        // List<ResumeFile> resumeFileList = repo.getAllForDelete(resumeId);
+
+        // for (ResumeFile rf : resumeFileList) {
+        // File f = new File(uploadPath, rf.getFname());
+        // if (f.exists()) {
+        // f.delete();
+        // }
+        // }
+
+        return null;
+    }
+
+    @Override
+    public String save(ResumeFileDto resumeFile) {
+
+        return null;
     }
 
 }
