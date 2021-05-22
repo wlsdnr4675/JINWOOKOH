@@ -2,6 +2,11 @@ package shop.jinwookoh.api.resume.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +25,7 @@ import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;
 import shop.jinwookoh.api.resume.domain.ResumeFileDto;
 import shop.jinwookoh.api.resume.service.ResumeServiceImpl;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Api
 @RestController
@@ -37,15 +43,15 @@ public class ResumeController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<Resume>> findAll() {
-
-        return ResponseEntity.ok(service.getAllResume());
+    public ResponseEntity<Page<Resume>> getAllDataPaging() {
+        Pageable pageable = PageRequest.of(0, 117);
+        return ResponseEntity.ok(service.getAllDataPaging(pageable));
     }
 
     @GetMapping("/read/{resumeId}")
-    @ApiOperation(value = "${ResumeContorller.read}")
+    @ApiOperation(value = "${ResumeController.read}")
     public ResponseEntity<ResumeDto> findById(@PathVariable("resumeId") Long resumeId) {
-
+        System.out.println("Controller REsumeId: " + resumeId);
         return ResponseEntity.ok(service.findById(resumeId));
     }
 
@@ -60,6 +66,7 @@ public class ResumeController {
     @ApiOperation(value = "${ResumeController.delete}")
     public ResponseEntity<String> delete(@RequestBody ResumeDto resume) {
         // TODO Auto-generated method stub
+        System.out.println("CONTROLLER RESUME: " + resume);
         return ResponseEntity.ok(service.delete(resume));
     }
 

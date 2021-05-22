@@ -1,12 +1,21 @@
 package shop.jinwookoh.api.artist.domain;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 @Data
+@Component
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ArtistDto {
     @ApiModelProperty(position = 0)
     private long artistId;
@@ -27,12 +36,7 @@ public class ArtistDto {
     @ApiModelProperty(position = 8)
     private String department;
     @ApiModelProperty(position = 9)
-    private LocalDateTime regData;
-    @ApiModelProperty(position = 10)
-    private LocalDateTime modDate;
-    @ApiModelProperty(position = 11)
     private List<Role> roles;
-    @ApiModelProperty(position = 12)
+    @ApiModelProperty(position = 10)
     private String token;
-
 }

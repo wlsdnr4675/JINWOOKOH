@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import shop.jinwookoh.api.artist.domain.Artist;
+import shop.jinwookoh.api.category.domain.Category;
 import shop.jinwookoh.api.common.util.ModelMapperUtils;
 
 @Component
@@ -23,7 +25,8 @@ public class ResumeDto {
     private String title;
     private String selfIntroduce;
     private String detail;
-
+    private Category category;
+    private Artist artist;
     private ArrayList<ResumeFileDto> resumeFiles;
 
     public static ResumeDto of(Resume resume) {

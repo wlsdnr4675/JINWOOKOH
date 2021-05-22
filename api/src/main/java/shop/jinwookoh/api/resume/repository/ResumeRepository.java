@@ -1,6 +1,7 @@
 package shop.jinwookoh.api.resume.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +21,8 @@ interface ResumeCustomRepository {
     @Query("SELECT r FROM Resume r order by r.resumeId asc")
     List<Resume> getAllResume();
 
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select r from Resume r group by r  order by r.resumeId desc")
+    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("select r from Resume r order by r.resumeId asc")
     Page<Resume> getAllDataPaging(Pageable pageable);
 
     @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
@@ -72,4 +73,7 @@ interface ResumeCustomRepository {
 
 @Repository
 public interface ResumeRepository extends JpaRepository<Resume, Long>, ResumeCustomRepository {
+
+    @EntityGraph(attributePaths = { "artist", "category", "resumeFiles" }, type = EntityGraph.EntityGraphType.FETCH)
+    Optional<Resume> findById(Long resumeId);
 }

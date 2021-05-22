@@ -14,6 +14,7 @@ import org.springframework.test.annotation.Commit;
 
 import lombok.extern.log4j.Log4j2;
 import shop.jinwookoh.api.artist.domain.Artist;
+import shop.jinwookoh.api.artist.repository.ArtistRepository;
 import shop.jinwookoh.api.category.domain.Category;
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeFile;
@@ -47,21 +48,20 @@ public class RepoTest {
     @Commit
     @Test
     public void findAllResume() {
-        repo.getAllResume().forEach(action -> {
-            log.info(action.getResumeId());
-        });
-        ;
+        repo.getAllResume();
     }
 
     @Transactional
     @Commit
     @Test
+
     public void getAllDataByAtistId() {
-        Artist artist = Artist.builder().artistId(7L).build();
+        Artist artist = Artist.builder().artistId(1L).build();
         Pageable pageable = PageRequest.of(0, 10);
 
         repo.getUserPKDataPage(artist.getArtistId(), pageable).forEach(resume -> {
-            log.info(resume.getResumeId());
+            log.info("resumeId: " + resume.getResumeId());
+            resume.getResumeFiles().stream().map(ResumeFile::getFname).forEach(System.out::println);
         });
     }
 
@@ -197,7 +197,9 @@ public class RepoTest {
     @Commit
     @Test
     public void readResume() {
-        repo.findById(5L).orElse(null);
+        repo.findById(5L).get();
+        log.info("fsdfsd: " + repo.findById(5L).get().getResumeId());
+
     }
 
     @Transactional
@@ -211,8 +213,9 @@ public class RepoTest {
     @Transactional
     @Commit
     @Test
+
     public void saveFile() {
-        for (Long i = 1L; i < 40L; i++) {
+        for (Long i = 100L; i < 118L; i++) {
             Resume resume = Resume.builder().resumeId(i).build();
             ResumeFile resumeFile = ResumeFile.builder().uuid(UUID.randomUUID().toString()).fname((i) + "번 파일네임3")
                     .repImg(true).fileTitle(i + "fileTitle").fileDetail(i + "fileDetail")

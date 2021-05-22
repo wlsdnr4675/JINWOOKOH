@@ -21,26 +21,48 @@ import java.util.List;
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "artist_id")
+    @JoinColumn(name = "artist_id")
     private long artistId;
-    @Column(unique = true, nullable = false)
+
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
+
+    // , columnDefinition="Number(10) default '12345678'"
     @Size(min = 8, message = "Minimum Password Length: 8 characters")
+    @Column(name = "password")
     private String password;
-    @Column(unique = true, nullable = false)
+
+    // @Embedded
+    @Column(name = "name")
     private String name;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "phone_number")
     private String phoneNumber;
+
     @Column(name = "address")
     private String address;
+
     @Column(name = "school")
     private String school;
+
     @Column(name = "department")
     private String department;
 
     @ElementCollection(fetch = FetchType.EAGER)
     List<Role> roles;
 
+    public void changeRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void changeSchool(String school) {
+        this.school = school;
+    }
+
+    public void changeDepartment(String department) {
+        this.department = department;
+    }
 }

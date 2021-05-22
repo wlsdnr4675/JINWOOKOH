@@ -12,8 +12,4 @@ public interface ResumeFileService {
 
     List<ResumeFileDto> uploadFile(List<MultipartFile> uploadFiles);
 
-    String deleteFile(Long resumeId);
-
-    String deleteFiles(Long resumeId);
-
 }

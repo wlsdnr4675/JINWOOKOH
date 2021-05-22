@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,7 +42,6 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
                 ResumeFile rf = dtoToEntityResumeFile(resumeFileDtos);
                 rf.saveDetails(resumeFileDtos);
                 rf.confirmResume(resume);
-                // rf.saveFileDetail(resumeFileDto); // 중복되는지 확인해야함
                 fileRepo.save(rf);
             });
         }
@@ -48,6 +50,33 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
     }
 
     @Transactional
+    @Override
+    public Page<Resume> getAllDataPaging(Pageable pageable) {
+
+        return repo.getAllDataPaging(pageable);
+    }
+
+    @Transactional
+    @Override
+    public ResumeDto findById(Long resumeId) {
+        Resume resume = repo.findById(resumeId).orElseThrow(IllegalArgumentException::new);
+        System.out.println("Service REsumeId: " + resumeId);
+        ResumeDto resumeDto = ResumeDto.of(resume);
+        System.out.println("Service resumeDto: " + resumeDto);
+
+        return resumeDto;
+    }
+
+    @Override
+    public String delete(ResumeDto resumeDto) {
+        Resume resume = Resume.builder().resumeId(resumeDto.getResumeId()).build();
+        System.out.println("SERVICE DELETE" + resumeDto.getResumeId());
+        System.out.println("SERVICE DELETE MODEL" + resume.getResumeId());
+
+        repo.delete(resume);
+        return (repo.findById(resume.getResumeId()) == null) ? "Delete Success" : "Delete Failed";
+    }
+
     @Override
     public List<Resume> getAllResume() {
         // TODO Auto-generated method stub
@@ -62,13 +91,6 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
     }
 
     @Override
-    public ResumeDto findById(Long id) {
-        Resume resume = repo.findById(id).orElseThrow(IllegalArgumentException::new);
-        ResumeDto resumeDto = ResumeDto.of(resume);
-        return resumeDto;
-    }
-
-    @Override
     public Long count() {
         // TODO Auto-generated method stub
         return null;
@@ -78,14 +100,6 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
     public Optional<ResumeDto> getOne(Long id) {
         // TODO Auto-generated method stub
         return null;
-    }
-
-    @Override
-    public String delete(ResumeDto resumeDto) {
-        Resume resume = Resume.of(resumeDto);
-        repo.delete(resume);
-
-        return (repo.findById(resume.getResumeId()) == null) ? "Delete Success" : "Delete Failed";
     }
 
     @Override

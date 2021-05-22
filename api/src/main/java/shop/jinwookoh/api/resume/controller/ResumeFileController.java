@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,9 +41,8 @@ public class ResumeFileController {
 
     @PostMapping("/upload_file")
     public ResponseEntity<List<ResumeFileDto>> uploadFile(List<MultipartFile> files) {
-
-        return ResponseEntity.ok(service.uploadFile(files.stream()
-                .filter(file -> file.getContentType().startsWith("image") != true).collect(Collectors.toList())));
+        return ResponseEntity.ok(service.uploadFile(
+                files.stream().filter(f -> f.getContentType().startsWith("image")).collect(Collectors.toList())));
     }
 
     @Value("${shop.jinwookoh.upload.path}")
@@ -58,22 +58,10 @@ public class ResumeFileController {
             log.info("file: " + file);
             HttpHeaders header = new HttpHeaders();
             header.add("Content-Type", Files.probeContentType(file.toPath()));
-            result = ResponseEntity.ok(FileCopyUtils.copyToByteArray(file));
+            result = ResponseEntity.ok().headers(header).body(FileCopyUtils.copyToByteArray(file));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
         return result;
-    }
-
-    @PutMapping(value = "/update_file/{resumeFileId}")
-    public ResponseEntity<ArrayList<ResumeFileDto>> updatefile(List<MultipartFile> files) {
-        // return ResponseEntity.ok(service.registerFile(files));
-        return null;
-    }
-
-    @DeleteMapping(value = "/delete_file/{resumeFileId}")
-    public ResponseEntity<String> deleteFile(@PathVariable("resumeFileId") Long resumeFileId) {
-
-        return ResponseEntity.ok(service.deleteFile(resumeFileId));
     }
 }

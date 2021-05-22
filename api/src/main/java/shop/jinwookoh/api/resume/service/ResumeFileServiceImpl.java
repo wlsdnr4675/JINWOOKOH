@@ -11,29 +11,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
-import shop.jinwookoh.api.resume.domain.ResumeFile;
 import shop.jinwookoh.api.resume.domain.ResumeFileDto;
-import shop.jinwookoh.api.resume.repository.ResumeFileRepository;
 
 @Log4j2
 @Service
+@RequiredArgsConstructor
 public class ResumeFileServiceImpl implements ResumeFileService {
-
     @Value("${shop.jinwookoh.upload.path}")
     private String uploadPath;
 
@@ -55,7 +49,7 @@ public class ResumeFileServiceImpl implements ResumeFileService {
             try {
                 uploadFile.transferTo(savePath);
                 String thumbnailSaveName = uploadPath + "s_" + uuid + ofname;
-                Thumbnails.of(new File(saveName)).size(100, 100).outputFormat("jpg").toFile(thumbnailSaveName);
+                Thumbnails.of(new File(saveName)).size(100, 100).outputFormat("JPEG").toFile(thumbnailSaveName);
                 Thumbnails.of(new File(saveName)).scale(1)
                         .watermark(Positions.BOTTOM_CENTER, ImageIO.read(new File(uploadPath + "watermark.jpg")), 0.5f)
                         .toFile(new File(uploadPath + "w_" + uuid + ofname));
@@ -69,27 +63,6 @@ public class ResumeFileServiceImpl implements ResumeFileService {
         }
 
         return resultDtoList;
-    }
-
-    @Override
-    public String deleteFile(Long resumeId) {
-
-        return null;
-    }
-
-    @Override
-    public String deleteFiles(Long resumeId) {
-
-        // List<ResumeFile> resumeFileList = repo.getAllForDelete(resumeId);
-
-        // for (ResumeFile rf : resumeFileList) {
-        // File f = new File(uploadPath, rf.getFname());
-        // if (f.exists()) {
-        // f.delete();
-        // }
-        // }
-
-        return null;
     }
 
 }
