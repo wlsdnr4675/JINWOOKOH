@@ -21,7 +21,7 @@ interface ResumeCustomRepository {
     @Query("SELECT r FROM Resume r order by r.resumeId asc")
     List<Resume> getAllResume();
 
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(attributePaths = { "artist", "category", "resumeFiles" }, type = EntityGraph.EntityGraphType.LOAD)
     @Query("select r from Resume r order by r.resumeId asc")
     Page<Resume> getAllDataPaging(Pageable pageable);
 
@@ -74,6 +74,10 @@ interface ResumeCustomRepository {
 @Repository
 public interface ResumeRepository extends JpaRepository<Resume, Long>, ResumeCustomRepository {
 
-    @EntityGraph(attributePaths = { "artist", "category", "resumeFiles" }, type = EntityGraph.EntityGraphType.FETCH)
+    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.LOAD)
     Optional<Resume> findById(Long resumeId);
+
+    @Query("SELECT count(*) as cnt FROM Resume WHERE regdate between '2021-01-01' and '2021-12-31'")
+    long count();
+
 }

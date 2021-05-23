@@ -3,6 +3,8 @@ package shop.jinwookoh.api.resume.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import shop.jinwookoh.api.common.service.AbstractService;
+import shop.jinwookoh.api.common.util.ModelMapperUtils;
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;
 import shop.jinwookoh.api.resume.domain.ResumeFile;
@@ -60,17 +63,14 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
     @Override
     public ResumeDto findById(Long resumeId) {
         Resume resume = repo.findById(resumeId).orElseThrow(IllegalArgumentException::new);
-        System.out.println("Service REsumeId: " + resumeId);
-        ResumeDto resumeDto = ResumeDto.of(resume);
-        System.out.println("Service resumeDto: " + resumeDto);
 
-        return resumeDto;
+        return ResumeDto.of(resume);
     }
 
     @Override
     public String delete(ResumeDto resumeDto) {
-        Resume resume = Resume.builder().resumeId(resumeDto.getResumeId()).build();
         System.out.println("SERVICE DELETE" + resumeDto.getResumeId());
+        Resume resume = Resume.builder().resumeId(resumeDto.getResumeId()).build();
         System.out.println("SERVICE DELETE MODEL" + resume.getResumeId());
 
         repo.delete(resume);
@@ -85,15 +85,14 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
 
     @Override
     public List<ResumeDto> findAll() {
-        // TODO Auto-generated method stub
 
         return null;
     }
 
     @Override
     public Long count() {
-        // TODO Auto-generated method stub
-        return null;
+
+        return repo.count();
     }
 
     @Override

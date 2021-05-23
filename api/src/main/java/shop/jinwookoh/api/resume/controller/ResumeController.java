@@ -44,14 +44,13 @@ public class ResumeController {
 
     @GetMapping("/list")
     public ResponseEntity<Page<Resume>> getAllDataPaging() {
-        Pageable pageable = PageRequest.of(0, 117);
+        Pageable pageable = PageRequest.of(0, 5);
         return ResponseEntity.ok(service.getAllDataPaging(pageable));
     }
 
     @GetMapping("/read/{resumeId}")
     @ApiOperation(value = "${ResumeController.read}")
     public ResponseEntity<ResumeDto> findById(@PathVariable("resumeId") Long resumeId) {
-        System.out.println("Controller REsumeId: " + resumeId);
         return ResponseEntity.ok(service.findById(resumeId));
     }
 
@@ -71,7 +70,7 @@ public class ResumeController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Long> count(long id) {
+    public ResponseEntity<Long> count() {
         // TODO Auto-generated method stub
         return ResponseEntity.ok(service.count());
     }

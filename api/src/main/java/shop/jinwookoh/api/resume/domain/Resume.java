@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,7 +52,8 @@ public class Resume extends BaseEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "resume", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
     List<ResumeFile> resumeFiles = new ArrayList<>();
 
     public void changeTitle(String title) {
