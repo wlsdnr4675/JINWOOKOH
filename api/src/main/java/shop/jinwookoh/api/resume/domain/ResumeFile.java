@@ -9,9 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,6 +55,7 @@ public class ResumeFile {
         this.fileTitle = resumeFile.getFileTitle();
         this.fileDetail = resumeFile.getFileDetail();
         this.fileWorkedDate = resumeFile.getFileWorkedDate();
+        this.repImg = resumeFile.getRepImg();
     }
 
     public void confirmResume(Resume resume) {

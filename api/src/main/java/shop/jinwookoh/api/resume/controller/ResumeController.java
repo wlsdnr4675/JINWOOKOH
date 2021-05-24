@@ -24,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;
 import shop.jinwookoh.api.resume.domain.ResumeFileDto;
+import shop.jinwookoh.api.resume.domain.page.PageResultDto;
+import shop.jinwookoh.api.resume.service.ResumeFileServiceImpl;
 import shop.jinwookoh.api.resume.service.ResumeServiceImpl;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ResumeController {
 
     private final ResumeServiceImpl service;
+    private final ResumeFileServiceImpl fileService;
 
     @PostMapping("/register")
     @ApiOperation(value = "${ResumeController.register}")
@@ -42,10 +45,19 @@ public class ResumeController {
         return ResponseEntity.ok(service.resumeSaveWithFile(resume));
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<Page<Resume>> getAllDataPaging() {
-        Pageable pageable = PageRequest.of(0, 5);
-        return ResponseEntity.ok(service.getAllDataPaging(pageable));
+    @PutMapping("/edit")
+    @ApiOperation(value = "${ResumeController.edit}")
+    public ResponseEntity<String> editResume(@RequestBody ResumeDto resume) {
+        System.out.println("ReusemeId: " + resume.getResumeId());
+        return ResponseEntity.ok(service.editResume(resume));
+    }
+
+    @DeleteMapping("/delete")
+    @ApiOperation(value = "${ResumeController.delete}")
+    public ResponseEntity<String> delete(@RequestBody ResumeDto resume) {
+
+        fileService.removeFiles(resume.getResumeId());
+        return ResponseEntity.ok(service.delete(resume));
     }
 
     @GetMapping("/read/{resumeId}")
@@ -54,19 +66,79 @@ public class ResumeController {
         return ResponseEntity.ok(service.findById(resumeId));
     }
 
-    @PutMapping("/edit")
-    @ApiOperation(value = "${ResumeController.edit}")
-    public ResponseEntity<String> editResume(@RequestBody ResumeDto resume) {
-        System.out.println("ReusemeId: " + resume.getResumeId());
-        return ResponseEntity.ok(service.save(resume));
+    // search for Developers
+    @GetMapping("/list_page")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> getAllDataPaging(int page) {
+
+        return ResponseEntity.ok(service.getAllDataPaging(page));
     }
 
-    @DeleteMapping("/delete")
-    @ApiOperation(value = "${ResumeController.delete}")
-    public ResponseEntity<String> delete(@RequestBody ResumeDto resume) {
-        // TODO Auto-generated method stub
-        System.out.println("CONTROLLER RESUME: " + resume);
-        return ResponseEntity.ok(service.delete(resume));
+    @GetMapping("/list_all")
+    public ResponseEntity<List<ResumeDto>> getAllData() {
+
+        return ResponseEntity.ok(service.getAllResume());
+    }
+
+    @GetMapping("/list_by_userid/{artistId}")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> getUserPKDataPage(@PathVariable("artistId") Long artistId,
+            int page) {
+
+        return ResponseEntity.ok(service.getUserPKDataPage(artistId, page));
+    }
+
+    @GetMapping("/list_by_categoryid/{categoryId}")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> getCategoryPKDataPage(
+            @PathVariable("categoryId") Long categoryId, int page) {
+
+        return ResponseEntity.ok(service.getCategoryPKDataPage(categoryId, page));
+    }
+
+    @GetMapping("/list_by_u_and_c_id/{categoryId,artistId}")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> getCategoryAndUserDataPage(
+            @PathVariable("categoryId") Long categoryId, @PathVariable("artistId") Long artistId, int page) {
+
+        return ResponseEntity.ok(service.getCategoryAndUserDataPage(categoryId, artistId, page));
+    }
+
+    // search for Clients
+    @PostMapping("/search_username")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchUserName(@RequestBody String username, int page) {
+
+        return ResponseEntity.ok(service.searchUserNameDataPage(username, page));
+    }
+
+    @GetMapping("/search_name/{name}")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchName(@PathVariable("name") String name, int page) {
+
+        return ResponseEntity.ok(service.searchNameDataPage(name, page));
+    }
+
+    @GetMapping("/search_category/{categoryName}")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchCategory(
+            @PathVariable("categoryName") String categoryName, int page) {
+
+        return ResponseEntity.ok(service.searchCategoryDataPage(categoryName, page));
+    }
+
+    @GetMapping("/search_aname_cname/{categoryName, name}")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchCnameAndAname(
+            @PathVariable("categoryName") String categoryName, @PathVariable("name") String name, int page) {
+
+        return ResponseEntity.ok(service.searchCategoryAndUserDataPage(name, categoryName, page));
+    }
+
+    @GetMapping("/search_title/{title}")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchResumeTitle(@PathVariable("title") String title,
+            int page) {
+
+        return ResponseEntity.ok(service.searchTitleDataPage(title, page));
+    }
+
+    @GetMapping("/search_detail/{detail}")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchResumeDetail(@PathVariable("detail") String detail,
+            int page) {
+
+        return ResponseEntity.ok(service.searchDetailDataPage(detail, page));
     }
 
     @GetMapping("/count")

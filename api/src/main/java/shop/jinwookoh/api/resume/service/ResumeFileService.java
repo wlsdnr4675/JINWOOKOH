@@ -12,4 +12,5 @@ public interface ResumeFileService {
 
     List<ResumeFileDto> uploadFile(List<MultipartFile> uploadFiles);
 
+    void removeFiles(Long resumeId);
 }

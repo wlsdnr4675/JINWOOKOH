@@ -9,6 +9,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @EntityListeners(value = { AuditingEntityListener.class })
@@ -51,7 +54,7 @@ public class Artist {
     @Column(name = "department")
     private String department;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     List<Role> roles;
 
     public void changeRoles(List<Role> roles) {

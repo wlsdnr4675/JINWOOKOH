@@ -57,7 +57,7 @@ public class ResumeFileController {
             File file = new File(uploadPath + File.separator + srcFileName);
             log.info("file: " + file);
             HttpHeaders header = new HttpHeaders();
-            header.add("Content-Type", Files.probeContentType(file.toPath()));
+            header.set("Content-Type", Files.probeContentType(file.toPath()));
             result = ResponseEntity.ok().headers(header).body(FileCopyUtils.copyToByteArray(file));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

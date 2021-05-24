@@ -1,52 +1,57 @@
 package shop.jinwookoh.api.resume.service;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
+import java.util.stream.Collectors;
 
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;
 import shop.jinwookoh.api.resume.domain.ResumeFile;
 import shop.jinwookoh.api.resume.domain.ResumeFileDto;
+import shop.jinwookoh.api.resume.domain.page.PageResultDto;
 
 public interface ResumeService {
 
     String resumeSaveWithFile(ResumeDto resumeDto);
 
+    String editResume(ResumeDto resumeDto);
+
     default ResumeFile dtoToEntityResumeFile(ResumeFileDto dto) {
 
-        ResumeFile picture = ResumeFile.builder().uuid(dto.getUuid()).fname(dto.getFname()).repImg(dto.getRepImg())
+        ResumeFile file = ResumeFile.builder().uuid(dto.getUuid()).fname(dto.getFname()).repImg(dto.getRepImg())
                 .build();
-        return picture;
+        return file;
     }
 
-    Page<Resume> getAllDataPaging(Pageable pageable);
+    default ResumeDto resumeEntityToDto(Resume en) {
 
-    List<Resume> getAllResume();
+        ResumeDto dto = ResumeDto.builder().resumeId(en.getResumeId()).title(en.getTitle()).detail(en.getDetail())
+                .selfIntroduce(en.getSelfIntroduce()).resumeFiles(en.getResumeFiles().stream()
+                        .map(resumeFile -> ResumeFileDto.of(resumeFile)).collect(Collectors.toList()))
+                .artist(en.getArtist()).category(en.getCategory()).build();
 
-    // Page<List<Resume>> getUserPKDataPage(Long artistId, Pageable pageable);
+        return dto;
+    }
 
-    // Page<List<Resume>> getCategoryPKDataPage(Long categoryId, Pageable pageable);
+    PageResultDto<ResumeDto, Resume> getAllDataPaging(int page);
 
-    // Page<List<Resume>> getCategoryAndUserDataPage(Long categoryId, Long artistId,
-    // Pageable pageable);
+    List<ResumeDto> getAllResume();
 
-    // Page<List<Resume>> searchUserNameDataPage(String username, Pageable
-    // pageable);
+    PageResultDto<ResumeDto, Resume> getUserPKDataPage(Long artistId, int page);
 
-    // Page<List<Resume>> searchNameDataPage(String name, Pageable pageable);
+    PageResultDto<ResumeDto, Resume> getCategoryPKDataPage(Long categoryId, int page);
 
-    // Page<List<Resume>> searchCategoryDataPage(String categoryName, Pageable
-    // pageable);
+    PageResultDto<ResumeDto, Resume> getCategoryAndUserDataPage(Long categoryId, Long artistId, int page);
 
-    // Page<List<Resume>> searchCategoryAndUserDataPage(String name, String
-    // categoryName, Pageable pageable);
+    PageResultDto<ResumeDto, Resume> searchUserNameDataPage(String username, int page);
 
-    // Page<List<Resume>> searchTitleDataPage(String title, Pageable pageable);
+    PageResultDto<ResumeDto, Resume> searchNameDataPage(String name, int page);
 
-    // Page<List<Resume>> searchDetailDataPage(String detail, Pageable pageable);
+    PageResultDto<ResumeDto, Resume> searchCategoryDataPage(String categoryName, int page);
+
+    PageResultDto<ResumeDto, Resume> searchCategoryAndUserDataPage(String name, String categoryName, int page);
+
+    PageResultDto<ResumeDto, Resume> searchTitleDataPage(String title, int page);
+
+    PageResultDto<ResumeDto, Resume> searchDetailDataPage(String detail, int page);
 
 }

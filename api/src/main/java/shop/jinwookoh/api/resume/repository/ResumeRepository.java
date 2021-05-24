@@ -14,59 +14,60 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import shop.jinwookoh.api.artist.domain.Artist;
 import shop.jinwookoh.api.resume.domain.Resume;
+import shop.jinwookoh.api.resume.domain.ResumeFile;
 
 interface ResumeCustomRepository {
 
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("SELECT r FROM Resume r order by r.resumeId asc")
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT r FROM Resume r ORDER BY r.resumeId desc")
     List<Resume> getAllResume();
 
-    @EntityGraph(attributePaths = { "artist", "category", "resumeFiles" }, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("select r from Resume r order by r.resumeId asc")
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT r FROM Resume r ORDER BY r.resumeId desc ")
     Page<Resume> getAllDataPaging(Pageable pageable);
 
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select r from Resume r WHERE r.artist.artistId= :artistId")
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT r FROM Resume r WHERE r.artist.artistId= :artistId")
     Page<Resume> getUserPKDataPage(@Param("artistId") Long artistId, Pageable pageable);
 
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select r from Resume r WHERE r.category.categoryId=:categoryId")
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT r FROM Resume r WHERE r.category.categoryId=:categoryId")
     Page<Resume> getCategoryPKDataPage(@Param("categoryId") Long categoryId, Pageable pageable);
 
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select r from Resume r WHERE r.category.categoryId= :categoryId AND r.artist.artistId = :artistId")
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT r FROM Resume r WHERE r.category.categoryId= :categoryId AND r.artist.artistId = :artistId")
     Page<Resume> getCategoryAndUserDataPage(@Param("categoryId") Long categoryId, @Param("artistId") Long artistId,
             Pageable pageable);
 
     // username으로 서치
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select r from Resume r WHERE r.artist.username= :username")
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT r FROM Resume r WHERE r.artist.username= :username")
     Page<Resume> searchUserNameDataPage(@Param("username") String username, Pageable pageable);
 
     // name으로 서치
     @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select r from Resume r WHERE r.artist.name= :name")
+    @Query("SELECT r FROM Resume r WHERE r.artist.name= :name")
     Page<Resume> searchNameDataPage(@Param("name") String name, Pageable pageable);
 
     // 카테고리이름으로 서치
     @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select r from Resume r WHERE r.category.categoryName= :categoryName")
+    @Query("SELECT r FROM Resume r WHERE r.category.categoryName= :categoryName")
     Page<Resume> searchCategoryDataPage(@Param("categoryName") String categoryName, Pageable pageable);
 
     // 카테고리 + 이름으로 서치
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select r from Resume r WHERE r.artist.name = :name AND r.category.categoryName= :categoryName")
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT r FROM Resume r WHERE r.artist.name = :name AND r.category.categoryName= :categoryName")
     Page<Resume> searchCategoryAndUserDataPage(@Param("name") String name, @Param("categoryName") String categoryName,
             Pageable pageable);
 
     // %resumeTitle%로 서치
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select r from Resume r WHERE r.title LIKE %:title%")
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT r FROM Resume r WHERE r.title LIKE %:title%")
     Page<Resume> searchTitleDataPage(@Param("title") String title, Pageable pageable);
 
     // %resumeDetail%로 서치
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.FETCH)
-    @Query("select r from Resume r WHERE r.detail LIKE %:detail%")
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT r FROM Resume r WHERE r.detail LIKE %:detail%")
     Page<Resume> searchDetailDataPage(@Param("detail") String detail, Pageable pageable);
 
 }
@@ -74,8 +75,8 @@ interface ResumeCustomRepository {
 @Repository
 public interface ResumeRepository extends JpaRepository<Resume, Long>, ResumeCustomRepository {
 
-    @EntityGraph(attributePaths = { "artist", "category" }, type = EntityGraph.EntityGraphType.LOAD)
-    Optional<Resume> findById(Long resumeId);
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.LOAD)
+    Optional<Resume> findById(@Param("resumeId") Long resumeId);
 
     @Query("SELECT count(*) as cnt FROM Resume WHERE regdate between '2021-01-01' and '2021-12-31'")
     long count();
