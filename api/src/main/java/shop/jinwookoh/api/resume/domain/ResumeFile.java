@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import shop.jinwookoh.api.common.domain.BaseEntity;
 import shop.jinwookoh.api.common.util.ModelMapperUtils;
 
@@ -27,6 +28,7 @@ import shop.jinwookoh.api.common.util.ModelMapperUtils;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString(exclude = "resume")
 @Table(name = "resume_files")
 public class ResumeFile {
     @Id

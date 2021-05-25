@@ -23,11 +23,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;
-import shop.jinwookoh.api.resume.domain.ResumeFileDto;
 import shop.jinwookoh.api.resume.domain.page.PageResultDto;
 import shop.jinwookoh.api.resume.service.ResumeFileServiceImpl;
 import shop.jinwookoh.api.resume.service.ResumeServiceImpl;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Api
 @RestController
@@ -82,7 +80,7 @@ public class ResumeController {
     @GetMapping("/list_by_userid/{artistId}")
     public ResponseEntity<PageResultDto<ResumeDto, Resume>> getUserPKDataPage(@PathVariable("artistId") Long artistId,
             int page) {
-
+        System.out.println("fdsfdsfds: " + artistId);
         return ResponseEntity.ok(service.getUserPKDataPage(artistId, page));
     }
 
@@ -100,45 +98,11 @@ public class ResumeController {
         return ResponseEntity.ok(service.getCategoryAndUserDataPage(categoryId, artistId, page));
     }
 
-    // search for Clients
-    @PostMapping("/search_username/{username}")
-    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchUserName(@PathVariable String username, int page) {
+    @GetMapping("search/{type}/{keyword}")
+    public ResponseEntity<Page<Object[]>> conditionSearch(@PathVariable("type") String type,
+            @PathVariable("keyword") String keyword, int page) {
 
-        return ResponseEntity.ok(service.searchUserNameDataPage(username, page));
-    }
-
-    @GetMapping("/search_name/{name}")
-    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchName(@PathVariable("name") String name, int page) {
-
-        return ResponseEntity.ok(service.searchNameDataPage(name, page));
-    }
-
-    @GetMapping("/search_category/{categoryName}")
-    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchCategory(
-            @PathVariable("categoryName") String categoryName, int page) {
-
-        return ResponseEntity.ok(service.searchCategoryDataPage(categoryName, page));
-    }
-
-    @GetMapping("/search_aname_cname/{categoryName, name}")
-    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchCnameAndAname(
-            @PathVariable("categoryName") String categoryName, @PathVariable("name") String name, int page) {
-
-        return ResponseEntity.ok(service.searchCategoryAndUserDataPage(name, categoryName, page));
-    }
-
-    @GetMapping("/search_title/{title}")
-    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchResumeTitle(@PathVariable("title") String title,
-            int page) {
-
-        return ResponseEntity.ok(service.searchTitleDataPage(title, page));
-    }
-
-    @GetMapping("/search_detail/{detail}")
-    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchResumeDetail(@PathVariable("detail") String detail,
-            int page) {
-
-        return ResponseEntity.ok(service.searchDetailDataPage(detail, page));
+        return ResponseEntity.ok(service.conditionSearch(type, keyword, page));
     }
 
     @GetMapping("/count")

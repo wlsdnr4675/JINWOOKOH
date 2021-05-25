@@ -25,6 +25,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import shop.jinwookoh.api.artist.domain.Artist;
 import shop.jinwookoh.api.category.domain.Category;
 import shop.jinwookoh.api.common.domain.BaseEntity;
@@ -36,6 +37,7 @@ import shop.jinwookoh.api.common.util.ModelMapperUtils;
 @NoArgsConstructor
 @Getter
 @Builder
+@ToString(exclude = { "artist", "category", "resumeFiles" })
 public class Resume extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

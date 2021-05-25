@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import shop.jinwookoh.api.artist.domain.Artist;
 import shop.jinwookoh.api.category.domain.Category;
 import shop.jinwookoh.api.common.util.ModelMapperUtils;
@@ -21,14 +22,19 @@ import shop.jinwookoh.api.common.util.ModelMapperUtils;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
 public class ResumeDto {
 
     private Long resumeId;
     private String title;
     private String selfIntroduce;
     private String detail;
-    private Category category;
-    private Artist artist;
+    private Long artistId;
+    private String username;
+    private String name;
+    private Long categoryId;
+    private String categoryName;
+
     private List<ResumeFileDto> resumeFiles;
 
     public static ResumeDto of(Resume resume) {

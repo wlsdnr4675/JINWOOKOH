@@ -8,8 +8,10 @@ import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 
 import lombok.extern.log4j.Log4j2;
@@ -60,7 +62,7 @@ public class RepoTest {
         Pageable pageable = PageRequest.of(0, 10);
 
         repo.getUserPKDataPage(artist.getArtistId(), pageable).forEach(resume -> {
-            log.info("resumeId: " + resume.getResumeId());
+            log.info("artistId: " + resume.getArtist());
             resume.getResumeFiles().stream().map(ResumeFile::getFname).forEach(System.out::println);
         });
     }
@@ -87,82 +89,6 @@ public class RepoTest {
 
         repo.getCategoryAndUserDataPage(category.getCategoryId(), artist.getArtistId(), pageable).forEach(resume -> {
             log.info(resume.getResumeId());
-        });
-    }
-
-    @Transactional
-    @Commit
-    @Test
-    public void searchALldataByUserName() {
-        Artist artist = Artist.builder().username("2cp47").build();
-        Pageable pageable = PageRequest.of(0, 10);
-
-        repo.searchUserNameDataPage(artist.getUsername(), pageable).forEach(resume -> {
-            log.info(resume.getResumeId());
-        });
-    }
-
-    @Transactional
-    @Commit
-    @Test
-    public void searchALldataByName() {
-        Artist artist = Artist.builder().username("피크닉").build();
-        Pageable pageable = PageRequest.of(0, 10);
-
-        repo.searchNameDataPage(artist.getUsername(), pageable).forEach(resume -> {
-            log.info(resume.getResumeId());
-        });
-    }
-
-    @Transactional
-    @Commit
-    @Test
-    public void searchALldataByCategoryName() {
-        Category category = Category.builder().categoryName("운동").build();
-        Pageable pageable = PageRequest.of(0, 20);
-
-        repo.searchCategoryDataPage(category.getCategoryName(), pageable).forEach(resume -> {
-            log.info(resume.getResumeId());
-        });
-    }
-
-    @Transactional
-    @Commit
-    @Test
-    public void searchAllDataByCategoryAndArtist() {
-        Category category = Category.builder().categoryName("인물").build();
-        Artist artist = Artist.builder().name("피크닉").build();
-        Pageable pageable = PageRequest.of(0, 10);
-
-        repo.searchCategoryAndUserDataPage(category.getCategoryName(), artist.getName(), pageable).forEach(resume -> {
-            log.info(resume.getResumeId());
-            log.info(resume.getCategory().getCategoryName().toString());
-        });
-    }
-
-    @Transactional
-    @Commit
-    @Test
-    public void searchAllDataByTitle() {
-        Resume resume = Resume.builder().title("13").build();
-        Pageable pageable = PageRequest.of(0, 10);
-
-        repo.searchTitleDataPage(resume.getTitle(), pageable).forEach(a -> {
-            log.info(a.getResumeId());
-            log.info(a.getTitle());
-        });
-    }
-
-    @Transactional
-    @Commit
-    @Test
-    public void searchAllDataByDetail() {
-        Resume resume = Resume.builder().detail("13번 디").build();
-        Pageable pageable = PageRequest.of(0, 10);
-
-        repo.searchDetailDataPage(resume.getDetail(), pageable).forEach(a -> {
-            log.info(a.getResumeId());
-            log.info(a.getDetail());
         });
     }
 
@@ -223,6 +149,22 @@ public class RepoTest {
             fileRepo.save(resumeFile);
         }
 
+    }
+
+    @Test
+    public void testSearch() {
+
+        repo.search1();
+    }
+
+    @Transactional
+    @Commit
+    @Test
+    public void searchList() {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("artist").descending().and(Sort.by("title").ascending()));
+        Page<Object[]> result = repo.searchPage("n", "오존", pageable);
+        log.info(result.toString());
     }
 
 }

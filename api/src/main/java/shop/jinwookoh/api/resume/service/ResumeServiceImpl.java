@@ -86,63 +86,30 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
 
     @Override
     public PageResultDto<ResumeDto, Resume> getAllDataPaging(int page) {
-        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
-        return new PageResultDto<>(result, makeDtoPage());
+        return new PageResultDto<>(repo.getAllDataPaging(conditionPage(page)), makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> getUserPKDataPage(Long artistId, int page) {
-        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
-        return new PageResultDto<>(result, makeDtoPage());
+        return new PageResultDto<>(repo.getUserPKDataPage(artistId, conditionPage(page)), makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> getCategoryPKDataPage(Long categoryId, int page) {
-        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
-        return new PageResultDto<>(result, makeDtoPage());
+        return new PageResultDto<>(repo.getCategoryPKDataPage(categoryId, conditionPage(page)), makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> getCategoryAndUserDataPage(Long categoryId, Long artistId, int page) {
-        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
-        return new PageResultDto<>(result, makeDtoPage());
+
+        return new PageResultDto<>(repo.getCategoryAndUserDataPage(categoryId, artistId, conditionPage(page)),
+                makeDtoPage());
     }
 
     @Override
-    public PageResultDto<ResumeDto, Resume> searchUserNameDataPage(String username, int page) {
-        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
-        return new PageResultDto<>(result, makeDtoPage());
-    }
+    public Page<Object[]> conditionSearch(String type, String keyword, int page) {
 
-    @Override
-    public PageResultDto<ResumeDto, Resume> searchNameDataPage(String name, int page) {
-        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
-        return new PageResultDto<>(result, makeDtoPage());
-    }
-
-    @Override
-    public PageResultDto<ResumeDto, Resume> searchCategoryDataPage(String categoryName, int page) {
-        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
-        return new PageResultDto<>(result, makeDtoPage());
-    }
-
-    @Override
-    public PageResultDto<ResumeDto, Resume> searchCategoryAndUserDataPage(String name, String categoryName, int page) {
-        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
-        return new PageResultDto<>(result, makeDtoPage());
-    }
-
-    @Override
-    public PageResultDto<ResumeDto, Resume> searchTitleDataPage(String title, int page) {
-        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
-
-        return new PageResultDto<>(result, makeDtoPage());
-    }
-
-    @Override
-    public PageResultDto<ResumeDto, Resume> searchDetailDataPage(String detail, int page) {
-        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
-        return new PageResultDto<>(result, makeDtoPage());
+        return repo.searchPage(type, keyword, conditionPage(page));
     }
 
     @Override
