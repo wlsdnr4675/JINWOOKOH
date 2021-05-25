@@ -2,6 +2,8 @@ package shop.jinwookoh.api.resume.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +16,7 @@ interface ResumeFileCustomRepository {
 }
 
 @Repository
+@Transactional
 public interface ResumeFileRepository extends JpaRepository<ResumeFile, Long>, ResumeFileCustomRepository {
 
     @Query("SELECT r from ResumeFile r WHERE r.resume.resumeId= :resumeId")

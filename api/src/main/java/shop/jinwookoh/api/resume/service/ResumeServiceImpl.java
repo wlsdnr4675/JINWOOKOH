@@ -26,12 +26,12 @@ import shop.jinwookoh.api.resume.repository.ResumeRepository;
 @Service
 @RequiredArgsConstructor
 @Log4j2
+@Transactional
 public class ResumeServiceImpl extends AbstractService<ResumeDto> implements ResumeService {
 
     private final ResumeRepository repo;
     private final ResumeFileRepository fileRepo;
 
-    @Transactional
     @Override
     public String resumeSaveWithFile(ResumeDto resumeDto) {
 
@@ -51,7 +51,6 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
         return (repo.save(resume) != null) ? "Save Success" : "Save Failed";
     }
 
-    @Transactional
     @Override
     public String editResume(ResumeDto resumeDto) {
         Resume resume = Resume.of(resumeDto);
@@ -76,94 +75,74 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
         return ResumeDto.of(resume);
     }
 
-    @Transactional
     @Override
     public String delete(ResumeDto resumeDto) {
         Resume resume = Resume.builder().resumeId(resumeDto.getResumeId()).build();
         repo.findById(resume.getResumeId()).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
         fileRepo.deleteByResumeId(resume.getResumeId());
         repo.delete(resume);
-        return (repo.findById(resume.getResumeId()).isPresent()) ? "Delete Success" : "Delete Failed";
+        return (repo.findById(resume.getResumeId()).isPresent()) ? "Delete Failed" : "Delete Success";
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> getAllDataPaging(int page) {
-        Pageable pageable = PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
-        Page<Resume> result = repo.getAllDataPaging(pageable);
-        Function<Resume, ResumeDto> fn = (en -> resumeEntityToDto(en));
-        return new PageResultDto<>(result, fn);
+        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
+        return new PageResultDto<>(result, makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> getUserPKDataPage(Long artistId, int page) {
-        Pageable pageable = PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
-        Page<Resume> result = repo.getAllDataPaging(pageable);
-        Function<Resume, ResumeDto> fn = (en -> resumeEntityToDto(en));
-        return new PageResultDto<>(result, fn);
+        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
+        return new PageResultDto<>(result, makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> getCategoryPKDataPage(Long categoryId, int page) {
-        Pageable pageable = PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
-        Page<Resume> result = repo.getAllDataPaging(pageable);
-        Function<Resume, ResumeDto> fn = (en -> resumeEntityToDto(en));
-        return new PageResultDto<>(result, fn);
+        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
+        return new PageResultDto<>(result, makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> getCategoryAndUserDataPage(Long categoryId, Long artistId, int page) {
-        Pageable pageable = PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
-        Page<Resume> result = repo.getAllDataPaging(pageable);
-        Function<Resume, ResumeDto> fn = (en -> resumeEntityToDto(en));
-        return new PageResultDto<>(result, fn);
+        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
+        return new PageResultDto<>(result, makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> searchUserNameDataPage(String username, int page) {
-        Pageable pageable = PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
-        Page<Resume> result = repo.getAllDataPaging(pageable);
-        Function<Resume, ResumeDto> fn = (en -> resumeEntityToDto(en));
-        return new PageResultDto<>(result, fn);
+        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
+        return new PageResultDto<>(result, makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> searchNameDataPage(String name, int page) {
-        Pageable pageable = PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
-        Page<Resume> result = repo.getAllDataPaging(pageable);
-        Function<Resume, ResumeDto> fn = (en -> resumeEntityToDto(en));
-        return new PageResultDto<>(result, fn);
+        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
+        return new PageResultDto<>(result, makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> searchCategoryDataPage(String categoryName, int page) {
-        Pageable pageable = PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
-        Page<Resume> result = repo.getAllDataPaging(pageable);
-        Function<Resume, ResumeDto> fn = (en -> resumeEntityToDto(en));
-        return new PageResultDto<>(result, fn);
+        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
+        return new PageResultDto<>(result, makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> searchCategoryAndUserDataPage(String name, String categoryName, int page) {
-        Pageable pageable = PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
-        Page<Resume> result = repo.getAllDataPaging(pageable);
-        Function<Resume, ResumeDto> fn = (en -> resumeEntityToDto(en));
-        return new PageResultDto<>(result, fn);
+        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
+        return new PageResultDto<>(result, makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> searchTitleDataPage(String title, int page) {
-        Pageable pageable = PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
-        Page<Resume> result = repo.getAllDataPaging(pageable);
-        Function<Resume, ResumeDto> fn = (en -> resumeEntityToDto(en));
-        return new PageResultDto<>(result, fn);
+        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
+
+        return new PageResultDto<>(result, makeDtoPage());
     }
 
     @Override
     public PageResultDto<ResumeDto, Resume> searchDetailDataPage(String detail, int page) {
-        Pageable pageable = PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
-        Page<Resume> result = repo.getAllDataPaging(pageable);
-        Function<Resume, ResumeDto> fn = (en -> resumeEntityToDto(en));
-        return new PageResultDto<>(result, fn);
+        Page<Resume> result = repo.getAllDataPaging(conditionPage(page));
+        return new PageResultDto<>(result, makeDtoPage());
     }
 
     @Override

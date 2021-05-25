@@ -1,7 +1,12 @@
 package shop.jinwookoh.api.resume.service;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;
@@ -17,19 +22,26 @@ public interface ResumeService {
 
     default ResumeFile dtoToEntityResumeFile(ResumeFileDto dto) {
 
-        ResumeFile file = ResumeFile.builder().uuid(dto.getUuid()).fname(dto.getFname()).repImg(dto.getRepImg())
-                .build();
-        return file;
+        return ResumeFile.builder().uuid(dto.getUuid()).fname(dto.getFname()).repImg(dto.getRepImg()).build();
     }
 
     default ResumeDto resumeEntityToDto(Resume en) {
 
-        ResumeDto dto = ResumeDto.builder().resumeId(en.getResumeId()).title(en.getTitle()).detail(en.getDetail())
+        return ResumeDto.builder().resumeId(en.getResumeId()).title(en.getTitle()).detail(en.getDetail())
                 .selfIntroduce(en.getSelfIntroduce()).resumeFiles(en.getResumeFiles().stream()
                         .map(resumeFile -> ResumeFileDto.of(resumeFile)).collect(Collectors.toList()))
                 .artist(en.getArtist()).category(en.getCategory()).build();
+    }
 
-        return dto;
+    default Pageable conditionPage(int page) {
+
+        return PageRequest.of(page <= 0 ? 0 : page - 1, 5, Sort.Direction.DESC, "resumeId");
+
+    }
+
+    default Function<Resume, ResumeDto> makeDtoPage() {
+
+        return (en -> resumeEntityToDto(en));
     }
 
     PageResultDto<ResumeDto, Resume> getAllDataPaging(int page);

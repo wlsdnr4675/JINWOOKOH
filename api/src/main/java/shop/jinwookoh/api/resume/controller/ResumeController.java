@@ -93,7 +93,7 @@ public class ResumeController {
         return ResponseEntity.ok(service.getCategoryPKDataPage(categoryId, page));
     }
 
-    @GetMapping("/list_by_u_and_c_id/{categoryId,artistId}")
+    @GetMapping("/list_by_u_and_c_id/{categoryId},{artistId}")
     public ResponseEntity<PageResultDto<ResumeDto, Resume>> getCategoryAndUserDataPage(
             @PathVariable("categoryId") Long categoryId, @PathVariable("artistId") Long artistId, int page) {
 
@@ -101,8 +101,8 @@ public class ResumeController {
     }
 
     // search for Clients
-    @PostMapping("/search_username")
-    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchUserName(@RequestBody String username, int page) {
+    @PostMapping("/search_username/{username}")
+    public ResponseEntity<PageResultDto<ResumeDto, Resume>> searchUserName(@PathVariable String username, int page) {
 
         return ResponseEntity.ok(service.searchUserNameDataPage(username, page));
     }

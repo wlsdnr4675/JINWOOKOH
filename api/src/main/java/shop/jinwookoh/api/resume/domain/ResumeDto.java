@@ -11,14 +11,13 @@ import org.springframework.stereotype.Component;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.jinwookoh.api.artist.domain.Artist;
 import shop.jinwookoh.api.category.domain.Category;
 import shop.jinwookoh.api.common.util.ModelMapperUtils;
 
-@Component
 @Data
+@Component
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

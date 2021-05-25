@@ -215,7 +215,7 @@ public class RepoTest {
     @Test
 
     public void saveFile() {
-        for (Long i = 1L; i < 118L; i++) {
+        for (Long i = 1L; i < 110L; i++) {
             Resume resume = Resume.builder().resumeId(i).build();
             ResumeFile resumeFile = ResumeFile.builder().uuid(UUID.randomUUID().toString()).fname((i) + "번 파일네임3")
                     .repImg(false).fileTitle(i + "fileTitle2").fileDetail(i + "fileDetail2")
