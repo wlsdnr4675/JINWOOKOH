@@ -1,29 +1,23 @@
 import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import LoadScript from "webapp/common/helpers/LoadScript";
-
-import ResumeItemList from "./ResumeItemList";
+import PortfolioTwoItem from "./PortfolioTwoItem";
 import ResumeListFilter from "./ResumeListFilter";
-import { useDispatch } from "react-redux";
-import { listResume } from "../reducer/resume.reduce";
+
 
 const ResumeList = ({
-  data,
+  resumes,
   title,
   tagline,
   backfont,
   filter,
-  categories,
+  categoryName,
   classes
 }) => {
   LoadScript("js/portfolio/portfolio-grid.js");
-  const dispatch = useDispatch()
-  useEffect(()=>{
-    
-    dispatch(listResume());
-    alert("리스트 가져와랏: " , JSON.stringify(data))
 
-  })
+  console.log(resumes)
+  console.log("sss",categoryName)
 
   return (<>
     <section id="portfolio" className={"pb-0 " + classes}>
@@ -34,7 +28,7 @@ const ResumeList = ({
               <div className="section-title text-center">
                 <h2
                   className="cardo-font default-color"
-                  data-backfont={backfont || "Works"}
+                  data-backfont={backfont || "Portfolios"}
                 >
                   {tagline}
                 </h2>
@@ -44,27 +38,29 @@ const ResumeList = ({
             </div>
           </div>
         ) : null}
-        {filter === true && Array.isArray(categories) ? (
-          <ResumeListFilter categories={categories} classes="mb-80" />
+        {filter === true && Array.isArray(categoryName) ? (
+          <ResumeListFilter categories={categoryName}  resume = {resumes} classes="mb-80" />
         ) : null}
-      </div>
-      <div className="container-fluid remove-padding">
+        <div className="container-fluid remove-padding">
         <div className="row">
           <div className="col-md-12">
             <div id="portfolio-gallery" className="cbp">
-              {data.map((resume, i) => (
-                <ResumeItemList
-                  key={resume.id}
+              {resumes.map((item, i) => (
+                <PortfolioTwoItem
+                  key={i}
                   index={i}
-                  title={resume.title}
-                  categories={resume.category}
-                  image={resume.mainPic}
+                  title={item.title}
+                  name={item.name}
+                  image={item.fname}
+                  categoryName={item.categoryName}
                 />
               ))}
             </div>
           </div>
         </div>
       </div>
+      </div>
+      
     </section>
   </>);
 };

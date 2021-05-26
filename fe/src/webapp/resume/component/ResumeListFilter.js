@@ -1,10 +1,13 @@
 import React from "react";
 
-const ResumeListFilter = ({ categories, classes }) => { 
-  console.log("fdsfds", classes)
+const ResumeListFilter = ({ categories, classes, resume }) => { 
+
+  console.log("dddddddddddddddddddd",resume)
+
+
 
   return(
-  <div className="row mt-50">
+    <div className="row mt-50">
     <div className="col-md-12">
       <div
         id="portfolio-gallery-filter"
@@ -14,7 +17,7 @@ const ResumeListFilter = ({ categories, classes }) => {
           data-filter="*"
           className="cbp-filter-item-active cbp-filter-item dark"
         >
-          All
+          ALL
         </div>
         {categories.map((item, i) => (
           <div

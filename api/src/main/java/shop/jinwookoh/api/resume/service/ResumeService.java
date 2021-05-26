@@ -32,7 +32,7 @@ public interface ResumeService {
 
     PageResultDto<ResumeDto, Resume> getCategoryAndUserDataPage(Long categoryId, Long artistId, int page);
 
-    Page<Object[]> conditionSearch(String type, String keyword, int page);
+    PageResultDto<ResumeDto, Object[]> conditionSearch(String type, String keyword, int page);
 
     default ResumeFile dtoToEntityResumeFile(ResumeFileDto dto) {
 

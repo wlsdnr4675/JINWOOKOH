@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,12 +52,11 @@ public class SearchResumeRepositoryImpl extends QuerydslRepositorySupport implem
         QCategory category = QCategory.category;
         QResumeFile resumeFile = QResumeFile.resumeFile;
         JPQLQuery<Resume> jpqlQuery = from(resume);
-        jpqlQuery.leftJoin(artist).on(resume.artist.artistId.eq(artist.artistId));
-        jpqlQuery.leftJoin(category).on(resume.category.categoryId.eq(category.categoryId));
+        jpqlQuery.leftJoin(artist).on(resume.artist.eq(artist));
+        jpqlQuery.leftJoin(category).on(resume.category.eq(category));
         jpqlQuery.leftJoin(resumeFile).on(resumeFile.resume.eq(resume));
 
-        JPQLQuery<Tuple> tuple = jpqlQuery.select(resume, artist.artistId, artist.username, artist.name,
-                category.categoryId, category.categoryName, resumeFile, resume.count());
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(resume, artist, category, resumeFile, resume.count());
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         BooleanExpression expression = resume.resumeId.gt(0L);

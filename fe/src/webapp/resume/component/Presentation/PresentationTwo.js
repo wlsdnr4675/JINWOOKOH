@@ -1,6 +1,6 @@
 import React from "react";
 import parse from "html-react-parser";
-import img from "webapp/images/background/parallax_bg_2.png";
+import img from "webapp/images/resume/portfolio_first.jpeg";
 
 const PresentationTwo = ({ title, text, textBtn, pathBtn, backfont }) => (
   <section

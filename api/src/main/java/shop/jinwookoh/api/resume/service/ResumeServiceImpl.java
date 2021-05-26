@@ -72,7 +72,7 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
     public ResumeDto findById(Long resumeId) {
         Resume resume = repo.findById(resumeId).orElseThrow(IllegalArgumentException::new);
 
-        return ResumeDto.of(resume);
+        return resumeEntityToDto(resume);
     }
 
     @Override
@@ -107,9 +107,12 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
     }
 
     @Override
-    public Page<Object[]> conditionSearch(String type, String keyword, int page) {
+    public PageResultDto<ResumeDto, Object[]> conditionSearch(String type, String keyword, int page) {
 
-        return repo.searchPage(type, keyword, conditionPage(page));
+        Function<Object[], ResumeDto> fn = (arr -> resumeEntityToDto((Resume) arr[0]));
+        Page<Object[]> result = repo.searchPage(type, keyword, conditionPage(page));
+
+        return new PageResultDto<>(result, fn);
     }
 
     @Override

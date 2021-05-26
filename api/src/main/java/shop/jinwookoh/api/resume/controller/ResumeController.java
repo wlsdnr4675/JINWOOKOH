@@ -99,7 +99,7 @@ public class ResumeController {
     }
 
     @GetMapping("search/{type}/{keyword}")
-    public ResponseEntity<Page<Object[]>> conditionSearch(@PathVariable("type") String type,
+    public ResponseEntity<PageResultDto<ResumeDto, Object[]>> conditionSearch(@PathVariable("type") String type,
             @PathVariable("keyword") String keyword, int page) {
 
         return ResponseEntity.ok(service.conditionSearch(type, keyword, page));

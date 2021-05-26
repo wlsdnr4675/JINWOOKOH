@@ -4,8 +4,8 @@ import {ResumeService} from "webapp/resume/index";
 
 export const listResume = createAsyncThunk(
     "resume/list",
-    async () =>{
-        const response = await ResumeService.resumeList();
+    async (page) =>{
+        const response = await ResumeService.resumeList(page);
         return response.data;
     }
 )
@@ -45,14 +45,24 @@ const isRejectedAction = action => (action.type.endsWith('rejected'))
 
 const resumeSlice = createSlice({
     name: 'resumes',
-    initialState: [],
-    reducers: {
-
+    initialState: {
+        pageResult:{
+            dtoList:[],
+            page: 1,
+            pageList: [],
+            start:1,
+            end:1,
+            prev:false,
+            next:false
+        },
+        msg: ''
     },
+    
+    reducers: {},
     extraReducers: (builder) => {
         builder
         .addCase(listResume.fulfilled, (state,{payload}) => {
-            return [...payload];
+            state.pageResult = payload
         })
         .addCase(registerResume.fulfilled,(state,{payload}) => {
             return state.push(...payload)

@@ -58,7 +58,7 @@ public class Resume extends BaseEntity {
     private Category category;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<ResumeFile> resumeFiles = new ArrayList<>();
 
     public void changeTitle(String title) {
