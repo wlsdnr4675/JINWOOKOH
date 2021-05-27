@@ -13,7 +13,6 @@ import TeamOne from "webapp/common/Team/TeamOne";
 import CounterRowOne from "webapp/resume/component/Presentation/CounterRowOne"
 import PresentationTwo from "webapp/resume/component/Presentation/PresentationTwo";
 import AboutFive from "webapp/resume/component/Presentation/AboutFive"
-
 import {ResumeList, Paging} from "webapp/resume/index"
 
 import { useDispatch, useSelector } from "react-redux";
@@ -21,17 +20,21 @@ import { listResume } from "../reducer/resume.reduce";
 
 
 
-
 const ResumeApp = () => {
 
   const pageResult = useSelector(state => state.resumes.pageResult)
-  const page = pageResult.page; 
+  const page = pageResult.page;
+  
   const dispatch = useDispatch()
 
   useEffect((e)=>{
     dispatch(listResume(page))
-  },[])
-  
+  },[page])  
+
+
+  console.log(pageResult.dtoList)
+
+
   return(<>
     <HeaderTwo data={dataNavbar} />
     <PresentationTwo
@@ -48,16 +51,15 @@ const ResumeApp = () => {
     <ResumeList
         resumes = {pageResult.dtoList}
         tagline="Show Your Works"
-        title= "Your Portfolio"
-        filter={true}
-        categoryName={[
-          "예술",
+        title= "Portfolio"
+        categories={[
+          "ALL",
           "연극",
+          "예술",
           "사진"
         ]}
       />
-    <Paging/>
-
+      <Paging/>
         <AboutFive
       data={dataSkills}
       title="Agency Overview"

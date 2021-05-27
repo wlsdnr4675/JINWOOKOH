@@ -2,7 +2,7 @@ import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/
 import logger from "redux-logger"
 import resumes from "webapp/resume/reducer/resume.reduce"
 
-const rootReducer = combineReducers({resumes});
+const rootReducer = combineReducers({resumes });
 
 export default configureStore({
     reducer: rootReducer,

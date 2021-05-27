@@ -1,68 +1,57 @@
 import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import LoadScript from "webapp/common/helpers/LoadScript";
-import PortfolioTwoItem from "./PortfolioTwoItem";
-import ResumeListFilter from "./ResumeListFilter";
+import ResumeItem from "./ResumeItem";
 
 
-const ResumeList = ({
-  resumes,
-  title,
-  tagline,
-  backfont,
-  filter,
-  categoryName,
-  classes
-}) => {
+const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashColor }) => {
+
   LoadScript("js/portfolio/portfolio-grid.js");
+  const {category , setCategory} = useState(categories)
 
-  console.log(resumes)
-  console.log("sss",categoryName)
+  const filterButton = categories.map((category, i) => {
+    return (<>
+      <button key={i} onClick={()=> setCategory(category.name)}>{category}</button>
+    </>)
+  })
 
-  return (<>
-    <section id="portfolio" className={"pb-0 " + classes}>
+  const totalList = resumes.map( (resume, i) => {
+    return (
+      <ResumeItem 
+        key={resume.resumeId}
+        id={i}
+        title={resume.title}
+        image={resume.fname}
+        category={resume.categoryName}
+      />
+
+    )});
+  return (
+    <section id="portfolio" className="pt-0 pb-0 ">
       <div className="container">
-        {title ? (
-          <div className="row">
-            <div className="col-md-12">
-              <div className="section-title text-center">
-                <h2
-                  className="cardo-font default-color"
-                  data-backfont={backfont || "Portfolios"}
-                >
-                  {tagline}
-                </h2>
-                <h1>{title && parse(title)}</h1>
-                <hr className="center_line dark-bg" />
-              </div>
-            </div>
-          </div>
-        ) : null}
-        {filter === true && Array.isArray(categoryName) ? (
-          <ResumeListFilter categories={categoryName}  resume = {resumes} classes="mb-80" />
-        ) : null}
-        <div className="container-fluid remove-padding">
         <div className="row">
           <div className="col-md-12">
-            <div id="portfolio-gallery" className="cbp">
-              {resumes.map((item, i) => (
-                <PortfolioTwoItem
-                  key={i}
-                  index={i}
-                  title={item.title}
-                  name={item.name}
-                  image={item.fname}
-                  categoryName={item.categoryName}
-                />
-              ))}
+            <div className="section-title text-center">
+              <h2 className="cardo-font default-color" data-backfont={backfont}>
+                {tagline}
+              </h2>
+              <h1>{title && parse(title)}</h1>
+              {dash === "show" ? <hr className={"center_line " + (dashColor === "dark" ? "dark-bg" : "default-bg")} /> : null}
             </div>
           </div>
         </div>
       </div>
-      </div>
-      
+      <div className="container-fluid remove-padding">
+          <div className="col-md-12">
+                  {filterButton}
+            <div id="portfolio-gallery" className="cbp">
+                  {totalList}
+            </div>
+          </div>
+        </div>
+
     </section>
-  </>);
+  );
 };
 
 export default ResumeList;

@@ -36,9 +36,9 @@ public class RepoTest {
     @Commit
     @Test
     public void saveResume() throws Exception {
-        for (long i = 1L; i < 40L; i++) {
-            Artist artist = Artist.builder().artistId(i).build();
-            Category category = Category.builder().categoryId(3L).build();
+        for (long i = 1L; i < 3L; i++) {
+            Artist artist = Artist.builder().artistId(i + 2).build();
+            Category category = Category.builder().categoryId(i).build();
             Resume resume = Resume.builder().title(i + "번 제목3").detail(i + "번 디테일3").selfIntroduce(i + "번 소개글3")
                     .artist(artist).category(category).build();
             repo.save(resume);
@@ -141,7 +141,7 @@ public class RepoTest {
     @Test
 
     public void saveFile() {
-        for (Long i = 1L; i < 110L; i++) {
+        for (Long i = 20L; i < 24L; i++) {
             Resume resume = Resume.builder().resumeId(i).build();
             ResumeFile resumeFile = ResumeFile.builder().uuid(UUID.randomUUID().toString()).fname((i) + "번 파일네임3")
                     .repImg(false).fileTitle(i + "fileTitle2").fileDetail(i + "fileDetail2")

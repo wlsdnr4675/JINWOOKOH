@@ -52,7 +52,7 @@ public interface ResumeService {
 
     default Pageable conditionPage(int page) {
 
-        return PageRequest.of(page <= 0 ? 0 : page - 1, 10, Sort.Direction.DESC, "resumeId");
+        return PageRequest.of(page <= 0 ? 0 : page - 1, 8, Sort.Direction.DESC, "resumeId");
 
     }
 
