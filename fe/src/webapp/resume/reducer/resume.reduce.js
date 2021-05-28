@@ -55,7 +55,6 @@ const resumeSlice = createSlice({
             prev:false,
             next:false
         },
-        msg: ''
     },
     
     reducers: {},
@@ -65,11 +64,10 @@ const resumeSlice = createSlice({
             state.pageResult = payload
         })
         .addCase(registerResume.fulfilled,(state,{payload}) => {
-            return state.push(...payload)
+            return state.resume.push(...payload)
         })
         .addCase(readResume.fulfilled,(state,{payload}) => {
-            const resume = state.find(resume => resume.resumeId == payload)
-            return resume ? payload : "선택하신 포트폴리오는 없는 포트폴리오입니다." + resume.resumeId;
+            state.current = payload
         })
         .addCase(modifyResume.fulfilled,(state,{payload}) => {
             const resume = state.findIndex(resume => resume.resumeId == payload)

@@ -50,7 +50,9 @@ public class RepoTest {
     @Commit
     @Test
     public void findAllResume() {
-        repo.getAllResume();
+        Pageable pageable = PageRequest.of(0, 10);
+
+        repo.getAllDataPaging(pageable);
     }
 
     @Transactional

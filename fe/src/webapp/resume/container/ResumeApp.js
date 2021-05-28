@@ -17,6 +17,7 @@ import {ResumeList, Paging} from "webapp/resume/index"
 
 import { useDispatch, useSelector } from "react-redux";
 import { listResume } from "../reducer/resume.reduce";
+import SearchBar from "../component/search/SearchBar";
 
 
 
@@ -30,10 +31,6 @@ const ResumeApp = () => {
   useEffect((e)=>{
     dispatch(listResume(page))
   },[page])  
-
-
-  console.log(pageResult.dtoList)
-
 
   return(<>
     <HeaderTwo data={dataNavbar} />
@@ -59,6 +56,7 @@ const ResumeApp = () => {
           "사진"
         ]}
       />
+      <SearchBar/>
       <Paging/>
         <AboutFive
       data={dataSkills}

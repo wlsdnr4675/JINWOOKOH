@@ -11,21 +11,24 @@ const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashCo
 
   const filterButton = categories.map((category, i) => {
     return (<>
-      <button key={i} onClick={()=> setCategory(category.name)}>{category}</button>
+      <div className="lay-button">
+        <button key={i} onClick={(e)=> setCategory(e.target.value)}>{category}</button>
+      </div>
     </>)
   })
 
   const totalList = resumes.map( (resume, i) => {
     return (
       <ResumeItem 
-        key={resume.resumeId}
-        id={i}
+        key={i}
+        resumeId={resume.resumeId}
         title={resume.title}
+        name={resume.name}
         image={resume.fname}
         category={resume.categoryName}
       />
-
     )});
+
   return (
     <section id="portfolio" className="pt-0 pb-0 ">
       <div className="container">
