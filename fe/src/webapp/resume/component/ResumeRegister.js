@@ -6,7 +6,7 @@ const ResumeRegister = () => {
 
     return (<> 
         <div className= "post-controls">
-        <li>fdffff</li>
+        <input type=""></input>
         </div>
     
     

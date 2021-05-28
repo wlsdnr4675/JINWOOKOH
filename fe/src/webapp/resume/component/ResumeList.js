@@ -1,34 +1,50 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { readResume } from "../reducer/resume.reduce";
 import parse from "html-react-parser";
 import LoadScript from "webapp/common/helpers/LoadScript";
 import ResumeItem from "./ResumeItem";
+import ResumeRead from "webapp/resume/component/ResumeRead"
 
 
 const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashColor }) => {
 
   LoadScript("js/portfolio/portfolio-grid.js");
-  const {category , setCategory} = useState(categories)
+  
+  const dispatch = useDispatch()
 
-  const filterButton = categories.map((category, i) => {
-    return (<>
-      <div className="lay-button">
-        <button key={i} onClick={(e)=> setCategory(e.target.value)}>{category}</button>
-      </div>
-    </>)
-  })
+  const [open, setOpen] = useState(false);
+  const [resumeNo, setResumeNo] = useState({})
+  const handleClose = () => setOpen(false)
+  const  handleOpen = async (e, resumeId) => {
+    
+    e.stopPropagation()
+    e.preventDefault()
+
+    console.log("handleOpen")
+
+    await dispatch(readResume(resumeId))
+    setResumeNo(resumeId)
+    setOpen(true)
+  }
+
+  
+
 
   const totalList = resumes.map( (resume, i) => {
     return (
+      <div style={{color:'red'}} >
       <ResumeItem 
         key={i}
+        fn = {handleOpen}
         resumeId={resume.resumeId}
         title={resume.title}
         name={resume.name}
         image={resume.fname}
         category={resume.categoryName}
       />
+      </div>
     )});
-
   return (
     <section id="portfolio" className="pt-0 pb-0 ">
       <div className="container">
@@ -46,10 +62,13 @@ const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashCo
       </div>
       <div className="container-fluid remove-padding">
           <div className="col-md-12">
-                  {filterButton}
-            <div id="portfolio-gallery" className="cbp">
+            <div id="portfolio-gallery" className="cbp" >
                   {totalList}
+                  {open ? <ResumeRead open={open} handleClose={handleClose}
+                  resumeId={resumeNo}/>:<></> }
+                  
             </div>
+            
           </div>
         </div>
 
