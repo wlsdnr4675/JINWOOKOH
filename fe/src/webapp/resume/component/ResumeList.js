@@ -33,7 +33,6 @@ const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashCo
 
   const totalList = resumes.map( (resume, i) => {
     return (
-      <div style={{color:'red'}} >
       <ResumeItem 
         key={i}
         fn = {handleOpen}
@@ -43,7 +42,6 @@ const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashCo
         image={resume.fname}
         category={resume.categoryName}
       />
-      </div>
     )});
   return (
     <section id="portfolio" className="pt-0 pb-0 ">
@@ -66,9 +64,7 @@ const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashCo
                   {totalList}
                   {open ? <ResumeRead open={open} handleClose={handleClose}
                   resumeId={resumeNo}/>:<></> }
-                  
             </div>
-            
           </div>
         </div>
 
