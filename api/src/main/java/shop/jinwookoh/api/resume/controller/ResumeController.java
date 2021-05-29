@@ -98,10 +98,10 @@ public class ResumeController {
         return ResponseEntity.ok(service.getCategoryAndUserDataPage(categoryId, artistId, page));
     }
 
-    @GetMapping("search/{type}{keyword}")
+    @GetMapping(value = { "search/{type}/{keyword}" })
     public ResponseEntity<PageResultDto<ResumeDto, Object[]>> conditionSearch(@PathVariable("type") String type,
             @PathVariable("keyword") String keyword, int page) {
-
+        System.out.println("keyword" + keyword);
         return ResponseEntity.ok(service.conditionSearch(type, keyword, page));
     }
 

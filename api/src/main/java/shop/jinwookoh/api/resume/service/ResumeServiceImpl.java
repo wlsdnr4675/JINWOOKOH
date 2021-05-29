@@ -110,6 +110,7 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
     public PageResultDto<ResumeDto, Object[]> conditionSearch(String type, String keyword, int page) {
 
         Function<Object[], ResumeDto> fn = (arr -> resumeEntityToDto((Resume) arr[0]));
+
         Page<Object[]> result = repo.searchPage(type, keyword, conditionPage(page));
 
         return new PageResultDto<>(result, fn);

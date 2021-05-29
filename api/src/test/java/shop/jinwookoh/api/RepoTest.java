@@ -2,6 +2,7 @@ package shop.jinwookoh.api;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 import javax.transaction.Transactional;
 
@@ -19,6 +20,7 @@ import shop.jinwookoh.api.artist.domain.Artist;
 import shop.jinwookoh.api.artist.repository.ArtistRepository;
 import shop.jinwookoh.api.category.domain.Category;
 import shop.jinwookoh.api.resume.domain.Resume;
+import shop.jinwookoh.api.resume.domain.ResumeDto;
 import shop.jinwookoh.api.resume.domain.ResumeFile;
 import shop.jinwookoh.api.resume.repository.ResumeFileRepository;
 import shop.jinwookoh.api.resume.repository.ResumeRepository;
@@ -141,22 +143,15 @@ public class RepoTest {
     @Transactional
     @Commit
     @Test
-
     public void saveFile() {
-        for (Long i = 20L; i < 24L; i++) {
+        for (Long i = 291L; i < 297L; i++) {
             Resume resume = Resume.builder().resumeId(i).build();
             ResumeFile resumeFile = ResumeFile.builder().uuid(UUID.randomUUID().toString()).fname((i) + "번 파일네임3")
-                    .repImg(false).fileTitle(i + "fileTitle2").fileDetail(i + "fileDetail2")
+                    .repImg(true).fileTitle(i + "fileTitle2").fileDetail(i + "fileDetail2")
                     .fileWorkedDate(i + "fileWorkedDate2").resume(resume).build();
             fileRepo.save(resumeFile);
         }
 
-    }
-
-    @Test
-    public void testSearch() {
-
-        repo.search1();
     }
 
     @Transactional

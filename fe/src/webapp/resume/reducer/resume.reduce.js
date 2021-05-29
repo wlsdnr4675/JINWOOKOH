@@ -41,12 +41,31 @@ export const deleteResume = createAsyncThunk(
     }
 )
 
+export const searchResume = createAsyncThunk(
+    "resume/search",
+    async (search, page) => {
+        console.log("pppppppaaaagggggeeeeee",page)
+        const response = await ResumeService.resumeSearch(search, page)
+        return response.data;
+    }
+)
+
+
 const isRejectedAction = action => (action.type.endsWith('rejected'))
 
 const resumeSlice = createSlice({
     name: 'resumes',
     initialState: {
         pageResult:{
+            dtoList:[],
+            page: 1,
+            pageList: [],
+            start:1,
+            end:1,
+            prev:false,
+            next:false
+        },
+        searchResult:{
             dtoList:[],
             page: 1,
             pageList: [],
@@ -75,6 +94,9 @@ const resumeSlice = createSlice({
         })
         .addCase(deleteResume.fulfilled,(state,{payload}) => {
             return state.filter(resume => resume.resumeId == payload)
+        })
+        .addCase(searchResume.fulfilled,(state,{payload}) => {
+            state.searchResult = payload;
         })
         .addMatcher(isRejectedAction).addDefaultCase();
     }

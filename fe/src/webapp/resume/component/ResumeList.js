@@ -15,13 +15,13 @@ const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashCo
 
   const [open, setOpen] = useState(false);
   const [resumeNo, setResumeNo] = useState({})
+  
   const handleClose = () => setOpen(false)
+
   const  handleOpen = async (e, resumeId) => {
     
     e.stopPropagation()
     e.preventDefault()
-
-    console.log("handleOpen")
 
     await dispatch(readResume(resumeId))
     setResumeNo(resumeId)

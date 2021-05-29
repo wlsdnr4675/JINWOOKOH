@@ -4926,6 +4926,7 @@ fieldset[disabled] .btn {
   width: 80%;
 }
 .portfolio-info .v-center {
+  margin: 0, auto;
   vertical-align: bottom;
 }
 .portfolio-info h3 {
