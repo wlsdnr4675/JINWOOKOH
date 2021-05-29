@@ -5,5 +5,6 @@ const resumeRegister = (resume) =>axios.post(`http://localhost:8080/resume/regis
 const resumeModify = (resume) =>axios.put(`http://localhost:8080/resume/edit`);
 const resumeRead = (resumeId) =>axios.get(`http://localhost:8080/resume/read/` + resumeId);
 const resumeDelete = (resume) =>axios.delete(`http://localhost:8080/resume/delete`);
+const resumeSearch = (search) => axios.get(`http://localhost:8080/resume/search/` + search.type, search.keyword)
 
 export default {resumeList, resumeRegister, resumeModify, resumeRead, resumeDelete}; 

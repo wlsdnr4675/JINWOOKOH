@@ -34,17 +34,6 @@ public class SearchResumeRepositoryImpl extends QuerydslRepositorySupport implem
     }
 
     @Override
-    public Resume search1() {
-        QResume resume = QResume.resume;
-
-        JPQLQuery<Resume> jpqlQuery = from(resume);
-        jpqlQuery.select(resume).where(resume.artist.artistId.eq(1L));
-        log.info(jpqlQuery);
-        List<Resume> result = jpqlQuery.fetch();
-        return null;
-    }
-
-    @Override
     public Page<Object[]> searchPage(String type, String keyword, Pageable pageable) {
 
         QResume resume = QResume.resume;
@@ -82,9 +71,6 @@ public class SearchResumeRepositoryImpl extends QuerydslRepositorySupport implem
                         conditionBuilder.or(resume.title.contains(keyword));
                         break;
                     case "d":
-                        conditionBuilder.or(resume.detail.contains(keyword));
-                        break;
-                    case "":
                         conditionBuilder.or(resume.detail.contains(keyword));
                         break;
                 }

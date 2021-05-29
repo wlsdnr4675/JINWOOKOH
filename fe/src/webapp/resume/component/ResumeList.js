@@ -62,7 +62,7 @@ const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashCo
           <div className="col-md-12">
             <div id="portfolio-gallery" className="cbp" >
                   {totalList}
-                  {open ? <ResumeRead open={open} handleClose={handleClose}
+                  {open ? <ResumeRead open={open} handleClose={() => handleClose()}
                   resumeId={resumeNo}/>:<></> }
             </div>
           </div>

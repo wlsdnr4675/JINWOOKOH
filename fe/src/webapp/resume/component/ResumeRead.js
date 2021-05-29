@@ -1,10 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -32,31 +28,32 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
     useEffect(()=>{
         setResumeItem(items)
         setResumeFile(files)
-    },[items]) 
+    },[items, files]) 
 
     const useStyles = makeStyles((theme) => ({
         appBar: {
           position: 'relative',
-          backgroundColor:"#561571"
+          backgroundColor:"#561571",
+          fontSize: 30,
         },
         title: {
           marginLeft: theme.spacing(2),
           flex: 1,
-          fontSize: 34,
-          color:  "white"
+          color:  "white",
+          fontSize: 30,
+          
         },
         closeSize: {
-            fontSize: 20,
-            margin: 0
-            
+            fontSize: 30,
+            color: "white"
+
         },
         dialogSize : {
             margin: 'auto auto',
             width: '70%', 
             maxWidth: 'none', height :"90%", textAlign : "center",
-            verticalAlign: "middle"
-            
-        }
+            verticalAlign: "middle",
+        },
       }));
       
       const Transition = React.forwardRef(function Transition(props, ref) {
@@ -66,7 +63,7 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
       
     
     return (<>
-        <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition} className={useStyles().dialogSize}
+        <Dialog  fullScreen open={open} onClose={handleClose} TransitionComponent={Transition} className={useStyles().dialogSize}
         >
           <AppBar className={useStyles().appBar}>
             <Toolbar >
@@ -76,20 +73,11 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
               <Typography variant="h6" className={useStyles().title}>
                 {resumeItem.name} 의 포트폴리오
               </Typography>
-              <Button autoFocus color="inherit" onClick={handleClose}>
+              <Button color="inherit" onClick={handleClose} className="font-20px">
                 수정하기
               </Button>
             </Toolbar>
           </AppBar>
-          <List>
-            <ListItem button>
-              <ListItemText primary="Phone ringtone" secondary="Titania" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-            </ListItem>
-          </List>
         </Dialog>
     </>)
 }
