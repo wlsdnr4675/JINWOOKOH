@@ -162,4 +162,12 @@ public class RepoTest {
         log.info(result.toString());
     }
 
+    @Transactional
+    @Commit
+    @Test
+    public void countByArtistId() {
+        Long result = repo.countByArtistId(200L);
+        log.info(result);
+    }
+
 }

@@ -1,8 +1,14 @@
-import React from "react";
-import Icofont from "react-icofont";
-import imgAbout from "webapp/images/about-me.jpg";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
-const ReadSidebar = ({name, selfIntroduce, category}) => (
+const ReadSidebar = ({ name, selfIntroduce, category}) => {
+
+  const cnt = useSelector(state => state.resumes.count)
+  const [countYear, setCountYear] = useState();
+
+  console.log("cnt: ", cnt)
+  
+return (<>
   <div className="col-md-3 col-sm-3 col-xs-12">
     <div className="widget sidebar_widget">
       <h5 className="aside-title">아티스트 소개</h5>
@@ -32,23 +38,12 @@ const ReadSidebar = ({name, selfIntroduce, category}) => (
       <h5 className="aside-title">Archive</h5>
       <ul>
         <li>
-          <a href={process.env.PUBLIC_URL}>January 2018</a> <span>14</span>
-        </li>
-        <li>
-          <a href={process.env.PUBLIC_URL}>May 2017</a> <span>8</span>
-        </li>
-        <li>
-          <a href={process.env.PUBLIC_URL}>June 2017</a> <span>63</span>
-        </li>
-        <li>
-          <a href={process.env.PUBLIC_URL}>Febuary 2012</a> <span>45</span>
-        </li>
-        <li>
-          <a href={process.env.PUBLIC_URL}>April 2016</a> <span>88</span>
+          <p>2021년</p><span>14</span>
         </li>
       </ul>
     </div>
   </div>
-);
+</>)
+};
 
 export default ReadSidebar;

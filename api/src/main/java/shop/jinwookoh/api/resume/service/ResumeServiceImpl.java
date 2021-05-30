@@ -129,10 +129,9 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
         return null;
     }
 
-    @Override
-    public Long count() {
+    public Long countByArtistId(Long artistId) {
 
-        return repo.count();
+        return repo.countByArtistId(artistId);
     }
 
     @Override
@@ -161,6 +160,12 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
 
     @Override
     public String save(ResumeDto t) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Long count() {
         // TODO Auto-generated method stub
         return null;
     }

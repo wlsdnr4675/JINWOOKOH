@@ -49,6 +49,14 @@ export const searchResume = createAsyncThunk(
         return response.data;
     }
 )
+export const countResume = createAsyncThunk(
+    "resume/count",
+    async (artistId) => {
+        console.log("pppppppaaaagggggeeeeee",artistId)
+        const response = await ResumeService.resumeSearch(artistId)
+        return response.data;
+    }
+)
 
 
 const isRejectedAction = action => (action.type.endsWith('rejected'))
@@ -74,6 +82,7 @@ const resumeSlice = createSlice({
             prev:false,
             next:false
         },
+        count:{},
     },
     
     reducers: {},
@@ -97,6 +106,9 @@ const resumeSlice = createSlice({
         })
         .addCase(searchResume.fulfilled,(state,{payload}) => {
             state.searchResult = payload;
+        })
+        .addCase(countResume.fulfilled,(state,{payload}) => {
+            state.count = payload;
         })
         .addMatcher(isRejectedAction).addDefaultCase();
     }

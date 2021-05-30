@@ -9,10 +9,11 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Slider from "react-slick";
 import {ReadSidebar} from "webapp/resume/index";
-import {useSelector } from 'react-redux';
+import {useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { countResume } from 'webapp/resume/reducer/resume.reducer';
 
-const ResumeRead = ({resumeId, open , handleClose}) => {
+const ResumeRead = ({open , handleClose}) => {
 
     const useStyles = makeStyles((theme) => ({
         appBar: {
@@ -54,20 +55,14 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
       const Transition = React.forwardRef(function Transition(props, ref) {
 
         return <Slide direction="up" ref={ref} {...props} />;
-      });
-      
-
+      });  
+    const dispatch = useDispatch();
     const items = useSelector(state => state.resumes.current);
     const files = items.resumeFiles;
-    const [resumeItem,setResumeItem] = useState({});
-    
-
-    console.log("Read ResumeId",resumeId)
-  
+    const [resumeItem,setResumeItem] = useState({});  
     useEffect(()=>{
         setResumeItem(items)
-    },[items]) 
-
+    },[items, items.artistId]) 
     const fileList = files.map((file, i)=>{
         console.log(file.uuid + "_" + file.fname )
         return (<>
@@ -203,7 +198,7 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
               </div>
             </div>
           </div>
-          <ReadSidebar name={resumeItem.name} selfIntroduce={resumeItem.selfIntroduce} category={resumeItem.categoryName}/>
+          <ReadSidebar resumeId= {resumeItem.resumeId} name={resumeItem.name} selfIntroduce={resumeItem.selfIntroduce} category={resumeItem.categoryName}/>
         </div>
       </div>
       

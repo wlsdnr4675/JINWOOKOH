@@ -34,6 +34,8 @@ public interface ResumeService {
 
     PageResultDto<ResumeDto, Object[]> conditionSearch(String type, String keyword, int page);
 
+    Long countByArtistId(Long artistId);
+
     default ResumeFile dtoToEntityResumeFile(ResumeFileDto dto) {
 
         return ResumeFile.builder().uuid(dto.getUuid()).fname(dto.getFname()).repImg(dto.getRepImg()).build();

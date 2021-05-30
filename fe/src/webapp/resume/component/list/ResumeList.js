@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
 import LoadScript from "webapp/common/helpers/LoadScript";
 import {ResumeItem, ResumeRead} from "webapp/resume/index";
-import {readResume} from "webapp/resume/reducer/resume.reducer"
+import {countResume, readResume} from "webapp/resume/reducer/resume.reducer"
 
 
 const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashColor }) => {
@@ -21,7 +21,6 @@ const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashCo
     
     e.stopPropagation()
     e.preventDefault()
-
     await dispatch(readResume(resumeId))
     setResumeNo(resumeId)
     setOpen(true)

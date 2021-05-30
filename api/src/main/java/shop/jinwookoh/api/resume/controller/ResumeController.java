@@ -105,10 +105,10 @@ public class ResumeController {
         return ResponseEntity.ok(service.conditionSearch(type, keyword, page));
     }
 
-    @GetMapping("/count")
-    public ResponseEntity<Long> count() {
+    @GetMapping("/count/{artistId}")
+    public ResponseEntity<Long> count(@PathVariable("artistId") Long artistId) {
         // TODO Auto-generated method stub
-        return ResponseEntity.ok(service.count());
+        return ResponseEntity.ok(service.countByArtistId(artistId));
     }
 
 }
