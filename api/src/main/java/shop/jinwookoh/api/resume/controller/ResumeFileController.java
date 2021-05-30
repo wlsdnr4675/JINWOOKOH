@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,12 +55,15 @@ public class ResumeFileController {
         ResponseEntity<byte[]> result = null;
         try {
             String srcFileName = URLDecoder.decode(fileName, "UTF-8");
-            log.info("fiilName: " + srcFileName);
+
+            log.info("fileName: " + srcFileName);
+
             File file = new File(uploadPath + File.separator + srcFileName);
+
             log.info("file: " + file);
-            HttpHeaders header = new HttpHeaders();
-            header.set("Content-Type", Files.probeContentType(file.toPath()));
-            result = ResponseEntity.ok().headers(header).body(FileCopyUtils.copyToByteArray(file));
+
+            result = ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(FileCopyUtils.copyToByteArray(file));
+            System.out.println("result: " + result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

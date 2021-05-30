@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {searchResume} from "webapp/resume/reducer/resume.reduce"
+import {searchResume} from "webapp/resume/reducer/resume.reducer"
 
 const SearchBar = () => {
     const searchList = useSelector(state => state.resumes.searchResult)

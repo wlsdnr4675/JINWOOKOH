@@ -1,5 +1,5 @@
 import React from "react";
-import Skillbar from "./Skillbar";
+import { Skillbar } from "webapp/resume";
 
 const SkillbarSection = ({ data }) => (
   <div className="col-md-6 col-sm-6 col-xs-12">

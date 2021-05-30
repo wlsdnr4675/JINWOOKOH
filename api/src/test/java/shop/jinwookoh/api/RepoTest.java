@@ -52,15 +52,13 @@ public class RepoTest {
     @Commit
     @Test
     public void findAllResume() {
-        Pageable pageable = PageRequest.of(0, 10);
 
-        repo.getAllDataPaging(pageable);
+        repo.getAllResume();
     }
 
     @Transactional
     @Commit
     @Test
-
     public void getAllDataByAtistId() {
         Artist artist = Artist.builder().artistId(1L).build();
         Pageable pageable = PageRequest.of(0, 10);

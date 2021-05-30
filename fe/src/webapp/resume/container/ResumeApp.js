@@ -10,14 +10,9 @@ import HeaderTwo from "webapp/common/Header/HeaderTwo";
 import FooterOne from "webapp/common/Footer/FooterOne";
 import WhatWeOfferSix from "webapp/common/WhatWeOffer/WhatWeOfferSix";
 import TeamOne from "webapp/common/Team/TeamOne";
-import CounterRowOne from "webapp/resume/component/Presentation/CounterRowOne"
-import PresentationTwo from "webapp/resume/component/Presentation/PresentationTwo";
-import AboutFive from "webapp/resume/component/Presentation/AboutFive"
-import {ResumeList, Paging} from "webapp/resume/index"
-
+import { ResumeList, Paging, SearchBar, AboutFive,CounterRowOne, PresentationTwo} from "webapp/resume/index"
 import { useDispatch, useSelector } from "react-redux";
-import { listResume } from "../reducer/resume.reduce";
-import SearchBar from "../component/search/SearchBar";
+import { listResume } from "webapp/resume/reducer/resume.reducer";
 
 
 

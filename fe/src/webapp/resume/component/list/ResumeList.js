@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { readResume } from "../reducer/resume.reduce";
 import parse from "html-react-parser";
 import LoadScript from "webapp/common/helpers/LoadScript";
-import ResumeItem from "./ResumeItem";
-import ResumeRead from "webapp/resume/component/ResumeRead"
+import {ResumeItem, ResumeRead} from "webapp/resume/index";
+import {readResume} from "webapp/resume/reducer/resume.reducer"
 
 
 const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashColor }) => {

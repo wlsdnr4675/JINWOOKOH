@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,12 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import React, { useEffect, useState } from 'react'
 import Slider from "react-slick";
-import BlogSidebar from "webapp/resume/component/BlogSidebar";
-
-import { useDispatch, useSelector } from 'react-redux';
-import { readResume } from '../reducer/resume.reduce';
+import {ReadSidebar} from "webapp/resume/index";
+import {useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const ResumeRead = ({resumeId, open , handleClose}) => {
 
@@ -26,7 +24,8 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
           marginLeft: theme.spacing(3),
           flex: 1,
           color:  "white",
-          fontSize: 30,
+          fontSize: 25,
+          textAlign: "center"
           
         },
         closeSize: {
@@ -37,11 +36,21 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
         dialogSize : {
             margin: 'auto auto',
             width: '95%', 
-            textAlign : "center",
             verticalAlign: "middle",
         },
       }));
-      
+
+      const settings = {
+        dots: false,
+        infinite: true,
+        centerMode: true,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        centerPadding: "0",
+        className: "blog-grid-slider slick",
+      };
       const Transition = React.forwardRef(function Transition(props, ref) {
 
         return <Slide direction="up" ref={ref} {...props} />;
@@ -59,25 +68,19 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
         setResumeItem(items)
     },[items]) 
 
-    const settings = {
-      dots: false,
-      infinite: true,
-      centerMode: true,
-      autoplay: true,
-      autoplaySpeed: 5000,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      centerPadding: "0",
-      className: "blog-grid-slider slick",
-    };
-  
     const fileList = files.map((file, i)=>{
-     
+        console.log(file.uuid + "_" + file.fname )
         return (<>
-         
-          <img src = "http://www.yck.kr/_data/attach/plupload/98b804da0483245b755ddd8b3cf0c9771616658727.jpg"/>
-          <h2>{file.fname}</h2>
-          
+          <img src={`http://localhost:8080/resume_file/display/${file.uuid + "_" + file.fname}`} />
+          <div>
+          <p>{file.fileTitle}</p>
+          <p>{file.fileDetail}</p>
+          </div>
+          <div className="post-metas">
+            <div className="post-metas-center">
+              <p className="post-date">{file.fileWorkedDate} </p>
+            </div>
+          </div>
         </>)
     })
     
@@ -89,12 +92,14 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
               <IconButton edge="start"  onClick={handleClose} aria-label="close">
                 <CloseIcon className={useStyles().closeSize}/>
               </IconButton>
-              <Typography variant="h6" className={useStyles().title}>
-                {resumeItem.name} 의 포트폴리오
+              <Typography className={useStyles().title}>
+                새로운 시작과 만남
               </Typography>
-              <Button color="inherit" onClick={handleClose} className="font-30px">
-                수정하기
-              </Button>
+              <Link to={"/resume/modify"}>
+                <p className="btn btn-md btn-light btn-square mt-10" >
+                  EDIT
+                </p>
+              </Link>
             </Toolbar>
           </AppBar>
       <div className="container" style={{marginTop: "40px"}}>
@@ -112,36 +117,23 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
                       alt="이미지가 없습니다."
                     />
                   )}
-                  <div className="post-metas">
-                    <div className="post-metas-center">
-                      <p className="post-date"></p>
-                    </div>
-                  </div>
-                
+
                   <div className="post-info all-padding-20">
                     <h3>
-                    
+                    {resumeItem.title}
                     </h3>
-                    <p>32132131232132132131231</p>
                   </div>
                 </div>
               </div>
               <div className="col-md-12 col-sm-12 col-xs-12 mb-20">
                 <div className="blog-standard">
-                  <p>
-                  321321321321321321
-                  </p>
                   <blockquote>
                     <p>
-                   321312312321321312321321321
+                   {resumeItem.detail}
                     </p>
                   </blockquote>
                 </div>
-                {resumeItem.categoryName ? (
-                  <div className="post-tags">
-                  {resumeItem.categoryName}
-                  </div>
-                ) : null}
+
                 {/* <h2 className="recent-post-title">개인 작품</h2>
                 <div className="row blog-style-01">
                   {data.slice(0, 2).map((post) =>
@@ -210,9 +202,8 @@ const ResumeRead = ({resumeId, open , handleClose}) => {
                 </div> */}
               </div>
             </div>
-            {/*  */}
           </div>
-          <BlogSidebar />
+          <ReadSidebar name={resumeItem.name} selfIntroduce={resumeItem.selfIntroduce} category={resumeItem.categoryName}/>
         </div>
       </div>
       

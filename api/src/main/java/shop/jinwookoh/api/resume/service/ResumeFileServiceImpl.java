@@ -45,17 +45,17 @@ public class ResumeFileServiceImpl implements ResumeFileService {
             String ofname = uploadFile.getOriginalFilename();
             String uuid = UUID.randomUUID().toString();
             StringBuilder sb = new StringBuilder();
-            sb.append(uploadPath).append(uuid).append("_").append(ofname);
+            sb.append(uploadPath).append(File.separator).append(uuid).append("_").append(ofname);
             String saveName = sb.toString();
             log.info("file upload name : " + saveName);
             Path savePath = Paths.get(saveName);
             try {
                 uploadFile.transferTo(savePath);
-                String thumbnailSaveName = uploadPath + "s_" + uuid + "_" + ofname;
+                String thumbnailSaveName = uploadPath + File.separator + "s_" + uuid + "_" + ofname;
                 Thumbnails.of(new File(saveName)).size(100, 100).outputFormat("JPEG").toFile(thumbnailSaveName);
                 Thumbnails.of(new File(saveName)).scale(1)
                         .watermark(Positions.BOTTOM_CENTER, ImageIO.read(new File(uploadPath + "watermark.jpg")), 0.5f)
-                        .toFile(new File(uploadPath + "w_" + uuid + "_" + ofname));
+                        .toFile(new File(uploadPath + File.separator + "w_" + uuid + "_" + ofname));
                 ResumeFileDto resumeFileDto = ResumeFileDto.builder().uuid(uuid).fname(ofname).build();
                 resultDtoList.add(resumeFileDto);
             }

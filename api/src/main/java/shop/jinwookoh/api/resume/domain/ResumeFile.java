@@ -43,7 +43,7 @@ public class ResumeFile {
     private Boolean repImg;
     @Column(name = "file_title")
     private String fileTitle;
-    @Column(name = "file_detail")
+    @Column(name = "file_detail", columnDefinition = "LONGTEXT")
     private String fileDetail;
     @Column(name = "file_worked_date")
     private String fileWorkedDate;

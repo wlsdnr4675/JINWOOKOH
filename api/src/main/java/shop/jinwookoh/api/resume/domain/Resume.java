@@ -45,9 +45,9 @@ public class Resume extends BaseEntity {
     private Long resumeId;
     @Column(name = "title")
     private String title;
-    @Column(name = "self_introduce")
+    @Column(name = "self_introduce", columnDefinition = "LONGTEXT")
     private String selfIntroduce;
-    @Column(name = "detail")
+    @Column(name = "detail", columnDefinition = "LONGTEXT")
     private String detail;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -65,15 +65,20 @@ public class Resume extends BaseEntity {
         this.title = title;
     }
 
+    public static Resume of(ResumeDto resumeDto) {
+        Resume resume = ModelMapperUtils.getModelMapper().map(resumeDto, Resume.class);
+        return resume;
+    }
+
     public void saveAll(ResumeDto resumeDto) {
         this.title = resumeDto.getTitle();
         this.selfIntroduce = resumeDto.getSelfIntroduce();
         this.detail = resumeDto.getDetail();
-    }
+        this.artist = Artist.builder().artistId(resumeDto.getArtistId()).username(resumeDto.getUsername())
+                .name(resumeDto.getName()).build();
+        this.category = Category.builder().categoryId(resumeDto.getCategoryId())
+                .categoryName(resumeDto.getCategoryName()).build();
 
-    public static Resume of(ResumeDto resumeDto) {
-        Resume resume = ModelMapperUtils.getModelMapper().map(resumeDto, Resume.class);
-        return resume;
     }
 
 }

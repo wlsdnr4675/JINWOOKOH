@@ -33,7 +33,7 @@ security:
 shop:
   jinwookoh:
     upload:
-      path: /Users/jinwookoh/Desktop/ResumeFile/
+      path: /Users/jinwookoh/Desktop/ResumeFile
 
 UserController:
   signup: Creates user and returns its JWT token

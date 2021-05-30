@@ -56,6 +56,7 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
         Resume resume = Resume.of(resumeDto);
         resume = repo.getOne(resumeDto.getResumeId());
         resume.saveAll(resumeDto);
+
         List<ResumeFileDto> files = resumeDto.getResumeFiles();
         if (!files.isEmpty()) {
             files.forEach(resumeFileDtos -> {

@@ -1,7 +1,5 @@
-import { Button } from "@material-ui/core";
-import React, { useEffect, useState} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { readResume } from "../reducer/resume.reduce";
+import React from "react";
+
 
 const ResumeItem = ({ resumeId, image, title, name, category, fn}) => {
   return (
