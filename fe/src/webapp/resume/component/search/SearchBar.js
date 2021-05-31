@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {searchResume} from "webapp/resume/reducer/resume.reducer"
+import {changeSearch, searchResume} from "webapp/resume/reducer/resume.reducer"
+import Icofont from "react-icofont";
 
 const SearchBar = () => {
-    const searchList = useSelector(state => state.resumes.searchResult)
-    const page = searchList.page
+    const searchList = useSelector(state => state.resumes.pageResult)
     const dispatch = useDispatch();
     const [search, setSearch] =useState({
         type: "",
-        keyword :""
+        keyword:""
     });
+
     const handleChange= (e) =>{
         e.stopPropagation()
         e.preventDefault()
@@ -18,22 +19,29 @@ const SearchBar = () => {
         
     }
 
-    const onClick  = (e) =>{
+    const onClick  = async (e) =>{
         e.stopPropagation()
         e.preventDefault()
-        console.log("ㅇㅇㅇㅇㅇ" , JSON.stringify(search))
-        console.log("ㅇㅇㅇ" , JSON.stringify(page))
-        dispatch(searchResume(search , page))
+        const pageNum = 1;
+        const param = {type: search.type, keyword: search.keyword, page: pageNum}
+        dispatch(changeSearch(param))
+        await dispatch(searchResume(param))
         
     }
+
     const handlePress =(e) =>{
         if(e.key === 'Enter') {
             onClick(e)
         }
-   
-}
+    }
+    const refreshSearch = async () =>{
+        setSearch({type: "", keyword: ""})
+        dispatch(changeSearch(search))
+        await window.location.reload()
+      
+    }
     return (<>
-        <div style={{display:"inline-table"}}>
+        <div className="text-center">
             <select type="search"style={{color : "black"}}  name="type" value={search.type} onChange={(e)=> handleChange(e)} >
                 <option value="">검색어를 선택해주세요</option>
                 <option value="u">아이디</option>
@@ -43,12 +51,17 @@ const SearchBar = () => {
                 <option value="d">내용</option>
             </select>
             <input type="select"style={{color : "black"}}  placeholder="검색어를 입력하세요" 
-            name="keyword" value={search.keyword} onChange={(e)=> handleChange(e)}
+                name="keyword" value={search.keyword} onChange={(e)=> handleChange(e)}
             onKeyPress={(e)=> handlePress(e)}/>
-            <button onClick={(e) => onClick(e)}>검색</button>
-        </div>
-    
-
+            </div>
+            <div className="text-center">
+            <button button className="btn" style={{marginBottom: "20px"}} onClick={(e) => onClick(e)}>SEARCH
+            <Icofont icon="icofont-ui-search" className="ml-5 xs-display-none"/></button>
+            { search.type || search.keyword ?<button className="btn" style={{marginBottom: "20px"}} onClick={() => refreshSearch()} >
+            REFRESH
+         <Icofont icon="icofont-refresh" className="ml-5 xs-display-none"/>
+          </button> : <></>}
+          </div>
      </>);
 }
  

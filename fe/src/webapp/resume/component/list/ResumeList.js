@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
 import LoadScript from "webapp/common/helpers/LoadScript";
 import {ResumeItem, ResumeRead} from "webapp/resume/index";
-import {countResume, readResume} from "webapp/resume/reducer/resume.reducer"
+import {readResume} from "webapp/resume/reducer/resume.reducer"
 
 
-const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashColor }) => {
+const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
 
   LoadScript("js/portfolio/portfolio-grid.js");
   
@@ -28,8 +28,9 @@ const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashCo
 
   
 
-
   const totalList = resumes.map( (resume, i) => {
+    console.log("repimg:" + resume.resumeFiles.repImg)
+
     return (
       <ResumeItem 
         key={i}
@@ -39,6 +40,7 @@ const ResumeList = ({ title, tagline, backfont, resumes, categories,dash, dashCo
         name={resume.name}
         image={resume.fname}
         category={resume.categoryName}
+        
       />
     )});
   return (

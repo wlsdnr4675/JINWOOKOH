@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/artists/findAll").permitAll().antMatchers("/h2-console/**/**").permitAll()
                 .antMatchers("/artists/{artistId}").permitAll().antMatchers("/artists/update/{artistId}").permitAll()
                 .antMatchers("/resume/**/**").permitAll().antMatchers("/resume_file/**/**").permitAll()
+                .antMatchers("/category/**/**").permitAll()
 
                 .anyRequest().authenticated();
         http.exceptionHandling().accessDeniedPage("/login");

@@ -48,7 +48,7 @@ public interface ResumeRepository extends JpaRepository<Resume, Long>, ResumeCus
     @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.FETCH)
     Optional<Resume> findById(@Param("resumeId") Long resumeId);
 
-    @Query("SELECT count(resumeId) as cnt FROM Resume r WHERE artist.artistId= :artistId AND regdate between '2021-01-01' and '2021-12-31'")
+    @Query("SELECT count(resumeId) as cnt FROM Resume  WHERE artist.artistId= :artistId AND regdate between '2021-01-01' and '2021-12-31'")
     Long countByArtistId(@Param("artistId") Long artistId);
 
 }

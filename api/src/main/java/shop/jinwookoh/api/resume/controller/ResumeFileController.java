@@ -50,8 +50,8 @@ public class ResumeFileController {
     @Value("${shop.jinwookoh.upload.path}")
     private String uploadPath;
 
-    @GetMapping("/display/{fileName}")
-    public ResponseEntity<byte[]> getFile(@PathVariable("fileName") String fileName) {
+    @GetMapping("/display")
+    public ResponseEntity<byte[]> getFile(String fileName) {
         ResponseEntity<byte[]> result = null;
         try {
             String srcFileName = URLDecoder.decode(fileName, "UTF-8");

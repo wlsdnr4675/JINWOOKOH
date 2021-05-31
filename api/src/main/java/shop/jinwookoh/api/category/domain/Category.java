@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import shop.jinwookoh.api.common.util.ModelMapperUtils;
 import shop.jinwookoh.api.resume.domain.Resume;
 
 @Entity
@@ -30,4 +31,5 @@ public class Category {
 
     @Column(name = "category_name")
     private String categoryName;
+
 }

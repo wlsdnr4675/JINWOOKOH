@@ -51,6 +51,7 @@ public class SearchResumeRepositoryImpl extends QuerydslRepositorySupport implem
         BooleanExpression expression = resume.resumeId.gt(0L);
 
         booleanBuilder.and(expression);
+
         if (type != null) {
             String[] typeArr = type.split("");
 
@@ -64,7 +65,7 @@ public class SearchResumeRepositoryImpl extends QuerydslRepositorySupport implem
                     case "n":
                         conditionBuilder.or(artist.name.contains(keyword));
                         break;
-                    case "cn":
+                    case "c":
                         conditionBuilder.or(category.categoryName.contains(keyword));
                         break;
                     case "t":

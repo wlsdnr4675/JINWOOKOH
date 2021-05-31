@@ -62,7 +62,7 @@ const ResumeRead = ({open , handleClose}) => {
     const [resumeItem,setResumeItem] = useState({});  
     useEffect(()=>{
         setResumeItem(items)
-    },[items, items.artistId]) 
+    },[items]) 
     const fileList = files.map((file, i)=>{
         console.log(file.uuid + "_" + file.fname )
         return (<>

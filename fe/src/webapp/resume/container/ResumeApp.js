@@ -12,20 +12,28 @@ import WhatWeOfferSix from "webapp/common/WhatWeOffer/WhatWeOfferSix";
 import TeamOne from "webapp/common/Team/TeamOne";
 import { ResumeList, Paging, SearchBar, AboutFive,CounterRowOne, PresentationTwo} from "webapp/resume/index"
 import { useDispatch, useSelector } from "react-redux";
-import { listResume } from "webapp/resume/reducer/resume.reducer";
+import { listResume, searchResume } from "webapp/resume/reducer/resume.reducer";
+import { StarRate } from "@material-ui/icons";
 
 
 
 const ResumeApp = () => {
-
+  const searchType = useSelector(state => state.resumes.type)
+  const searchKeyword = useSelector(state => state.resumes.keyword)
   const pageResult = useSelector(state => state.resumes.pageResult)
-  const page = pageResult.page;
+  const page = pageResult.page
+  const param = {type: searchType, keyword: searchKeyword, page: page}
   
-  const dispatch = useDispatch()
-
+  
+  const dispatch = useDispatch();
+  
   useEffect((e)=>{
-    dispatch(listResume(page))
-  },[page])  
+    if(!searchType && !searchKeyword){
+      dispatch(listResume(page))
+    }
+    dispatch(searchResume(param))
+  },[])  
+
 
   return(<>
     <HeaderTwo data={dataNavbar} />

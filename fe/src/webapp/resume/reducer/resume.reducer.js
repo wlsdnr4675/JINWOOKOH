@@ -43,9 +43,9 @@ export const deleteResume = createAsyncThunk(
 
 export const searchResume = createAsyncThunk(
     "resume/search",
-    async (search, page) => {
-        console.log("pppppppaaaagggggeeeeee",page)
-        const response = await ResumeService.resumeSearch(search, page)
+    async (param) => {
+        console.log("pppppppaaaagggggeeeeee",param.page)
+        const response = await ResumeService.resumeSearch(param)
         return response.data;
     }
 )
@@ -54,6 +54,14 @@ export const countResume = createAsyncThunk(
     async (artistId) => {
         console.log("pppppppaaaagggggeeeeee",artistId)
         const response = await ResumeService.resumeSearch(artistId)
+        return response.data;
+    }
+)
+
+export const listCategory = createAsyncThunk(
+    "category/list",
+    async () => {
+        const response = await ResumeService.categoryList()
         return response.data;
     }
 )
@@ -71,21 +79,20 @@ const resumeSlice = createSlice({
             start:1,
             end:1,
             prev:false,
-            next:false
-        },
-        searchResult:{
-            dtoList:[],
-            page: 1,
-            pageList: [],
-            start:1,
-            end:1,
-            prev:false,
-            next:false
+            next:false,
         },
         count:{},
+        category:{},
+        type: "",
+        keyword:"",
     },
     
-    reducers: {},
+    reducers: {
+        changeSearch : (state, {payload}) =>{
+        state.type = payload.type
+        state.keyword = payload.keyword
+    }
+    },
     extraReducers: (builder) => {
         builder
         .addCase(listResume.fulfilled, (state,{payload}) => {
@@ -105,15 +112,20 @@ const resumeSlice = createSlice({
             return state.filter(resume => resume.resumeId == payload)
         })
         .addCase(searchResume.fulfilled,(state,{payload}) => {
-            state.searchResult = payload;
+            state.pageResult = payload;
         })
         .addCase(countResume.fulfilled,(state,{payload}) => {
             state.count = payload;
         })
-        .addMatcher(isRejectedAction).addDefaultCase();
+        .addCase(listCategory.fulfilled,(state,{payload}) => {
+            state.category = payload;
+        })
+    
+        .addMatcher(isRejectedAction).addDefaultCase()
+        .addDefaultCase((state, payload)=>{})
     }
 })
 
 const {actions, reducer} = resumeSlice;
-export const {} = actions;
+export const { changeSearch } = actions;
 export default reducer;

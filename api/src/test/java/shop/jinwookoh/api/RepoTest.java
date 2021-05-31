@@ -19,6 +19,7 @@ import lombok.extern.log4j.Log4j2;
 import shop.jinwookoh.api.artist.domain.Artist;
 import shop.jinwookoh.api.artist.repository.ArtistRepository;
 import shop.jinwookoh.api.category.domain.Category;
+import shop.jinwookoh.api.category.repository.CategoryRepository;
 import shop.jinwookoh.api.resume.domain.Resume;
 import shop.jinwookoh.api.resume.domain.ResumeDto;
 import shop.jinwookoh.api.resume.domain.ResumeFile;
@@ -33,6 +34,8 @@ public class RepoTest {
     private ResumeRepository repo;
     @Autowired
     private ResumeFileRepository fileRepo;
+    @Autowired
+    private CategoryRepository cateRepo;
 
     @Transactional
     @Commit
@@ -158,7 +161,7 @@ public class RepoTest {
     public void searchList() {
 
         Pageable pageable = PageRequest.of(0, 10, Sort.by("artist").descending().and(Sort.by("title").ascending()));
-        Page<Object[]> result = repo.searchPage("n", "오존", pageable);
+        Page<Object[]> result = repo.searchPage("c", "예술", pageable);
         log.info(result.toString());
     }
 
@@ -168,6 +171,14 @@ public class RepoTest {
     public void countByArtistId() {
         Long result = repo.countByArtistId(200L);
         log.info(result);
+    }
+
+    @Transactional
+    @Commit
+    @Test
+    public void findAllCate() {
+        List<Category> result = cateRepo.findAll();
+        log.info("categories " + result.toString());
     }
 
 }
