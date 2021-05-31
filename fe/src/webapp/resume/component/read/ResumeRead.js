@@ -66,7 +66,7 @@ const ResumeRead = ({open , handleClose}) => {
     const fileList = files.map((file, i)=>{
         console.log(file.uuid + "_" + file.fname )
         return (<>
-          <img src={`http://localhost:8080/resume_file/display/${file.uuid + "_" + file.fname}`} />
+          <img src={`http://localhost:8080/resume_file/display?fileName=${file.uuid + "_" + file.fname}`} />
           <div>
           <p>{file.fileTitle}</p>
           <p>{file.fileDetail}</p>

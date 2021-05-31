@@ -1,20 +1,15 @@
 package shop.jinwookoh.api.resume.service;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.file.Files;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -42,21 +37,22 @@ public class ResumeFileServiceImpl implements ResumeFileService {
 
         List<ResumeFileDto> resultDtoList = new ArrayList<>();
         for (MultipartFile uploadFile : uploadFiles) {
-            String ofname = uploadFile.getOriginalFilename();
+            String originalName = uploadFile.getOriginalFilename();
+            String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
+            log.info("fileName: " + fileName);
             String uuid = UUID.randomUUID().toString();
-            StringBuilder sb = new StringBuilder();
-            sb.append(uploadPath).append(File.separator).append(uuid).append("_").append(ofname);
-            String saveName = sb.toString();
-            log.info("file upload name : " + saveName);
+            String saveName = uploadPath + File.separator + uuid + "_" + fileName;
             Path savePath = Paths.get(saveName);
+
             try {
                 uploadFile.transferTo(savePath);
-                String thumbnailSaveName = uploadPath + File.separator + "s_" + uuid + "_" + ofname;
-                Thumbnails.of(new File(saveName)).size(100, 100).outputFormat("JPEG").toFile(thumbnailSaveName);
+                String thumbnailSaveName = uploadPath + File.separator + "s_" + uuid + "_" + fileName;
+                Thumbnails.of(new File(saveName)).size(100, 100).toFile(thumbnailSaveName);
                 Thumbnails.of(new File(saveName)).scale(1)
-                        .watermark(Positions.BOTTOM_CENTER, ImageIO.read(new File(uploadPath + "watermark.jpg")), 0.5f)
-                        .toFile(new File(uploadPath + File.separator + "w_" + uuid + "_" + ofname));
-                ResumeFileDto resumeFileDto = ResumeFileDto.builder().uuid(uuid).fname(ofname).build();
+                        .watermark(Positions.BOTTOM_CENTER,
+                                ImageIO.read(new File(uploadPath + File.separator + "watermark.png")), 0.5f)
+                        .toFile(new File(uploadPath + File.separator + "w_" + uuid + "_" + fileName));
+                ResumeFileDto resumeFileDto = ResumeFileDto.builder().uuid(uuid).fname(fileName).build();
                 resultDtoList.add(resumeFileDto);
             }
 

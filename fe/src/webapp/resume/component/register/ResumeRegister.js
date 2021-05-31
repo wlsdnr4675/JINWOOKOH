@@ -8,7 +8,7 @@ import axios from "axios";
 const ResumeRegister = ({cref, getUploadedFiles, fileParam=[]}) => {
     const dispatch = useDispatch();
     const categories = useSelector(state => state.resumes.category);
-
+    const fileList = useSelector(state => state.resumes.fileList)
 
     useEffect(()=>{
         dispatch(listCategory())
@@ -44,7 +44,6 @@ const ResumeRegister = ({cref, getUploadedFiles, fileParam=[]}) => {
     const fileAdd = (e) =>{
         e.stopPropagation()
         e.preventDefault()
-        setResumeFile(resumeFile.length + 1)
     }
 
     const handleChange = (e) => {
@@ -70,66 +69,55 @@ const ResumeRegister = ({cref, getUploadedFiles, fileParam=[]}) => {
             setFiles([])
             setUploadResult([])
         }
-
     }));
 
-    const uploadFile = useCallback(e => {
-         e.preventDefault();
+    const uploadFile = async (e) => {
+        
+        // e.preventDefault() 
+
         console.dir(e.target.files);
         const formData = new FormData()
         const files = e.target.files
+
         for(let i = 0; i < files.length ; i++){
             formData.append("uploadFiles", files[i])
         }
+
         console.log("formData: "+JSON.stringify (formData))
+        
+        dispatch(uploadFile(formData))
 
-        axios.post("http://localhost:8080/resume_file/upload_file",formData,
-        {headers: { "Content-Type": "multipart/form-data"}})
-        .then(res => {
-            if (res.ok) {
-                alert("Perfect! ");
-              } else if (res.status == 401) {
-                alert("Oops! ");
-              }
-            console.log("res" + res)
+        await fileList.forEach(uploadFileInfo =>  uploadResult.push(uploadFileInfo))
 
-            res.data.forEach(uploadFileInfo =>  uploadResult.push(uploadFileInfo))
+        console.log(JSON.stringify(uploadResult))
 
-            console.log(JSON.stringify(uploadResult))
-
-            setUploadResult(uploadResult.slice(0))
-    })
-    .catch(e => {
-        alert("Error submitting form!");
-
-    })
-})
+        setUploadResult(uploadResult.slice(0))
+}
 
     return (<> 
-    <div className="container" style={{marginTop: "40px"}}>
+    <div className="container" style={{marginTop: "40px", color: "#24182e"}}>
             <div className="col-md-9 col-sm-9 col-xs-12 xs-mb-50">
                 <div className="row">
-                    <div className="col-md-12 col-sm-12 col-xs-12 mb-20 xs-mb-50 ">
-                            
+                    <div className="col-md-12 col-sm-12 col-xs-12 mb-20 xs-mb-50 dark-color ">
                             <label className="font-20px">첨부파일</label>
-                            <input type="file" name="imageFile" onChange={uploadFile} multiple={true}
-                            accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv" 
+                            <input type="file" name="imageFile"  onChange={uploadFile} multiple={true}
+                            accept="image/*,application/pdf,application/vnd.ms-powerpoint" 
                             />
                             {uploadResult.map(uploadFile => {
                         return (
                             <div key={uploadFile.uuid}>
-                                <img src={"http://localhost:8080/display?fileName=s_" + uploadFile.uuid+"_"+ uploadFile.fname }/>
+                                <img src={`http://localhost:8080/resume_file/display?fileName=${"s_" +uploadFile.uuid + "_" + uploadFile.fname}`}/>
                                 {uploadFile.fname}
                             </div>
                             )
                             })
                                 }
                             <label className="font-20px">작품 작업 날짜</label>
-                            <input type="text" placeholder="fileWorkedDate"/>
+                            <input type="text"  name="fileWorkedDate" value={resumeFile.fileWorkedDate} placeholder="fileWorkedDate"/>
                             <label className="font-20px">파일 제목</label>
-                            <input type="text" placeholder="fileTitle"/>
+                            <input type="text"  name="fileTitle" value={resumeFile.fileTitle} placeholder="fileTitle"/>
                             <label  className="font-20px">파일 세부사항</label>
-                            <textarea placeholder="fileDetail"/>
+                            <textarea  name="fileDetail" value={resumeFile.fileDetail} placeholder="fileDetail"/>
                             <label className="font-20px">대표이미지로 선택하시겠습니까?</label><br/>
                             <button className="btn btn-md btn-dark-outline btn-square mt-10" 
                             onClick={(e)=> repImg(e)}>
@@ -146,14 +134,14 @@ const ResumeRegister = ({cref, getUploadedFiles, fileParam=[]}) => {
                             </div>
                         <div className="post-info all-padding-20" style={{marginTop: "40px"}}>
                             <label className="font-20px">포트폴리오 타이틀을 적어주세요</label>
-                            <input type="text" placeholder="resumeTitle"/>
+                            <input type="text" name="title" value={resume.title} placeholder="resumeTitle"/>
                         </div>
                 </div>
                     <div className="col-md-12 col-sm-12 col-xs-12 mb-20">
-                        <div className="blog-standard">
+                        <div className="">
                             <blockquote>
                             <label className="font-20px">포트폴리오의 세부사항을 적어주세요</label>
-                            <textarea type="text" placeholder="resumeDetail"/>
+                            <input type="textarea" name="detail" value={resume.detail} placeholder="resumeDetail"/>
                             </blockquote>
                         </div>
                     </div>
@@ -168,7 +156,7 @@ const ResumeRegister = ({cref, getUploadedFiles, fileParam=[]}) => {
                 </div>
                 <div className="mb-50">
                     <label className="font-20px">자기소개글을 써주세요</label>
-                    <textarea type="text" placeholder="resumeDetail"/>
+                    <input type="textarea" name="selfIntroduce" value={resume.selfIntroduce} placeholder="resumeDetail"/>
                 </div>
                 <div className="sidebar_widget widget_categories mb-50">
                     <h5 className="aside-title">Categories</h5>

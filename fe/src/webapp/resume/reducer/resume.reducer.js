@@ -65,6 +65,13 @@ export const listCategory = createAsyncThunk(
         return response.data;
     }
 )
+export const uploadFile = createAsyncThunk(
+    "resume_file/upload_file",
+    async (formData) => {
+        const response = await ResumeService.uploadFile(formData)
+        return response.data;
+    }
+)
 
 
 const isRejectedAction = action => (action.type.endsWith('rejected'))
@@ -83,6 +90,7 @@ const resumeSlice = createSlice({
         },
         count:{},
         category:{},
+        fileList:[],
         type: "",
         keyword:"",
     },
@@ -120,6 +128,10 @@ const resumeSlice = createSlice({
         .addCase(listCategory.fulfilled,(state,{payload}) => {
             state.category = payload;
         })
+        .addCase(uploadFile.fulfilled,(state,{payload}) => {
+            state.fileList = [payload];
+        })
+        
     
         .addMatcher(isRejectedAction).addDefaultCase()
         .addDefaultCase((state, payload)=>{})

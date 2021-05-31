@@ -41,10 +41,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ResumeFileController {
     private final ResumeFileServiceImpl service;
 
-    @PostMapping("/upload_file")
-    public ResponseEntity<List<ResumeFileDto>> uploadFile(List<MultipartFile> files) {
+    @PostMapping(value = "/upload_file", consumes = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<List<ResumeFileDto>> uploadFile(List<MultipartFile> uploadFiles) {
         return ResponseEntity.ok(service.uploadFile(
-                files.stream().filter(f -> f.getContentType().startsWith("image")).collect(Collectors.toList())));
+                uploadFiles.stream().filter(f -> f.getContentType().startsWith("image")).collect(Collectors.toList())));
+
     }
 
     @Value("${shop.jinwookoh.upload.path}")
@@ -61,7 +63,7 @@ public class ResumeFileController {
             File file = new File(uploadPath + File.separator + srcFileName);
 
             log.info("file: " + file);
-
+            log.info("file: " + file.toPath());
             result = ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(FileCopyUtils.copyToByteArray(file));
             System.out.println("result: " + result);
         } catch (Exception e) {
