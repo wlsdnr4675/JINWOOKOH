@@ -25,6 +25,7 @@ export {default as ReadSidebar} from 'webapp/resume/component/read/ReadSidebar'
 
 //register
 export {default as ResumeRegister} from 'webapp/resume/component/register/ResumeRegister'
+export {default as ResumeFile} from 'webapp/resume/component/register/ResumeFile'
 
 //search
 export {default as SearchBar} from 'webapp/resume/component/search/SearchBar'

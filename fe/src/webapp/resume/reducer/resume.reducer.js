@@ -65,14 +65,6 @@ export const listCategory = createAsyncThunk(
         return response.data;
     }
 )
-export const uploadFile = createAsyncThunk(
-    "resume_file/upload_file",
-    async (formData) => {
-        const response = await ResumeService.uploadFile(formData)
-        return response.data;
-    }
-)
-
 
 const isRejectedAction = action => (action.type.endsWith('rejected'))
 
@@ -99,7 +91,17 @@ const resumeSlice = createSlice({
         changeSearch : (state, {payload}) =>{
         state.type = payload.type
         state.keyword = payload.keyword
-    }
+    },
+        addFileList : (state, {payload}) => {
+            state.fileList.push(payload)
+        },
+        delFileList : (state, {payload}) => {
+            state.fileList.filter((fileList) => fileList.uuid !== payload.uuid)
+        },
+        changeFileList : (state, {payload}) => {
+            const update = state.fileList.find((fileList) => fileList.uuid !== payload.uuid)
+            return update ? {...update, ...payload} : update;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -107,7 +109,7 @@ const resumeSlice = createSlice({
             state.pageResult = payload
         })
         .addCase(registerResume.fulfilled,(state,{payload}) => {
-            return state.resume.push(...payload)
+            state.resume.push(...payload)
         })
         .addCase(readResume.fulfilled,(state,{payload}) => {
             state.current = payload
@@ -128,9 +130,6 @@ const resumeSlice = createSlice({
         .addCase(listCategory.fulfilled,(state,{payload}) => {
             state.category = payload;
         })
-        .addCase(uploadFile.fulfilled,(state,{payload}) => {
-            state.fileList = [payload];
-        })
         
     
         .addMatcher(isRejectedAction).addDefaultCase()
@@ -139,5 +138,5 @@ const resumeSlice = createSlice({
 })
 
 const {actions, reducer} = resumeSlice;
-export const { changeSearch } = actions;
+export const { changeSearch, addFileList, delFileList } = actions;
 export default reducer;
