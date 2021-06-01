@@ -12,7 +12,8 @@ const ResumeRegister = () => {
 
     const categories = useSelector(state => state.resumes.category);
     const fileList = useSelector(state => state.resumes.fileList)
-    
+    const fileItem = fileList.file
+    console.log("fileItem333333333333333" + fileItem)
     const [result, setResult] = useState(false)
 
     const requestRefresh = (result) => {
@@ -47,10 +48,14 @@ const ResumeRegister = () => {
     const handleClick = (e) =>{
         e.stopPropagation()
         e.preventDefault()
-        dispatch(registerResume({resume,resumeFiles: fileList}))
+        const data = { resume , resumeFiles: fileList.map(i => i.file)}
+        dispatch(registerResume(data))
+        console.log("resume" + JSON.stringify(data))
+        console.log("fileList" + JSON.stringify(fileList))
         requestRefresh()
-    }
 
+        
+    }
     return (<> 
             <ResumeFile />
                 <div className="container dark-color" style={{marginBottom: "40px", color: "#24182e"}} >

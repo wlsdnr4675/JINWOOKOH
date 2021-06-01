@@ -11,8 +11,8 @@ export const listResume = createAsyncThunk(
 )
 export const registerResume = createAsyncThunk(
     "resume/register",
-    async({resume,resumeFiles: fileList}) =>{
-        const response = await ResumeService.resumeRegister({resume,resumeFiles: fileList})
+    async(data) =>{
+        const response = await ResumeService.resumeRegister(data)
         return response.data;
     }
 )
@@ -44,7 +44,6 @@ export const deleteResume = createAsyncThunk(
 export const searchResume = createAsyncThunk(
     "resume/search",
     async (param) => {
-        console.log("pppppppaaaagggggeeeeee",param.page)
         const response = await ResumeService.resumeSearch(param)
         return response.data;
     }
@@ -52,7 +51,6 @@ export const searchResume = createAsyncThunk(
 export const countResume = createAsyncThunk(
     "resume/count",
     async (artistId) => {
-        console.log("pppppppaaaagggggeeeeee",artistId)
         const response = await ResumeService.resumeSearch(artistId)
         return response.data;
     }
@@ -82,6 +80,7 @@ const resumeSlice = createSlice({
             next:false,
         },
         count:{},
+        resume:{},
         category:[],
         fileList:[],
         type: "",
@@ -111,7 +110,7 @@ const resumeSlice = createSlice({
             state.pageResult = payload
         })
         .addCase(registerResume.fulfilled,(state,{payload}) => {
-            state.resume.push(...payload)
+            state.resume = payload
         })
         .addCase(readResume.fulfilled,(state,{payload}) => {
             state.current = payload
