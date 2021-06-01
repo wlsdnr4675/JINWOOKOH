@@ -11,8 +11,8 @@ export const listResume = createAsyncThunk(
 )
 export const registerResume = createAsyncThunk(
     "resume/register",
-    async(resume) =>{
-        const response = await ResumeService.resumeRegister(resume)
+    async({resume,resumeFiles: fileList}) =>{
+        const response = await ResumeService.resumeRegister({resume,resumeFiles: fileList})
         return response.data;
     }
 )
@@ -82,7 +82,7 @@ const resumeSlice = createSlice({
             next:false,
         },
         count:{},
-        category:{},
+        category:[],
         fileList:[],
         type: "",
         keyword:"",

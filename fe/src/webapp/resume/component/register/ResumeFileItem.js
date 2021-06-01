@@ -22,12 +22,15 @@ const ResumeFileItem = ({uuid, fname}) => {
         const currentUuid= e.target.getAttribute("data-uuid")
         const {name, value} = e.target;
         resumeFile [name] = value;
-        setResumeFile({...resumeFile })
+        setResumeFile({...resumeFile})
         console.log(resumeFile)
         dispatch(changeFileList({uuid: currentUuid, file: {...resumeFile}}))
   
     }
-
+    const repChange = (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+    }
 
 
     return (<> 
@@ -49,9 +52,11 @@ const ResumeFileItem = ({uuid, fname}) => {
         <label className="font-20px">대표이미지로 선택하시겠습니까?</label><br/>
         <button className="btn btn-md btn-dark-outline btn-square mt-10"
         name="repImag" value={resumeFile.repImg}
-        onClick={(e) => resumeFileChange(e)}>
+        onClick={(e) => repChange(e)}>
         Yes</button>
-        <button className="btn btn-md btn-dark-outline btn-square mt-10">
+        <button className="btn btn-md btn-dark-outline btn-square mt-10"
+        name="repImag" value={resumeFile.repImg}
+        onClick={(e) => repChange(e)}>
         NO</button>
     </div>
 
