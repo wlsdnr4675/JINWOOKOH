@@ -28,9 +28,9 @@ const ResumeApp = () => {
   const dispatch = useDispatch();
   
   useEffect((e)=>{
-    if(!searchType && !searchKeyword){
-      dispatch(listResume(page))
-    }
+    (!searchType && !searchKeyword)?
+      dispatch(listResume(page)):
+    
     dispatch(searchResume(param))
   },[])  
 

@@ -66,6 +66,7 @@ export const listCategory = createAsyncThunk(
     }
 )
 
+
 const isRejectedAction = action => (action.type.endsWith('rejected'))
 
 const resumeSlice = createSlice({
@@ -99,8 +100,9 @@ const resumeSlice = createSlice({
             state.fileList.filter((fileList) => fileList.uuid !== payload.uuid)
         },
         changeFileList : (state, {payload}) => {
-            const update = state.fileList.find((fileList) => fileList.uuid !== payload.uuid)
-            return update ? {...update, ...payload} : update;
+            const filteredFiles= state.fileList?.filter(f => f.uuid !== payload.file.uuid)
+            filteredFiles.push({uuid:payload.file.uuid, file:payload.file })
+            state.fileList = filteredFiles
         },
     },
     extraReducers: (builder) => {
@@ -130,6 +132,7 @@ const resumeSlice = createSlice({
         .addCase(listCategory.fulfilled,(state,{payload}) => {
             state.category = payload;
         })
+  
         
     
         .addMatcher(isRejectedAction).addDefaultCase()
@@ -138,5 +141,5 @@ const resumeSlice = createSlice({
 })
 
 const {actions, reducer} = resumeSlice;
-export const { changeSearch, addFileList, delFileList } = actions;
+export const { changeSearch, addFileList, delFileList, changeFileList} = actions;
 export default reducer;

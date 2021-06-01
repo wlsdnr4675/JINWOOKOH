@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
-import { listCategory, registerResume } from 'webapp/resume/reducer/resume.reducer';
+import { addFileList, listCategory, registerResume } from 'webapp/resume/reducer/resume.reducer';
 import axios from "axios";
 import { ResumeFile } from 'webapp/resume/index';
 
 
 const ResumeRegister = () => {
+
     const dispatch = useDispatch();
 
     const categories = useSelector(state => state.resumes.category);
@@ -47,23 +48,19 @@ const ResumeRegister = () => {
         e.preventDefault()
         const {name, value} = e.target;
         setResume({...resume, [name]: value})
-        await dispatch(registerResume(resume))
+        await dispatch(addFileList(resume))
         await requestRefresh()
     }
 
-    const childRef = useRef()
-    let uploadedFiles = null
 
     const sendTextForm = (title, content) => {
         console.log("title: " + title)
         console.log("content: " + content)
-        childRef.current.send()
-        console.log(uploadedFiles)
+
     }
 
     const getUploadedFiles = (uplodedFilesResult) => {
         console.log("getUploadedFiles")
-        uploadedFiles = uplodedFilesResult
     }
 
 
@@ -72,7 +69,7 @@ const ResumeRegister = () => {
     return (<> 
     <div className="container dark-color" style={{marginTop: "40px", color: "#24182e"}} >
                             <ResumeFile sendTextForm = {sendTextForm}
-                            cref={childRef} getUploadedFiles = {getUploadedFiles}/>
+                             getUploadedFiles = {getUploadedFiles}/>
                             <div className="comment-content" style={{marginTop: "40px"}}>
                             <div className="post-body">
                                 <div className="comment-header">
