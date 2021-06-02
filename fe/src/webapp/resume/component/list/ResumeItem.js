@@ -13,7 +13,7 @@ const ResumeItem = ({ resumeId, resumeFiles, title, name, category, fn, artistId
   })
   
   return (<>
-    <div className="col-md-3 row-sm-6">
+    <div className="col-md-4">
       <div className="portfolio-item" onClick={(e) => fn(e,resumeId, artistId)}>
            {fileImg}
           <div className="portfolio-info gradient-bg" style={{position: "relative"}}>
