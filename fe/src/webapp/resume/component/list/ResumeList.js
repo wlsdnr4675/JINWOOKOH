@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
 import LoadScript from "webapp/common/helpers/LoadScript";
 import {ResumeItem, ResumeRead} from "webapp/resume/index";
-import {readResume} from "webapp/resume/reducer/resume.reducer"
+import {readResume, countResume} from "webapp/resume/reducer/resume.reducer"
 
 
 const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
@@ -17,11 +17,11 @@ const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
   
   const handleClose = () => setOpen(false)
 
-  const  handleOpen = async (e, resumeId) => {
-    
+  const  handleOpen = async (e, resumeId, artistId) => {
     e.stopPropagation()
     e.preventDefault()
     await dispatch(readResume(resumeId))
+    await dispatch(countResume(artistId))
     setResumeNo(resumeId)
     setOpen(true)
   }
@@ -29,7 +29,6 @@ const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
   
 
   const totalList = resumes.map( (resume, i) => {
-    console.log("repimg:" + resume.resumeFiles.repImg)
 
     return (
       <ResumeItem 
@@ -38,7 +37,9 @@ const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
         resumeId={resume.resumeId}
         title={resume.title}
         name={resume.name}
-        image={resume.fname}
+        artistId={resume.artistId}
+        resumeFiles={resume.resumeFiles}
+        repImg={resume.repImg}
         category={resume.categoryName}
         
       />

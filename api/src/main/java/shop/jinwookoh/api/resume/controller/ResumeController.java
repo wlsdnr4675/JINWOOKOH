@@ -40,6 +40,7 @@ public class ResumeController {
     @PostMapping("/register")
     @ApiOperation(value = "${ResumeController.register}")
     public ResponseEntity<String> save(@RequestBody ResumeDto resume) {
+        System.out.println("---------resume: " + resume.toString());
         return ResponseEntity.ok(service.resumeSaveWithFile(resume));
     }
 
@@ -53,7 +54,7 @@ public class ResumeController {
     @DeleteMapping("/delete")
     @ApiOperation(value = "${ResumeController.delete}")
     public ResponseEntity<String> delete(@RequestBody ResumeDto resume) {
-
+        System.out.println("---------resumeDeleteController: " + resume.toString());
         fileService.removeFiles(resume.getResumeId());
         return ResponseEntity.ok(service.delete(resume));
     }
@@ -105,7 +106,7 @@ public class ResumeController {
     }
 
     @GetMapping("/count/{artistId}")
-    public ResponseEntity<Long> count(@PathVariable("artistId") Long artistId) {
+    public ResponseEntity<List<Object[]>> count(@PathVariable("artistId") Long artistId) {
         // TODO Auto-generated method stub
         return ResponseEntity.ok(service.countByArtistId(artistId));
     }

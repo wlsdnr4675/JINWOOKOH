@@ -17,7 +17,7 @@ const PageList = () => {
       return (!searchType && !searchKeyword ) ? dispatch(listResume(page)) : dispatch(searchResume(param))
     }
 
-    console.log("searchCondition",searchKeyword + searchType)
+    console.log("searchCondition: ",searchKeyword + searchType)
 
     const list = pageList.map(i => <button className="btn" key={i} onClick={() => movePage(i)}> {i} </button>)
     return (<>

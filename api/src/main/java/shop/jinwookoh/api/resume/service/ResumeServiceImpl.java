@@ -1,5 +1,6 @@
 package shop.jinwookoh.api.resume.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -79,7 +80,7 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
     @Override
     public String delete(ResumeDto resumeDto) {
         Resume resume = Resume.builder().resumeId(resumeDto.getResumeId()).build();
-        repo.findById(resume.getResumeId()).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다."));
+        repo.getOne(resume.getResumeId());
         fileRepo.deleteByResumeId(resume.getResumeId());
         repo.delete(resume);
         return (repo.findById(resume.getResumeId()).isPresent()) ? "Delete Failed" : "Delete Success";
@@ -119,7 +120,7 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
 
     @Override
     public List<ResumeDto> getAllResume() {
-        List<Resume> resumes = repo.getAllResume();
+        List<Resume> resumes = repo.findAll();
         return resumes.stream().map(resume -> ResumeDto.of(resume)).collect(Collectors.toList());
     }
 
@@ -129,7 +130,7 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
         return null;
     }
 
-    public Long countByArtistId(Long artistId) {
+    public List<Object[]> countByArtistId(Long artistId) {
 
         return repo.countByArtistId(artistId);
     }

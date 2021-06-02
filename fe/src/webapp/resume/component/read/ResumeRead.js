@@ -11,7 +11,7 @@ import Slider from "react-slick";
 import {ReadSidebar} from "webapp/resume/index";
 import {useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { countResume } from 'webapp/resume/reducer/resume.reducer';
+import { countResume, deleteResume } from 'webapp/resume/reducer/resume.reducer';
 
 const ResumeRead = ({open , handleClose}) => {
 
@@ -23,6 +23,7 @@ const ResumeRead = ({open , handleClose}) => {
         },
         title: {
           marginLeft: theme.spacing(3),
+          marginTop: "10px",
           flex: 1,
           color:  "white",
           fontSize: 25,
@@ -56,17 +57,22 @@ const ResumeRead = ({open , handleClose}) => {
 
         return <Slide direction="up" ref={ref} {...props} />;
       });  
+
+
     const dispatch = useDispatch();
     const items = useSelector(state => state.resumes.current);
+    const resumeCount = useSelector(state => state.resumes.count);
     const files = items.resumeFiles;
     const [resumeItem,setResumeItem] = useState({});  
     useEffect(()=>{
         setResumeItem(items)
+        
     },[items]) 
+
     const fileList = files.map((file, i)=>{
-        console.log(file.uuid + "_" + file.fname )
+        console.log(file.uuid + "_" + file.fname)
         return (<>
-          <img src={`http://localhost:8080/resume_file/display?fileName=${file.uuid + "_" + file.fname}`} />
+          <img src={`http://localhost:8080/resume_file/display?fileName=${"w_"+file.uuid + "_" + file.fname}`} />
           <div>
           <p>{file.fileTitle}</p>
           <p>{file.fileDetail}</p>
@@ -78,6 +84,13 @@ const ResumeRead = ({open , handleClose}) => {
           </div>
         </>)
     })
+    const onDelete = (e) =>{
+      e.stopPropagation();
+      e.preventDefault();
+      console.log(resumeItem)
+      dispatch(deleteResume(resumeItem))
+      window.location.reload()
+    }
     
     return (<>
         <Dialog  fullScreen open={open} onClose={handleClose} TransitionComponent={Transition} className={useStyles().dialogSize}
@@ -88,13 +101,15 @@ const ResumeRead = ({open , handleClose}) => {
                 <CloseIcon className={useStyles().closeSize}/>
               </IconButton>
               <Typography className={useStyles().title}>
-                새로운 시작과 만남
+                {resumeItem.name}
               </Typography>
+
               <Link to={"/resume/modify"}>
-                <p className="btn btn-md btn-light btn-square mt-10" >
-                  EDIT
-                </p>
-              </Link>
+                <button className="btn btn-light-outline btn-square">
+                EDIT</button></Link>
+                <button className="btn  btn-light-outline btn-square" style={{marginTop: "4px"}}
+                onClick={(e)=>onDelete(e)}>
+                DELETE</button>
             </Toolbar>
           </AppBar>
       <div className="container" style={{marginTop: "40px"}}>
@@ -198,7 +213,7 @@ const ResumeRead = ({open , handleClose}) => {
               </div>
             </div>
           </div>
-          <ReadSidebar resumeId= {resumeItem.resumeId} name={resumeItem.name} selfIntroduce={resumeItem.selfIntroduce} category={resumeItem.categoryName}/>
+          <ReadSidebar resumeId= {resumeItem.resumeId} name={resumeItem.name} selfIntroduce={resumeItem.selfIntroduce} category={resumeItem.categoryName} artistId={resumeItem.artistId}/>
         </div>
       </div>
       

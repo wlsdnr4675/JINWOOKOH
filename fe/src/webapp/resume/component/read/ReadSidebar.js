@@ -1,13 +1,25 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { countResume } from "webapp/resume/reducer/resume.reducer";
 
-const ReadSidebar = ({ name, selfIntroduce, category}) => {
-
-  const cnt = useSelector(state => state.resumes.count)
+const ReadSidebar = ({ name, selfIntroduce, category, artistId}) => {
+  const dispatch = useDispatch()
+  const resumeCount = useSelector(state => state.resumes.count)
   const [countYear, setCountYear] = useState();
+ 
 
-  console.log("cnt: ", cnt)
-  
+  console.log("cnt",resumeCount)
+  const countInfo = resumeCount.map(i => {
+      return (<>
+        <ul key={i}>
+          <li>
+            <p>{i[0]}</p><span>{i[1]}</span>
+          </li>
+        </ul>
+      </>)
+  })
+
+
 return (<>
   <div className="col-md-3 col-sm-3 col-xs-12">
     <div className="widget sidebar_widget">
@@ -36,11 +48,7 @@ return (<>
     
     <div className="sidebar_widget widget_archive mb-50">
       <h5 className="aside-title">Archive</h5>
-      <ul>
-        <li>
-          <p>2021년</p><span>14</span>
-        </li>
-      </ul>
+          {countInfo}
     </div>
   </div>
 </>)

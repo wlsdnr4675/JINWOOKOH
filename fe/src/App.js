@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ScrollIntoView from "./webapp/common/helpers/ScrollIntoView";
 import ScrollToTop from "./webapp/common/helpers/ScrollToTop";
 
-import {ResumeApp, ResumeList, ResumeModify, ResumeRead, ResumeRegister} from 'webapp/resume/index'
+import {ResumeApp, ResumeList, ResumeModify, ResumeRegister} from 'webapp/resume/index'
 import {FundingList, FundingModify, FundingRead, FundingRegister} from 'webapp/funding/index'
 import {ItemList, ItemModify, ItemRead, ItemRegister} from 'webapp/item/index'
 import {ReviewList, ReviewModify, ReviewRead, ReviewRegister} from 'webapp/review/index'
@@ -26,7 +26,6 @@ const App=()=> {
             <Route exact path="/resume/home" component={ResumeApp}/>
             <Route exact path='/resume/list' component={ResumeList}/>
             <Route exact path='/resume/modify' component={ResumeModify}/>
-            <Route exact path='/resume/read' component={ResumeRead}/>
             <Route exact path='/resume/register' component={ResumeRegister}/>
 
             {/*Funding*/}

@@ -1,8 +1,12 @@
 package shop.jinwookoh.api;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -169,8 +173,8 @@ public class RepoTest {
     @Commit
     @Test
     public void countByArtistId() {
-        Long result = repo.countByArtistId(200L);
-        log.info(result);
+        List<Object[]> result = repo.countByArtistId(200L);
+        result.forEach(arr -> log.info(Arrays.toString(arr)));
     }
 
     @Transactional

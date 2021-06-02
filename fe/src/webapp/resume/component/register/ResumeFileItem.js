@@ -1,42 +1,55 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux";
-import { changeFileList } from "webapp/resume/reducer/resume.reducer";
+import { changeFileList, delFileList } from "webapp/resume/reducer/resume.reducer";
 import ReusumeFile from "./ResumeFile";
 
 
 const ResumeFileItem = ({uuid, fname}) => {
-    console.log(fname)
     const dispatch = useDispatch()
 
     const [resumeFile, setResumeFile] = useState({
         fileTitle: "",
         fileDetail: "",
         fileWorkedDate: "",
-        repImg: false,
         uuid: uuid,
-        fname: fname
+        fname: fname,
+        repImg: false
     });
     const resumeFileChange =  (e) => {
         e.stopPropagation()
         e.preventDefault()
-        const currentUuid= e.target.getAttribute("data-uuid")
         const {name, value} = e.target;
         resumeFile [name] = value;
         setResumeFile({...resumeFile})
         console.log(resumeFile)
-        dispatch(changeFileList({uuid: currentUuid, file: {...resumeFile}}))
+        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
   
     }
-    const repChange = (e) => {
+    const repTrue = (e) => {
         e.stopPropagation()
         e.preventDefault()
+        console.log(e.target.value)
+        resumeFile.repImg = !resumeFile.repImg;
+        setResumeFile({...resumeFile})
+        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+        console.log(e.target.value)
+        console.log("ssss",resumeFile)
     }
 
-
-    return (<> 
-    <div>
-          <img src={`http://localhost:8080/resume_file/display?fileName=${"w_"+resumeFile.uuid + "_" + resumeFile.fname}`}/>
-                                {resumeFile.fname}
+    const resumeFileDelete=(e)=>{
+        e.stopPropagation()
+        e.preventDefault()
+        dispatch(delFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+    }
+    return (<>
+        <div> 
+        <img src={`http://localhost:8080/resume_file/display?fileName=${resumeFile.uuid + "_" + resumeFile.fname}`}/><br/>
+            {resumeFile.fname}
+        <button className="btn mt-10" style={{marginLeft: "10px"}}
+        value={resumeFile.repImg} name="repImg" data-uuid={resumeFile.uuid}
+        onClick={(e)=>resumeFileDelete(e)}>
+        파일업로드 취소</button>                        
+        </div>
         <label className="font-20px">작품 작업 날짜</label>
         <input className="mfp-title" data-uuid={resumeFile.uuid} type="text" name="fileWorkedDate" style={{color:"black", wordWrap:"break-word"}}
         value={resumeFile.fileWorkedDate} placeholder="fileWorkedDate"
@@ -49,18 +62,16 @@ const ResumeFileItem = ({uuid, fname}) => {
         <textarea  name="fileDetail" data-uuid={resumeFile.uuid} style={{color:"black", height:"200px"}}
         value={resumeFile.fileDetail} placeholder="fileDetail"
         onChange={(e) =>resumeFileChange(e)}/>
+        {!resumeFile.repImg ?<>
         <label className="font-20px">대표이미지로 선택하시겠습니까?</label><br/>
         <button className="btn btn-md btn-dark-outline btn-square mt-10"
-        name="repImag" value={resumeFile.repImg}
-        onClick={(e) => repChange(e)}>
+        value={resumeFile.repImg} name="repImg" data-uuid={resumeFile.uuid}
+        onClick={(e)=>repTrue(e)}>
         Yes</button>
         <button className="btn btn-md btn-dark-outline btn-square mt-10"
-        name="repImag" value={resumeFile.repImg}
-        onClick={(e) => repChange(e)}>
-        NO</button>
-    </div>
-
-
+       value={resumeFile.repImg} name="repImg"
+       onClick={(e)=>repTrue(e)}>
+        NO</button> </>: <></>}
      </>);
 }
  

@@ -1,5 +1,6 @@
 package shop.jinwookoh.api.resume.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -34,7 +35,7 @@ public interface ResumeService {
 
     PageResultDto<ResumeDto, Object[]> conditionSearch(String type, String keyword, int page);
 
-    Long countByArtistId(Long artistId);
+    List<Object[]> countByArtistId(Long artistId);
 
     default ResumeFile dtoToEntityResumeFile(ResumeFileDto dto) {
 

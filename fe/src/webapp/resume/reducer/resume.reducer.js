@@ -35,8 +35,8 @@ export const modifyResume = createAsyncThunk(
 
 export const deleteResume = createAsyncThunk(
     "resume/delete",
-    async (resumeId) => {
-        const response = await ResumeService.resumeDelete(resumeId)
+    async (resume) => {
+        const response = await ResumeService.resumeDelete(resume)
         return response.data;
     }
 )
@@ -51,7 +51,7 @@ export const searchResume = createAsyncThunk(
 export const countResume = createAsyncThunk(
     "resume/count",
     async (artistId) => {
-        const response = await ResumeService.resumeSearch(artistId)
+        const response = await ResumeService.countResume(artistId)
         return response.data;
     }
 )
@@ -80,7 +80,7 @@ const resumeSlice = createSlice({
             next:false,
         },
         count:{},
-        resume:{},
+        crudResult:{},
         category:[],
         fileList:[],
         type: "",
@@ -96,7 +96,9 @@ const resumeSlice = createSlice({
             state.fileList.push(payload)
         },
         delFileList : (state, {payload}) => {
-            state.fileList.filter((fileList) => fileList.uuid !== payload.uuid)
+            const idx = state.fileList.findIndex((fileList) => fileList.uuid === payload.uuid)
+            console.log("findFile: ", idx)
+            state.fileList.splice(idx,1)
         },
         changeFileList : (state, {payload}) => {
             const filteredFiles= state.fileList?.filter(f => f.uuid !== payload.file.uuid)
@@ -110,7 +112,7 @@ const resumeSlice = createSlice({
             state.pageResult = payload
         })
         .addCase(registerResume.fulfilled,(state,{payload}) => {
-            state.resume = payload
+            state.crudResult = payload
         })
         .addCase(readResume.fulfilled,(state,{payload}) => {
             state.current = payload
@@ -120,7 +122,9 @@ const resumeSlice = createSlice({
             return resume ? {...payload} : "선택하신 포트폴리오는 없는 포트폴리오입니다." + resume.resumeId;
         })
         .addCase(deleteResume.fulfilled,(state,{payload}) => {
-            return state.filter(resume => resume.resumeId == payload)
+            console.log("payload```````````````````````````",payload)
+            state.crudResult = payload
+
         })
         .addCase(searchResume.fulfilled,(state,{payload}) => {
             state.pageResult = payload;

@@ -1,6 +1,8 @@
 package shop.jinwookoh.api.resume.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -40,6 +42,9 @@ interface ResumeCustomRepository {
     @Query("SELECT r FROM Resume r WHERE r.category.categoryId= :categoryId AND r.artist.artistId = :artistId")
     Page<Resume> getCategoryAndUserDataPage(@Param("categoryId") Long categoryId, @Param("artistId") Long artistId,
             Pageable pageable);
+
+    @Query("SELECT DATE_FORMAT(reg_date, '%y-%m-%d') AS date, count(*) AS cnt FROM Resume WHERE artist.artistId= :artistId GROUP BY DATE_FORMAT(reg_date, '%Y%m%d') ORDER BY date DESC")
+    List<Object[]> countByArtistId(@Param("artistId") Long artistId);
 }
 
 @Repository
@@ -48,7 +53,7 @@ public interface ResumeRepository extends JpaRepository<Resume, Long>, ResumeCus
     @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.FETCH)
     Optional<Resume> findById(@Param("resumeId") Long resumeId);
 
-    @Query("SELECT count(resumeId) as cnt FROM Resume  WHERE artist.artistId= :artistId AND regdate between '2021-01-01' and '2021-12-31'")
-    Long countByArtistId(@Param("artistId") Long artistId);
+    @EntityGraph(attributePaths = { "artist", "category", "artist.roles" }, type = EntityGraph.EntityGraphType.FETCH)
+    List<Resume> findAll();
 
 }

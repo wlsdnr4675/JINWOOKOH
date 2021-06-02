@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
-import { addFileList, listCategory, registerResume } from 'webapp/resume/reducer/resume.reducer';
-import axios from "axios";
+import {listCategory, registerResume } from 'webapp/resume/reducer/resume.reducer';
 import { ResumeFile } from 'webapp/resume/index';
 
 
@@ -12,16 +11,6 @@ const ResumeRegister = () => {
 
     const categories = useSelector(state => state.resumes.category);
     const fileList = useSelector(state => state.resumes.fileList)
-    const fileItem = fileList.file
-    console.log("fileItem333333333333333" + fileItem)
-    const [result, setResult] = useState(false)
-
-    const requestRefresh = (result) => {
-
-        console.log("REQUEST REFRESH")
-
-        setResult(!result)
-    }
 
 
     useEffect(()=>{
@@ -33,7 +22,7 @@ const ResumeRegister = () => {
         detail: "",
         selfIntroduce: "",
         artistId: 200,
-        categoryId: 1,
+        categoryId: null,
     });
 
     const resumeChange = (e) => {
@@ -42,20 +31,23 @@ const ResumeRegister = () => {
         const {name, value} = e.target;
         resume [name] = value;
         setResume({...resume})
-        console.log("resume",resume)
+    }
+
+    const categoryChange = (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+        resume.categoryId = e.target.value
+        setResume({...resume})
     }
 
     const handleClick = (e) =>{
         e.stopPropagation()
         e.preventDefault()
-        const data = { resume , resumeFiles: fileList.map(i => i.file)}
-        dispatch(registerResume(data))
-        console.log("resume" + JSON.stringify(data))
-        console.log("fileList" + JSON.stringify(fileList))
-        requestRefresh()
-
-        
+        const data = { ...resume , resumeFiles: fileList.map(i => i.file)}
+        dispatch(registerResume(data)) 
+        window.history.back(1);
     }
+
     return (<> 
             <ResumeFile />
                 <div className="container dark-color" style={{marginBottom: "40px", color: "#24182e"}} >
@@ -81,10 +73,11 @@ const ResumeRegister = () => {
                 onChange={(e)=>resumeChange(e)}/>
             <div className="sidebar_widget widget_categories mb-50" style={{marginBottom: "20px"}}>
                 <h5 className="aside-title">Categories</h5>
-                {categories.map(category =>{
+                {categories?.map(category =>{
                     return(
                         <button className="btn btn-md btn-dark-outline btn-square mt-10"
-                        key={category.categotyId} name="categoryId" value={resume.categoryId}>
+                        key={category.categotyId} name="categoryId" value={category.categoryId}
+                        onClick={(e)=>categoryChange(e)}>
                         {category.categoryName}</button>
                         )})}
             </div>

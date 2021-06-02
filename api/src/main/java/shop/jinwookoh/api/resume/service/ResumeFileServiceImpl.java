@@ -47,7 +47,7 @@ public class ResumeFileServiceImpl implements ResumeFileService {
             try {
                 uploadFile.transferTo(savePath);
                 String thumbnailSaveName = uploadPath + File.separator + "s_" + uuid + "_" + fileName;
-                Thumbnails.of(new File(saveName)).size(100, 100).toFile(thumbnailSaveName);
+                Thumbnails.of(new File(saveName)).size(850, 400).toFile(thumbnailSaveName);
                 Thumbnails.of(new File(saveName)).scale(1)
                         .watermark(Positions.BOTTOM_CENTER,
                                 ImageIO.read(new File(uploadPath + File.separator + "watermark.png")), 0.5f)
@@ -79,5 +79,4 @@ public class ResumeFileServiceImpl implements ResumeFileService {
             }
         }
     }
-
 }
