@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // DATA Files
 import dataNavbar from "webapp/common/data/Navbar/main-navbar-data.json";
-import dataServices from "webapp/common/data/Services/services-studio-data.json";
+import dataServices from "webapp/resume/data/services-studio-data.json";
 import dataSkills from "webapp/common/data/Skills/skills-data.json";
 import dataCounters from "webapp/common/data/Counters/counters-data.json";
 import dataTeam from "webapp/common/data/Team/team-data.json";
@@ -28,10 +28,7 @@ const ResumeApp = () => {
   const dispatch = useDispatch();
   
   useEffect((e)=>{
-    (!searchType && !searchKeyword)?
-      dispatch(listResume(page)):
-    
-    dispatch(searchResume(param))
+    (!searchType && !searchKeyword) ? dispatch(listResume(page)): dispatch(searchResume(param))
   },[])  
 
 
@@ -52,12 +49,6 @@ const ResumeApp = () => {
         resumes = {pageResult.dtoList}
         tagline="Show Your Works"
         title= "Portfolio"
-        categories={[
-          "ALL",
-          "연극",
-          "예술",
-          "사진"
-        ]}
       />
       <SearchBar/>
       <Paging/>
@@ -77,8 +68,8 @@ const ResumeApp = () => {
     <CounterRowOne data={dataCounters} classes="mt-50" />
     </AboutFive>
     <TeamOne
-      tagline="MEET OUR INFLUENCER"
-      title='다양한 아트 인플루언서들을 <span class="text-bottom-line-sm">만나보세요</span>'
+      tagline="MEET HARD WORKER"
+      title='열심히 일한 당신 만을 위한 <span class="text-bottom-line-sm"> 보상</span>'
       data={dataTeam}
     >
       Web teams are made up of a diverse group of people who all contribute
