@@ -28,7 +28,6 @@ const ResumeFileItem = ({uuid, fname}) => {
     const repTrue = (e) => {
         e.stopPropagation()
         e.preventDefault()
-        console.log(e.target.value)
         resumeFile.repImg = !resumeFile.repImg;
         setResumeFile({...resumeFile})
         dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
@@ -46,8 +45,7 @@ const ResumeFileItem = ({uuid, fname}) => {
         <img src={`http://localhost:8080/resume_file/display?fileName=${resumeFile.uuid + "_" + resumeFile.fname}`}/><br/>
             {resumeFile.fname}
         <button className="btn mt-10" style={{marginLeft: "10px"}}
-        value={resumeFile.repImg} name="repImg" data-uuid={resumeFile.uuid}
-        onClick={(e)=>resumeFileDelete(e)}>
+         data-uuid={resumeFile.uuid} onClick={(e)=>resumeFileDelete(e)}>
         파일업로드 취소</button>                        
         </div>
         <label className="font-20px">작품 작업 날짜</label>

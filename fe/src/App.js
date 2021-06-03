@@ -25,7 +25,7 @@ const App=()=> {
               {/*Resume*/}
             <Route exact path="/resume/home" component={ResumeApp}/>
             <Route exact path='/resume/list' component={ResumeList}/>
-            <Route exact path='/resume/modify' component={ResumeModify}/>
+            <Route exact path='/resume/modify/:resumeId' component={ResumeModify}/>
             <Route exact path='/resume/register' component={ResumeRegister}/>
 
             {/*Funding*/}

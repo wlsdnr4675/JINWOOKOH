@@ -41,11 +41,15 @@ const ResumeRegister = () => {
     }
 
     const handleClick = (e) =>{
-        e.stopPropagation()
-        e.preventDefault()
-        const data = { ...resume , resumeFiles: fileList.map(i => i.file)}
-        dispatch(registerResume(data)) 
-        window.history.back(1);
+        e.stopPropagation();
+        e.preventDefault();
+        const data = { ...resume , resumeFiles: fileList.map(i => i.file)};
+
+        if( !(fileList && fileList[0] && resume) ) {
+            alert("사진 등록과 모든 항목을 작성해 주세요") 
+        }else{ dispatch(registerResume(data)) 
+        window.history.back()
+    }
     }
 
     return (<> 
@@ -60,7 +64,7 @@ const ResumeRegister = () => {
                 </span>
                 
                 <label className="font-20px">포트폴리오의 세부사항을 적어주세요</label>
-                <input type="textarea" style={{color:"black", height:"400px"}} name="detail"
+                <textarea type="text" style={{color:"black", height:"400px"}} name="detail"
                 value={resume.detail} placeholder="resumeDetail"
                 onChange={(e)=>resumeChange(e)}/>
                 <h5 className="aside-title">아티스트 이름</h5>
@@ -68,7 +72,7 @@ const ResumeRegister = () => {
                     <h4 className="aside-title">{resume.artistId}</h4>
                 </form>
                 <label className="font-20px">자기소개글을 써주세요</label>
-                <input type="textarea" name="selfIntroduce" style={{color:"black", height:"200px"}}
+                <textarea type="text" name="selfIntroduce" style={{color:"black", height:"200px"}}
                 value={resume.selfIntroduce} placeholder="resumeDetail"
                 onChange={(e)=>resumeChange(e)}/>
             <div className="sidebar_widget widget_categories mb-50" style={{marginBottom: "20px"}}>

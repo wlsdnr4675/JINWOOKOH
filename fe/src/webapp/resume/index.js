@@ -7,7 +7,6 @@ export {default as ResumeItem} from 'webapp/resume/component/list/ResumeItem'
 
 //modify
 export {default as ResumeModify} from 'webapp/resume/component/modify/ResumeModify'
-export {default as ModifySidebar} from 'webapp/resume/component/modify/ModifySidebar'
 export {default as ModifyFileItem} from 'webapp/resume/component/modify/ModifyFileItem'
 export {default as ModifyFile} from 'webapp/resume/component/modify/ModifyFile'
 

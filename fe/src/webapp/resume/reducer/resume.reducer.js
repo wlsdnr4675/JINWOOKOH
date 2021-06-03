@@ -27,16 +27,16 @@ export const readResume = createAsyncThunk(
 
 export const modifyResume = createAsyncThunk(
     "resume/modify",
-    async (resume) =>{
-        const response = await ResumeService.resumeModify(resume);
+    async (data) =>{
+        const response = await ResumeService.resumeModify(data);
         return response.data;
     }
 )
 
 export const deleteResume = createAsyncThunk(
     "resume/delete",
-    async (resume) => {
-        const response = await ResumeService.resumeDelete(resume)
+    async (data) => {
+        const response = await ResumeService.resumeDelete(data)
         return response.data;
     }
 )

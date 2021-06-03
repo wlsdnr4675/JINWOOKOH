@@ -3,17 +3,18 @@ import { useDispatch } from "react-redux";
 import { changeFileList, delFileList } from "webapp/resume/reducer/resume.reducer";
 
 
-const ModifyFileItem = ({uuid, fname}) => {
+const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate, repImg}) => {
     const dispatch = useDispatch()
 
     const [resumeFile, setResumeFile] = useState({
-        fileTitle: "",
-        fileDetail: "",
-        fileWorkedDate: "",
+        fileTitle: fileTitle,
+        fileDetail: fileDetail,
+        fileWorkedDate: fileWorkedDate,
         uuid: uuid,
         fname: fname,
-        repImg: false
+        repImg: repImg
     });
+    console.log(fname)
     const resumeFileChange =  (e) => {
         e.stopPropagation()
         e.preventDefault()
@@ -21,7 +22,7 @@ const ModifyFileItem = ({uuid, fname}) => {
         resumeFile [name] = value;
         setResumeFile({...resumeFile})
         console.log(resumeFile)
-        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: resumeFile}))
   
     }
     const repTrue = (e) => {
@@ -29,18 +30,19 @@ const ModifyFileItem = ({uuid, fname}) => {
         e.preventDefault()
         resumeFile.repImg = !resumeFile.repImg;
         setResumeFile({...resumeFile})
-        // dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: resumeFile}))
         console.log(e.target.value)
-        console.log("ssss",resumeFile)
     }
 
     const resumeFileDelete=(e)=>{
         e.stopPropagation()
         e.preventDefault()
-        // dispatch(delFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+        dispatch(delFileList({uuid: e.target.getAttribute("data-uuid"), file: resumeFile}))
     }
+    console.log("modifyFILES" , resumeFile)
+
     return (<>
-    <div className="row">
+    <div className="container">
         <div className="col-md-12 col-sm-12 col-xs-12 mb-20 xs-mb-50">
         <img src={`http://localhost:8080/resume_file/display?fileName=${resumeFile.uuid + "_" + resumeFile.fname}`}/><br/>
             {resumeFile.fname}
@@ -58,7 +60,7 @@ const ModifyFileItem = ({uuid, fname}) => {
         value={resumeFile.fileTitle} placeholder="fileTitle"
         onChange={(e) =>resumeFileChange(e)}/>
         <label  className="font-20px">파일 세부사항</label>
-        <textarea  name="fileDetail" data-uuid={resumeFile.uuid} style={{color:"black", height:"200px"}}
+        <textarea type="text"  name="fileDetail" data-uuid={resumeFile.uuid} style={{color:"black", height:"200px"}}
         value={resumeFile.fileDetail} placeholder="fileDetail"
         onChange={(e) =>resumeFileChange(e)}/>
         {!resumeFile.repImg ?<>
@@ -66,11 +68,8 @@ const ModifyFileItem = ({uuid, fname}) => {
         <button className="btn btn-md btn-dark-outline btn-square mt-10"
         value={resumeFile.repImg} name="repImg" data-uuid={resumeFile.uuid}
         onClick={(e)=>repTrue(e)}>
-        Yes</button>
-        <button className="btn btn-md btn-dark-outline btn-square mt-10"
-       value={resumeFile.repImg} name="repImg"
-       onClick={(e)=>repTrue(e)}>
-        NO</button> </>: <></>}
+        CHECK</button>
+        </>: <></>}
         </div>
     </div>
      </>);

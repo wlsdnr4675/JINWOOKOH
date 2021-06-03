@@ -17,6 +17,7 @@ const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
   
   const handleClose = () => setOpen(false)
 
+  
   const  handleOpen = async (e, resumeId, artistId) => {
     e.stopPropagation()
     e.preventDefault()

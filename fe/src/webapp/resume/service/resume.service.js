@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const resumeList = (page) => axios.get(`http://localhost:8080/resume/list_page?page=` + page);
 const resumeRegister = (data) =>axios.post("http://localhost:8080/resume/register",data);
-const resumeModify = (data) =>axios.put(`http://localhost:8080/resume/edit`);
+const resumeModify = (data) =>axios.put(`http://localhost:8080/resume/edit`, data);
 const resumeRead = (resumeId) =>axios.get(`http://localhost:8080/resume/read/` + resumeId);
 const resumeDelete = (resume) =>axios.delete(`http://localhost:8080/resume/delete`,{data: {...resume}});
 

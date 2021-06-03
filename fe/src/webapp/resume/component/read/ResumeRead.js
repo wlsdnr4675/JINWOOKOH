@@ -11,7 +11,7 @@ import Slider from "react-slick";
 import {ReadSidebar} from "webapp/resume/index";
 import {useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { countResume, deleteResume } from 'webapp/resume/reducer/resume.reducer';
+import { deleteResume, readResume } from 'webapp/resume/reducer/resume.reducer';
 
 const ResumeRead = ({open , handleClose}) => {
 
@@ -61,16 +61,14 @@ const ResumeRead = ({open , handleClose}) => {
 
     const dispatch = useDispatch();
     const items = useSelector(state => state.resumes.current);
-    const resumeCount = useSelector(state => state.resumes.count);
     const files = items.resumeFiles;
-    const [resumeItem,setResumeItem] = useState({});  
+    const [resumeItem,setResumeItem] = useState({}); 
+
     useEffect(()=>{
-        setResumeItem(items)
-        
+        setResumeItem(items)    
     },[items]) 
 
     const fileList = files.map((file, i)=>{
-        console.log(file.uuid + "_" + file.fname)
         return (<>
           <img src={`http://localhost:8080/resume_file/display?fileName=${"w_"+file.uuid + "_" + file.fname}`} />
           <div>
@@ -91,7 +89,7 @@ const ResumeRead = ({open , handleClose}) => {
       dispatch(deleteResume(resumeItem))
       window.location.reload()
     }
-    
+
     return (<>
         <Dialog  fullScreen open={open} onClose={handleClose} TransitionComponent={Transition} className={useStyles().dialogSize}
         >
@@ -104,8 +102,8 @@ const ResumeRead = ({open , handleClose}) => {
                 {resumeItem.name}
               </Typography>
 
-              <Link to={"/resume/modify"}>
-                <button className="btn btn-light-outline btn-square">
+              <Link to={"/resume/modify/" + resumeItem.resumeId }>
+                <button className="btn btn-light-outline btn-square" > 
                 EDIT</button></Link>
                 <button className="btn  btn-light-outline btn-square" style={{marginTop: "4px"}}
                 onClick={(e)=>onDelete(e)}>
