@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeFileList, delFileList } from "webapp/resume/reducer/resume.reducer";
 
 
-const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate}) => {
+const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate, resumeFileId}) => {
     
     const dispatch = useDispatch()
     const fileList = useSelector(state => state.resumes.current.resumeFiles)
@@ -14,9 +14,11 @@ const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate}) =>
         fileWorkedDate: fileWorkedDate,
         uuid: uuid,
         fname: fname,
+        resumeFileId:resumeFileId,
         repImg: false
     });
-    console.log("fnamefnamefnamefnamefname",resumeFile.fname)
+    console.log("fanme", resumeFile)
+
     const resumeFileChange =  (e) => {
         e.stopPropagation()
         e.preventDefault()
@@ -24,22 +26,21 @@ const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate}) =>
         resumeFile [name] = value;
         setResumeFile({...resumeFile})
         console.log("resumeFileChange : ", resumeFile)
-        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
-  
+        dispatch(changeFileList(resumeFile))
     }
+
     const repTrue = (e) => {
         e.stopPropagation()
         e.preventDefault()
         resumeFile.repImg = !resumeFile.repImg;
         setResumeFile({...resumeFile})
-        console.log("e.target.getAttribute: ", e.target.getAttribute("data-uuid"))
-        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+        dispatch(changeFileList(resumeFile))
     }
 
     const resumeFileDelete=(e)=>{
         e.stopPropagation()
         e.preventDefault()
-        dispatch(delFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+        dispatch(delFileList(resumeFile))
     }
 
     return (<>

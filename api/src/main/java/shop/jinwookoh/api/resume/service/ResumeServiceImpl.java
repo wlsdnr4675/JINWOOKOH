@@ -54,15 +54,16 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
 
     @Override
     public String editResume(ResumeDto resumeDto) {
+        log.info("sssssssssssss" + resumeDto);
         Resume resume = Resume.of(resumeDto);
         resume = repo.getOne(resumeDto.getResumeId());
-        resume.saveAll(resumeDto);
-
+        log.info("repo.getOne: " + resume);
+        repo.save(resume);
         List<ResumeFileDto> files = resumeDto.getResumeFiles();
         if (!files.isEmpty()) {
             files.forEach(resumeFileDtos -> {
                 ResumeFile rf = dtoToEntityResumeFile(resumeFileDtos);
-                rf = fileRepo.getOne(resumeFileDtos.getResumeFileId());
+                fileRepo.deleteByResumeId(resumeDto.getResumeId());
                 rf.saveDetails(resumeFileDtos);
                 fileRepo.save(rf);
             });

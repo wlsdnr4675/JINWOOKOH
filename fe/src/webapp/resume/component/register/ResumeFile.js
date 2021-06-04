@@ -3,21 +3,14 @@ import { ResumeService,ResumeFileItem } from "webapp/resume/index"
 import { useDispatch, useSelector } from "react-redux"
 import { addFileList} from "webapp/resume/reducer/resume.reducer"
 
-const ResumeFile = ( {cref, getUploadedFiles, fileParam=[]}) => {
+const ResumeFile = ( {fileParam=[]}) => {
 
     const dispatch= useDispatch()
     const fileList = useSelector(state => state.resumes.current.resumeFiles)
-    const [files, setFiles] = useState([])
 
     const [uploadResult, setUploadResult] = useState(fileParam)
 
-    useImperativeHandle(cref, () => ({
-        send() {
-            getUploadedFiles(uploadResult)
-            setFiles([])
-            setUploadResult([])
-        }
-    }));
+
 
     const uploadFile = async (e) => {
         
@@ -35,9 +28,8 @@ const ResumeFile = ( {cref, getUploadedFiles, fileParam=[]}) => {
             console.log("res : ",res)
             res.data.forEach(uploadFileInfo => {
                 uploadResult.push(uploadFileInfo)
-                dispatch(addFileList({uuid: uploadFileInfo.uuid, file: uploadFileInfo}))
+                dispatch(addFileList(uploadFileInfo))
             })
-            setUploadResult(uploadResult.slice(0))
             console.log("uploadResult",uploadResult)
         })
     }
@@ -47,9 +39,9 @@ const ResumeFile = ( {cref, getUploadedFiles, fileParam=[]}) => {
                 <label className="font-20px">첨부파일</label>
                 <input type="file" name="imageFile"  onChange={(e)=>uploadFile(e)} multiple={true}
                 />
-                {fileList?.map(fileObj => {
+                {fileList.map(fileObj => {
                     return(
-                    <ResumeFileItem key={fileObj.uuid} {...fileObj.file}/>
+                    <ResumeFileItem key={fileObj.uuid} {...fileObj}/>
                     )})}            
             </div>
         </div>

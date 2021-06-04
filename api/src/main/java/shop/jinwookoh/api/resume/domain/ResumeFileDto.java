@@ -16,7 +16,6 @@ import shop.jinwookoh.api.common.util.ModelMapperUtils;
 @Builder
 public class ResumeFileDto {
 
-    private Long resumeFileId;
     private String uuid;
     private String fname;
     private Boolean repImg;

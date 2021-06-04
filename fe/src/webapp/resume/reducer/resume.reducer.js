@@ -1,4 +1,3 @@
-import { Satellite } from "@material-ui/icons";
 import{ createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {ResumeService} from "webapp/resume/index";
 
@@ -83,7 +82,6 @@ const resumeSlice = createSlice({
         count:{},
         crudResult:{},
         category:[],
-        fileList:[],
         current:{
             resumeFiles:[]
         },
@@ -97,22 +95,16 @@ const resumeSlice = createSlice({
         state.keyword = payload.keyword
     },
         addFileList : (state, {payload}) => {
+            console.log("payload::::::::::::",payload)
             state.current.resumeFiles.push(payload)
         },
         delFileList : (state, {payload}) => {
-            const idx = state.current.resumeFiles.findIndex((file) => {
-                console.log("................" + file.uuid, payload.uuid)
-                    return file.uuid === payload.uuid 
-            })
-            console.log("payload", payload)
-            console.log("findFile: ", idx)
-            state.current.resumeFiles.splice(idx,1)
+            const idx = state.current.resumeFiles.findIndex(file => file.uuid === payload.uuid)
+            state.current.resumeFiles.splice(idx, 1)
         },
         changeFileList : (state, {payload}) => {
-            console.log("changeFileList payload: " , payload)
-            const filteredFiles= state.current.resumeFiles.filter(f => f.uuid !== payload.file.uuid)
-            filteredFiles.push({uuid:payload.file.uuid, file:payload.file })
-            state.current.resumeFiles = filteredFiles
+            const idx= state.current.resumeFiles.findIndex(file => file.uuid === payload.uuid)
+            state.current.resumeFiles[idx] = payload
         },
     },
     extraReducers: (builder) => {
@@ -127,11 +119,10 @@ const resumeSlice = createSlice({
             state.current = payload
         })
         .addCase(modifyResume.fulfilled,(state,{payload}) => {
-            const resume = state.findIndex(resume => resume.resumeId == payload)
-            return resume ? {...payload} : "선택하신 포트폴리오는 없는 포트폴리오입니다." + resume.resumeId;
+            console.log("payload```````````````````````````",payload)
+            state.crudResult = payload
         })
         .addCase(deleteResume.fulfilled,(state,{payload}) => {
-            console.log("payload```````````````````````````",payload)
             state.crudResult = payload
 
         })

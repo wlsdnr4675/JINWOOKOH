@@ -85,7 +85,7 @@ const ResumeRead = ({open , handleClose}) => {
     const onDelete = (e) =>{
       e.stopPropagation();
       e.preventDefault();
-      console.log(resumeItem)
+      window.confirm("정말 삭제하시겠습니까?")      
       dispatch(deleteResume(resumeItem))
       window.location.reload()
     }
@@ -103,7 +103,7 @@ const ResumeRead = ({open , handleClose}) => {
               </Typography>
 
               <Link to={"/resume/modify/" + resumeItem.resumeId }>
-                <button className="btn btn-light-outline btn-square" > 
+                <button className="btn btn-light-outline btn-square" onClick={handleClose} > 
                 EDIT</button></Link>
                 <button className="btn  btn-light-outline btn-square" style={{marginTop: "4px"}}
                 onClick={(e)=>onDelete(e)}>

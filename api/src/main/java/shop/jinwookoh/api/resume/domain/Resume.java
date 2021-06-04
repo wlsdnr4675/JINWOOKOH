@@ -71,6 +71,7 @@ public class Resume extends BaseEntity {
     }
 
     public void saveAll(ResumeDto resumeDto) {
+        this.resumeId = resumeDto.getResumeId();
         this.title = resumeDto.getTitle();
         this.selfIntroduce = resumeDto.getSelfIntroduce();
         this.detail = resumeDto.getDetail();

@@ -21,7 +21,7 @@ const ResumeFileItem = ({uuid, fname}) => {
         resumeFile [name] = value;
         setResumeFile({...resumeFile})
         console.log(resumeFile)
-        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+        dispatch(changeFileList(resumeFile))
   
     }
     const repTrue = (e) => {
@@ -29,7 +29,7 @@ const ResumeFileItem = ({uuid, fname}) => {
         e.preventDefault()
         resumeFile.repImg = !resumeFile.repImg;
         setResumeFile({...resumeFile})
-        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+        dispatch(changeFileList(resumeFile))
         console.log(e.target.value)
         console.log("ssss",resumeFile)
     }
@@ -37,7 +37,7 @@ const ResumeFileItem = ({uuid, fname}) => {
     const resumeFileDelete=(e)=>{
         e.stopPropagation()
         e.preventDefault()
-        dispatch(delFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+        dispatch(delFileList(resumeFile))
         console.log("After Remove",resumeFile)
 
     }

@@ -12,31 +12,30 @@ const ResumeModify = () => {
    const {resumeId} = useParams()
 
   const item = useSelector(state => state.resumes.current)
-  const fileList = useSelector(state => state.resumes.fileList)
   const categories = useSelector(state => state.resumes.category);
 
   const files = item?.resumeFiles
 
-  console.log("fileList SLICE" , files)
+  console.log("item SLICE" , item)
   
   useEffect(()=>{
     dispatch(readResume(resumeId))
     dispatch(listCategory())
   },[])
 
-
-
-
   const[resume, setResume] = useState({
     resumeId: resumeId,
     title:item?.title,
     detail: item?.detail,
     selfIntroduce: item?.selfIntroduce,
-    artistId: resumeId,
+    artistId: item?.artistId,
+    username: item?.username,
+    name : item?.name,
     categoryId: item?.categoryId,
+    categoryName: item?.categoryName
   });
-
-
+  
+  console.log("resuemememememememme" , resume)
 
   const resumeChange = (e) =>{
     e.stopPropagation();
@@ -55,20 +54,15 @@ const ResumeModify = () => {
   const handleClick = (e) =>{
     e.stopPropagation();
     e.preventDefault();
-    const data = { ...resume , resumeFiles: fileList.map(i => i.file)};
-    console.log("MODIFY DATA: " ,fileList)
-
-    if( !(fileList && fileList[0] && resume) ) {
-        alert("사진 등록과 모든 항목을 작성해 주세요") 
-      }else{ dispatch(modifyResume(data)) 
-      window.history.back()
-      }
+    console.log("filefilefilefilefilefilefilefilefilefile", files)
+    const data = { ...resume , resumeFiles: files};
+    console.log("MODIFY DATA: " ,data)
+    dispatch(modifyResume(data)) 
   }
 
     return (<>
         <ModifyFile/>
         {files?.map(fileObj =>{
-          console.log("RESUME Modify FileObj",fileObj)
           return(
           <ModifyFileItem key ={fileObj.uuid} {...fileObj}/>)
         })}

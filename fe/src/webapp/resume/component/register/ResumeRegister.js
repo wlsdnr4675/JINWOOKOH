@@ -43,7 +43,7 @@ const ResumeRegister = () => {
     const handleClick = (e) =>{
         e.stopPropagation();
         e.preventDefault();
-        const data = { ...resume , resumeFiles: fileList.map(i => i.file)};
+        const data = { ...resume , resumeFiles: fileList.map(file => file)};
         console.log(data)
         if( !(fileList && fileList[0] && resume) ) {
             alert("사진 등록과 모든 항목을 작성해 주세요") 
