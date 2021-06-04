@@ -17,23 +17,26 @@ const ResumeModify = () => {
 
   const files = item?.resumeFiles
 
-  console.log("FILE SLICE" , files)
+  console.log("fileList SLICE" , files)
+  
+  useEffect(()=>{
+    dispatch(readResume(resumeId))
+    dispatch(listCategory())
+  },[])
 
 
 
 
   const[resume, setResume] = useState({
-    resumeId: item?.resumeId,
+    resumeId: resumeId,
     title:item?.title,
     detail: item?.detail,
     selfIntroduce: item?.selfIntroduce,
-    artistId: item?.artistId,
+    artistId: resumeId,
     categoryId: item?.categoryId,
   });
-  useEffect(()=>{
-    dispatch(readResume(resumeId))
-    dispatch(listCategory())
-  },[])
+
+
 
   const resumeChange = (e) =>{
     e.stopPropagation();
@@ -42,6 +45,7 @@ const ResumeModify = () => {
     resume [name] = value;
     setResume({...resume})
   }
+  console.log("ModifyResume", resume)
   const categoryChange = (e) => {
     e.stopPropagation()
     e.preventDefault()
@@ -51,8 +55,8 @@ const ResumeModify = () => {
   const handleClick = (e) =>{
     e.stopPropagation();
     e.preventDefault();
-
     const data = { ...resume , resumeFiles: fileList.map(i => i.file)};
+    console.log("MODIFY DATA: " ,fileList)
 
     if( !(fileList && fileList[0] && resume) ) {
         alert("사진 등록과 모든 항목을 작성해 주세요") 
@@ -60,13 +64,11 @@ const ResumeModify = () => {
       window.history.back()
       }
   }
-  console.log(resume)
 
     return (<>
-       
         <ModifyFile/>
         {files?.map(fileObj =>{
-          console.log("fileObjfileObjfileObjfileObj",fileObj)
+          console.log("RESUME Modify FileObj",fileObj)
           return(
           <ModifyFileItem key ={fileObj.uuid} {...fileObj}/>)
         })}
@@ -77,7 +79,6 @@ const ResumeModify = () => {
             value={resume.title} 
             onChange={(e)=>resumeChange(e)}/>
           </span>
-          
           <label className="font-20px">포트폴리오의 세부사항을 적어주세요</label>
           <textarea type="text" style={{color:"black", height:"400px"}} name="detail"
           value={resume?.detail} placeholder="resumeDetail"

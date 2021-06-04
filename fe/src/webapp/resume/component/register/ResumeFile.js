@@ -1,14 +1,12 @@
 import React,{useState, useImperativeHandle} from "react"
-import axios from "axios"
-import { ResumeService } from "webapp/resume"
+import { ResumeService,ResumeFileItem } from "webapp/resume/index"
 import { useDispatch, useSelector } from "react-redux"
-import { addFileList, changeFileList } from "webapp/resume/reducer/resume.reducer"
-import ResumeFileItem from "./ResumeFileItem"
+import { addFileList} from "webapp/resume/reducer/resume.reducer"
 
-const ResumeFile = ({cref, getUploadedFiles, fileParam=[]}) => {
+const ResumeFile = ( {cref, getUploadedFiles, fileParam=[]}) => {
 
     const dispatch= useDispatch()
-    const fileList = useSelector(state => state.resumes.fileList)
+    const fileList = useSelector(state => state.resumes.current.resumeFiles)
     const [files, setFiles] = useState([])
 
     const [uploadResult, setUploadResult] = useState(fileParam)

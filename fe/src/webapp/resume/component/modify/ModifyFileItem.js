@@ -1,28 +1,30 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeFileList, delFileList } from "webapp/resume/reducer/resume.reducer";
 
 
-const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate, repImg}) => {
+const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate}) => {
+    
     const dispatch = useDispatch()
-
+    const fileList = useSelector(state => state.resumes.current.resumeFiles)
+   
     const [resumeFile, setResumeFile] = useState({
         fileTitle: fileTitle,
         fileDetail: fileDetail,
         fileWorkedDate: fileWorkedDate,
         uuid: uuid,
         fname: fname,
-        repImg: repImg
+        repImg: false
     });
-    console.log(fname)
+    console.log("fnamefnamefnamefnamefname",resumeFile.fname)
     const resumeFileChange =  (e) => {
         e.stopPropagation()
         e.preventDefault()
         const {name, value} = e.target;
         resumeFile [name] = value;
         setResumeFile({...resumeFile})
-        console.log(resumeFile)
-        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: resumeFile}))
+        console.log("resumeFileChange : ", resumeFile)
+        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
   
     }
     const repTrue = (e) => {
@@ -30,16 +32,15 @@ const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate, rep
         e.preventDefault()
         resumeFile.repImg = !resumeFile.repImg;
         setResumeFile({...resumeFile})
-        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: resumeFile}))
-        console.log(e.target.value)
+        console.log("e.target.getAttribute: ", e.target.getAttribute("data-uuid"))
+        dispatch(changeFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
     }
 
     const resumeFileDelete=(e)=>{
         e.stopPropagation()
         e.preventDefault()
-        dispatch(delFileList({uuid: e.target.getAttribute("data-uuid"), file: resumeFile}))
+        dispatch(delFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
     }
-    console.log("modifyFILES" , resumeFile)
 
     return (<>
     <div className="container">

@@ -2,26 +2,17 @@ import React,{useState, useImperativeHandle, useEffect} from "react"
 import { ModifyFileItem, ResumeService } from "webapp/resume/index"
 import { useDispatch, useSelector } from "react-redux"
 import { addFileList} from "webapp/resume/reducer/resume.reducer"
-import { colors } from "@material-ui/core"
 
 
-const ModifyFile = ({cref, getUploadedFiles, fileParam=[]}) => {
+const ModifyFile = ({fileParam=[]}) => {
 
     const dispatch= useDispatch()
     const fileList = useSelector(state => state.resumes.fileList)
-    console.log("fname:" + fileList.file)
-    const [files, setFiles] = useState([])
+    console.log("MODIFY FILE's fileList.file :", fileList)
 
     const [uploadResult, setUploadResult] = useState(fileParam)
 
-    useImperativeHandle(cref, () => ({
-        send() {
-            getUploadedFiles(uploadResult)
-            setFiles([])
-            setUploadResult([])
-        }
-    }));
-    const uploadFile = async (e) => {
+    const uploadFile = (e) => {
         
         e.preventDefault() 
         console.dir(e.target.files);

@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux";
 import { changeFileList, delFileList } from "webapp/resume/reducer/resume.reducer";
-import ReusumeFile from "./ResumeFile";
 
 
 const ResumeFileItem = ({uuid, fname}) => {
@@ -39,6 +38,8 @@ const ResumeFileItem = ({uuid, fname}) => {
         e.stopPropagation()
         e.preventDefault()
         dispatch(delFileList({uuid: e.target.getAttribute("data-uuid"), file: {...resumeFile}}))
+        console.log("After Remove",resumeFile)
+
     }
     return (<>
         <div> 

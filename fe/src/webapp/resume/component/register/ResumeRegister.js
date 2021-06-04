@@ -10,7 +10,7 @@ const ResumeRegister = () => {
     const dispatch = useDispatch();
 
     const categories = useSelector(state => state.resumes.category);
-    const fileList = useSelector(state => state.resumes.fileList)
+    const fileList = useSelector(state => state.resumes.current.resumeFiles)
 
 
     useEffect(()=>{
@@ -44,7 +44,7 @@ const ResumeRegister = () => {
         e.stopPropagation();
         e.preventDefault();
         const data = { ...resume , resumeFiles: fileList.map(i => i.file)};
-
+        console.log(data)
         if( !(fileList && fileList[0] && resume) ) {
             alert("사진 등록과 모든 항목을 작성해 주세요") 
         }else{ dispatch(registerResume(data)) 

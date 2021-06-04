@@ -1,3 +1,4 @@
+import { Satellite } from "@material-ui/icons";
 import{ createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {ResumeService} from "webapp/resume/index";
 
@@ -83,6 +84,9 @@ const resumeSlice = createSlice({
         crudResult:{},
         category:[],
         fileList:[],
+        current:{
+            resumeFiles:[]
+        },
         type: "",
         keyword:"",
     },
@@ -93,17 +97,22 @@ const resumeSlice = createSlice({
         state.keyword = payload.keyword
     },
         addFileList : (state, {payload}) => {
-            state.fileList.push(payload)
+            state.current.resumeFiles.push(payload)
         },
         delFileList : (state, {payload}) => {
-            const idx = state.fileList.findIndex((fileList) => fileList.uuid === payload.uuid)
+            const idx = state.current.resumeFiles.findIndex((file) => {
+                console.log("................" + file.uuid, payload.uuid)
+                    return file.uuid === payload.uuid 
+            })
+            console.log("payload", payload)
             console.log("findFile: ", idx)
-            state.fileList.splice(idx,1)
+            state.current.resumeFiles.splice(idx,1)
         },
         changeFileList : (state, {payload}) => {
-            const filteredFiles= state.fileList?.filter(f => f.uuid !== payload.file.uuid)
+            console.log("changeFileList payload: " , payload)
+            const filteredFiles= state.current.resumeFiles.filter(f => f.uuid !== payload.file.uuid)
             filteredFiles.push({uuid:payload.file.uuid, file:payload.file })
-            state.fileList = filteredFiles
+            state.current.resumeFiles = filteredFiles
         },
     },
     extraReducers: (builder) => {
