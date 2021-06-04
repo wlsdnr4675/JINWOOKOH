@@ -18,9 +18,9 @@ const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate, res
         fname: fname,
         resumeFileId:resumeFileId,
         repImg: false,
-        resumeId: resumeId
+        resumeId: resumeId,
     });
-    console.log("resumeId:",resumeFile.resumeId)
+    console.log("resumeId:",resumeId)
     console.log("fanme", resumeFile)
 
     const resumeFileChange =  (e) => {

@@ -39,9 +39,9 @@ public interface ResumeService {
 
     default ResumeFile dtoToEntityResumeFile(ResumeFileDto dto) {
 
-        return ResumeFile.builder().fileTitle(dto.getFileTitle()).fileDetail(dto.getFileDetail())
-                .fileWorkedDate(dto.getFileDetail()).uuid(dto.getUuid()).fname(dto.getFname()).repImg(dto.getRepImg())
-                .build();
+        return ResumeFile.builder().resumeFileId(dto.getResumeFileId()).fileTitle(dto.getFileTitle())
+                .fileDetail(dto.getFileDetail()).fileWorkedDate(dto.getFileDetail()).uuid(dto.getUuid())
+                .fname(dto.getFname()).repImg(dto.getRepImg()).build();
     }
 
     default ResumeDto resumeEntityToDto(Resume en) {

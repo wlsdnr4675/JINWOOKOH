@@ -41,9 +41,9 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
         log.info(resume.getDetail());
         List<ResumeFileDto> files = resumeDto.getResumeFiles();
         if (!files.isEmpty()) {
-            files.forEach(resumeFileDtos -> {
-                ResumeFile rf = dtoToEntityResumeFile(resumeFileDtos);
-                rf.saveDetails(resumeFileDtos);
+            files.forEach(fileDto -> {
+                ResumeFile rf = dtoToEntityResumeFile(fileDto);
+                rf.saveDetails(fileDto);
                 rf.confirmResume(resume);
                 fileRepo.save(rf);
             });
@@ -57,16 +57,16 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
         log.info("EDIT Resume parameter: " + resumeDto);
         Resume resume = Resume.of(resumeDto);
         resume.saveAll(resumeDto);
-        log.info("Edit resume: " + resume);
+        log.info("Edit ModelMapped resume: " + resume);
         repo.save(resume);
-        resume = repo.getOne(resumeDto.getResumeId());
-        log.info("repo.getOne: " + resume);
+        fileRepo.deleteByResumeId(resume.getResumeId());
         List<ResumeFileDto> files = resumeDto.getResumeFiles();
         if (!files.isEmpty()) {
-            files.forEach(resumeFileDtos -> {
-                ResumeFile rf = dtoToEntityResumeFile(resumeFileDtos);
-                fileRepo.deleteByResumeId(resumeDto.getResumeId());
-                rf.saveDetails(resumeFileDtos);
+            files.forEach(fileDto -> {
+                ResumeFile rf = dtoToEntityResumeFile(fileDto);
+                log.info("MODIFY ResumeFile: " + rf);
+                rf.saveDetails(fileDto);
+                rf.confirmResume(resume);
                 fileRepo.save(rf);
             });
         }
