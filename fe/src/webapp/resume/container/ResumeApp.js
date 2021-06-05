@@ -8,7 +8,7 @@ import dataTeam from "webapp/common/data/Team/team-data.json";
 
 import HeaderTwo from "webapp/common/Header/HeaderTwo";
 import FooterOne from "webapp/common/Footer/FooterOne";
-import WhatWeOfferSix from "webapp/common/WhatWeOffer/WhatWeOfferSix";
+import WhatWeOfferSix from "webapp/resume/component/presentation/WhatWeOfferSix";
 import TeamOne from "webapp/common/Team/TeamOne";
 import { ResumeList, Paging, SearchBar, AboutFive,CounterRowOne, PresentationTwo} from "webapp/resume/index"
 import { useDispatch, useSelector } from "react-redux";

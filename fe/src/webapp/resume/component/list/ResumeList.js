@@ -45,30 +45,24 @@ const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
     )});
 
   return (
-    <section id="portfolio" className="pt-0 pb-0">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
+    <section id="portfolio" >
+      <div className="row mt-80">
+          <div className="col-md-12" >
             <div className="section-title text-center">
               <h2 className="cardo-font default-color" data-backfont={backfont}>
                 {tagline}
               </h2>
               <h1>{title && parse(title)}</h1>
-              {dash === "show" ? <hr className={"center_line " + (dashColor === "dark" ? "dark-bg" : "default-bg")} /> : null}
             </div>
           </div>
-        </div>
       </div>
-      <div className="container-fluid remove-padding ">
-          <div className="img-wrap">
+      <div className="row mt-80">
             <div id="portfolio-gallery" >
                   {totalList}
                   {open ? <ResumeRead open={open} handleClose={() => handleClose()}
                   resumeId={resumeNo}/>:<></> }
-            </div>
           </div>
         </div>
-
     </section>
   );
 };

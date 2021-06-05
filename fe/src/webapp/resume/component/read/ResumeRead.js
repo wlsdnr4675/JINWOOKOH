@@ -105,7 +105,7 @@ const ResumeRead = ({open , handleClose}) => {
               <Link to={"/resume/modify/" + resumeItem.resumeId }>
                 <button className="btn btn-light-outline btn-square" onClick={handleClose} > 
                 EDIT</button></Link>
-                <button className="btn  btn-light-outline btn-square" style={{marginTop: "4px"}}
+                <button className="btn btn-light-outline btn-square" style={{marginTop: "4px", marginLeft: "10px"}}
                 onClick={(e)=>onDelete(e)}>
                 DELETE</button>
             </Toolbar>

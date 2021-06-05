@@ -10569,7 +10569,7 @@ section.big-block .client-logo {
   -o-transform-origin: 50% -50%;
   transform-origin: 50% -50%;
 }
-.imghvr-hinge-down:hover > img {
+.c:hover > img {
   -webkit-transform: rotateX(90deg);
   -moz-transform: rotateX(90deg);
   -ms-transform: rotateX(90deg);
