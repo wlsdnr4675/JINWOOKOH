@@ -47,7 +47,7 @@ public class ResumeFileServiceImpl implements ResumeFileService {
             try {
                 uploadFile.transferTo(savePath);
                 String thumbnailSaveName = uploadPath + File.separator + "s_" + uuid + "_" + fileName;
-                Thumbnails.of(new File(saveName)).size(640, 400).toFile(thumbnailSaveName);
+                Thumbnails.of(new File(saveName)).size(800, 450).toFile(thumbnailSaveName);
                 Thumbnails.of(new File(saveName)).scale(1)
                         .watermark(Positions.BOTTOM_CENTER,
                                 ImageIO.read(new File(uploadPath + File.separator + "watermark.png")), 0.5f)
@@ -68,9 +68,9 @@ public class ResumeFileServiceImpl implements ResumeFileService {
     public void removeFiles(Long resumeId) {
         List<ResumeFile> fileList = repo.getAllForRemove(resumeId);
         for (ResumeFile fileLists : fileList) {
-            File f = new File(uploadPath + fileLists.getUuid() + "_" + fileLists.getFname());
-            File sf = new File(uploadPath + "s_" + fileLists.getUuid() + "_" + fileLists.getFname());
-            File wf = new File(uploadPath + "w_" + fileLists.getUuid() + "_" + fileLists.getFname());
+            File f = new File(uploadPath + File.separator + fileLists.getUuid() + "_" + fileLists.getFname());
+            File sf = new File(uploadPath + File.separator + "s_" + fileLists.getUuid() + "_" + fileLists.getFname());
+            File wf = new File(uploadPath + File.separator + "w_" + fileLists.getUuid() + "_" + fileLists.getFname());
             System.out.println("deleteFile: " + f.exists());
             if (f.exists()) {
                 f.delete();

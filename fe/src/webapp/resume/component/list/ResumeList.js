@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
+import "webapp/resume/css/ResumeCss.css"
 import LoadScript from "webapp/common/helpers/LoadScript";
 import {ResumeItem, ResumeRead} from "webapp/resume/index";
 import {readResume, countResume} from "webapp/resume/reducer/resume.reducer"
@@ -27,8 +28,6 @@ const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
     setOpen(true)
   }
 
-  
-
   const totalList = resumes.map( (resume, i) => {
 
     return (
@@ -42,11 +41,11 @@ const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
         resumeFiles={resume.resumeFiles}
         repImg={resume.repImg}
         category={resume.categoryName}
-        
       />
     )});
+
   return (
-    <section id="portfolio" className="pt-0 pb-0 ">
+    <section id="portfolio" className="pt-0 pb-0">
       <div className="container">
         <div className="row">
           <div className="col-md-12">
@@ -60,9 +59,9 @@ const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
           </div>
         </div>
       </div>
-      <div className="container-fluid remove-padding">
-          <div className="col-md-12">
-            <div id="portfolio-gallery" className="cbp" >
+      <div className="container-fluid remove-padding ">
+          <div className="img-wrap">
+            <div id="portfolio-gallery" >
                   {totalList}
                   {open ? <ResumeRead open={open} handleClose={() => handleClose()}
                   resumeId={resumeNo}/>:<></> }
