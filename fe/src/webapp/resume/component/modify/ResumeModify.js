@@ -14,9 +14,9 @@ const ResumeModify = () => {
   const item = useSelector(state => state.resumes.current)
   const categories = useSelector(state => state.resumes.category);
 
-  const files = item?.resumeFiles
+  const files = item.resumeFiles
 
-  console.log("item SLICE" , item)
+  console.log("files SLICE" , files)
   
   useEffect(()=>{
     dispatch(readResume(resumeId))
@@ -25,14 +25,14 @@ const ResumeModify = () => {
 
   const[resume, setResume] = useState({
     resumeId: resumeId,
-    title:item?.title,
-    detail: item?.detail,
-    selfIntroduce: item?.selfIntroduce,
-    artistId: item?.artistId,
-    username: item?.username,
-    name : item?.name,
-    categoryId: item?.categoryId,
-    categoryName: item?.categoryName
+    title:item.title,
+    detail: item.detail,
+    selfIntroduce: item.selfIntroduce,
+    artistId: item.artistId,
+    username: item.username,
+    name : item.name,
+    categoryId: item.categoryId,
+    categoryName: item.categoryName
   });
   
   console.log("resuemememememememme" , resume)
@@ -54,15 +54,16 @@ const ResumeModify = () => {
   const handleClick = (e) =>{
     e.stopPropagation();
     e.preventDefault();
-    console.log("filefilefilefilefilefilefilefilefilefile", files)
     const data = { ...resume , resumeFiles: files};
     console.log("MODIFY DATA: " ,data)
-    dispatch(modifyResume(data)) 
+    window.confirm("정말 수정하시겠습니까?")
+    dispatch(modifyResume(data))
+    // window.history.back();
   }
 
     return (<>
         <ModifyFile/>
-        {files?.map(fileObj =>{
+        {files.map(fileObj =>{
           return(
           <ModifyFileItem key ={fileObj.uuid} {...fileObj}/>)
         })}
@@ -75,22 +76,22 @@ const ResumeModify = () => {
           </span>
           <label className="font-20px">포트폴리오의 세부사항을 적어주세요</label>
           <textarea type="text" style={{color:"black", height:"400px"}} name="detail"
-          value={resume?.detail} placeholder="resumeDetail"
+          value={resume.detail} placeholder="resumeDetail"
           onChange={(e)=>resumeChange(e)}/>
 
-          <h5 className="aside-title">아티스트 이름</h5>
+          <h5 className="aside-title">아티스트 이름</h5>  
           <form className="search-form" method="post">
-              <h4 className="aside-title">{item?.name}</h4>
+              <h4 className="aside-title">{item.name}</h4>
           </form>
 
           <label className="font-20px">자기소개글을 써주세요</label>
-          <textarea type="text" name="selfIntroduce" style={{color:"black", height:"200px"}}
+          <textarea type="text" name="selfIntroduce" style={{color:"black", height:"200px"}} wrap="on"
           value={resume.selfIntroduce} placeholder="resumeDetail"
           onChange={(e)=>resumeChange(e)}/>
 
           <div className="sidebar_widget widget_categories mb-50" style={{marginBottom: "20px"}}>
           <h5 className="aside-title">Categories</h5>
-          {categories?.map(category =>{
+          {categories.map(category =>{
               return(
                   <button className="btn btn-md btn-dark-outline btn-square mt-10"
                   key={category.categotyId} name="categoryId" value={category.categoryId}
@@ -100,7 +101,8 @@ const ResumeModify = () => {
           </div>
 
           <div style={{marginBottom: "20px", verticalAlign: "center"}}>
-              <p className="btn btn-md btn-dark-outline btn-square mt-10" onClick={(e)=>handleClick(e)} >
+              <p className="btn btn-md btn-dark-outline btn-square mt-10" onClick={(e)=>handleClick(e)}
+              >
               MODIFY</p>
               < Link to = "/resume/home" > <p className="btn btn-md btn-dark-outline btn-square mt-10" >
               BACK</p>

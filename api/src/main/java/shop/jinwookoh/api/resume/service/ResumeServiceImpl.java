@@ -57,9 +57,9 @@ public class ResumeServiceImpl extends AbstractService<ResumeDto> implements Res
         log.info("EDIT Resume parameter: " + resumeDto);
         Resume resume = Resume.of(resumeDto);
         resume.saveAll(resumeDto);
+        fileRepo.deleteByResumeId(resume.getResumeId());
         log.info("Edit ModelMapped resume: " + resume);
         repo.save(resume);
-        fileRepo.deleteByResumeId(resume.getResumeId());
         List<ResumeFileDto> files = resumeDto.getResumeFiles();
         if (!files.isEmpty()) {
             files.forEach(fileDto -> {

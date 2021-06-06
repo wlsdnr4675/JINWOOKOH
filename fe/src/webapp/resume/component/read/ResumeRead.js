@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Slider from "react-slick";
-import {ReadSidebar} from "webapp/resume/index";
+import {ArtPost, ReadSidebar} from "webapp/resume/index";
 import {useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteResume, readResume } from 'webapp/resume/reducer/resume.reducer';
@@ -36,9 +36,11 @@ const ResumeRead = ({open , handleClose}) => {
 
         },
         dialogSize : {
-            margin: 'auto auto',
+            margin: '0 auto',
             width: '95%', 
             verticalAlign: "middle",
+            display:"inline-block",
+            wordBreak: "break-all"
         },
       }));
 
@@ -71,10 +73,11 @@ const ResumeRead = ({open , handleClose}) => {
     const fileList = files.map((file, i)=>{
         return (<>
           <img src={`http://localhost:8080/resume_file/display?fileName=${"w_"+file.uuid + "_" + file.fname}`} />
-          <div>
-          <p>{file.fileTitle}</p>
+            <div className="post-info" style={{textAlign: "center"}}>
+          <h3>{file.fileTitle}</h3>
           <p>{file.fileDetail}</p>
           </div>
+
           <div className="post-metas">
             <div className="post-metas-center">
               <p className="post-date">{file.fileWorkedDate} </p>
@@ -91,8 +94,8 @@ const ResumeRead = ({open , handleClose}) => {
     }
 
     return (<>
-        <Dialog  fullScreen open={open} onClose={handleClose} TransitionComponent={Transition} className={useStyles().dialogSize}
-        >
+        <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition} className={useStyles().dialogSize}
+         >
           <AppBar className={useStyles().appBar}>
             <Toolbar >
               <IconButton edge="start"  onClick={handleClose} aria-label="close">
@@ -113,7 +116,6 @@ const ResumeRead = ({open , handleClose}) => {
       <div className="container" style={{marginTop: "40px"}}>
         <div className="row">
           <div className="col-md-9 col-sm-9 col-xs-12 xs-mb-50">
-            <div className="row">
               <div className="col-md-12 col-sm-12 col-xs-12 mb-20 xs-mb-50">
                 <div className="post">
                   {files.length > 0 ? (
@@ -134,90 +136,19 @@ const ResumeRead = ({open , handleClose}) => {
                 </div>
               </div>
               <div className="col-md-12 col-sm-12 col-xs-12 mb-20">
-                <div className="blog-standard">
                   <blockquote>
                     <p>
                    {resumeItem.detail}
                     </p>
                   </blockquote>
-                </div>
-
-                {/* <h2 className="recent-post-title">개인 작품</h2>
-                <div className="row blog-style-01">
-                  {data.slice(0, 2).map((post) =>
-                    post.slides ? (
-                      <div
-                        className="col-md-6 col-sm-6 col-xs-12"
-                        key={post.id}
-                      >
-                        <div className="post">
-                          <Slider {...settings}>
-                            {post.slides.map((image, i) => (
-                              <div className="item" key={i}>
-                                <img
-                                  className="img-responsive"
-                                  src={require("../../assets/images/" + image)}
-                                  alt=""
-                                />
-                              </div>
-                            ))}
-                          </Slider>
-                          <div className="post-metas">
-                            <div className="post-metas-center">
-                              <p className="post-date">{post.published}</p>
-                            </div>
-                          </div>
-                          <div className="post-info all-padding-20">
-                            <h3>
-                              <a href={process.env.PUBLIC_URL + " blog "}>
-                                {post.title}
-                              </a>
-                            </h3>
-                            <p>{post.text}</p>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        className="col-md-6 col-sm-6 col-xs-12"
-                        key={post.id}
-                      >
-                        <div className="post">
-                          <div className="post-img">
-                            <img
-                              className="img-responsive"
-                              src={require("../../assets/images/" + post.image)}
-                              alt=""
-                            />
-                            <div className="post-metas">
-                              <div className="post-metas-center">
-                                <p className="post-date">{post.published}</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post-info all-padding-20">
-                            <h3>
-                              <a href={process.env.PUBLIC_URL + " blog "}>
-                                {post.title}
-                              </a>
-                            </h3>
-                            <p>{post.text}</p>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  )}
-                </div> */}
               </div>
-            </div>
           </div>
           <ReadSidebar resumeId= {resumeItem.resumeId} name={resumeItem.name} selfIntroduce={resumeItem.selfIntroduce} category={resumeItem.categoryName} artistId={resumeItem.artistId}/>
+
         </div>
+        <ArtPost/>
       </div>
       
-
-          
-         
         </Dialog>
     </>)
 }

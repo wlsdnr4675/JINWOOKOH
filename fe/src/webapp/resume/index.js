@@ -23,6 +23,8 @@ export {default as SkillbarSection} from 'webapp/resume/component/presentation/S
 //read
 export {default as ResumeRead} from 'webapp/resume/component/read/ResumeRead'
 export {default as ReadSidebar} from 'webapp/resume/component/read/ReadSidebar'
+export {default as ArtPost} from 'webapp/resume/component/read/ArtPost'
+
 
 
 //register

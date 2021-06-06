@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { changeFileList, delFileList } from "webapp/resume/reducer/resume.reducer";
 
 
-const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate, resumeFileId}) => {
+const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate, resumeFileId, repImg}) => {
     
     const {resumeId} = useParams()
     const dispatch = useDispatch()
@@ -17,7 +17,7 @@ const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate, res
         uuid: uuid,
         fname: fname,
         resumeFileId:resumeFileId,
-        repImg: false,
+        repImg: repImg,
         resumeId: resumeId,
     });
     console.log("resumeId:",resumeId)
@@ -66,7 +66,7 @@ const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate, res
         value={resumeFile.fileTitle} placeholder="fileTitle"
         onChange={(e) =>resumeFileChange(e)}/>
         <label  className="font-20px">파일 세부사항</label>
-        <textarea type="text"  name="fileDetail" style={{color:"black", height:"200px"}}
+        <textarea type="text"  name="fileDetail" style={{color:"black", height:"200px"}} wrap="on"
         value={resumeFile.fileDetail} placeholder="fileDetail"
         onChange={(e) =>resumeFileChange(e)}/>
         {!resumeFile.repImg ?<>
@@ -75,7 +75,14 @@ const ModifyFileItem = ({uuid, fname, fileDetail, fileTitle, fileWorkedDate, res
         value={resumeFile.repImg} name="repImg"
         onClick={(e)=>repTrue(e)}>
         CHECK</button>
-        </>: <></>}
+        </>
+        :<> 
+        <label className="font-20px">대표이미지 선택을 취소하시겠습니까?</label><br/>
+        <button className="btn btn-md btn-color btn-square mt-10"
+        value={resumeFile.repImg} name="repImg"
+        onClick={(e)=>repTrue(e)}>
+        CANCEL</button>
+        </>}
         </div>
     </div>
      </>);

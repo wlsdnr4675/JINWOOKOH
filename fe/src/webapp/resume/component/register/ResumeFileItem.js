@@ -67,10 +67,14 @@ const ResumeFileItem = ({uuid, fname}) => {
         value={resumeFile.repImg} name="repImg" data-uuid={resumeFile.uuid}
         onClick={(e)=>repTrue(e)}>
         Yes</button>
-        <button className="btn btn-md btn-dark-outline btn-square mt-10"
-       value={resumeFile.repImg} name="repImg"
-       onClick={(e)=>repTrue(e)}>
-        NO</button> </>: <></>}
+        </>
+        :<> 
+        <label className="font-20px">대표이미지 선택을 취소하시겠습니까?</label><br/>
+        <button className="btn btn-md btn-color btn-square mt-10"
+        value={resumeFile.repImg} name="repImg"
+        onClick={(e)=>repTrue(e)}>
+        CANCEL</button>
+        </>}
      </>);
 }
  

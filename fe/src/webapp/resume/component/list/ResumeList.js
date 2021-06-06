@@ -45,7 +45,7 @@ const ResumeList = ({ title, tagline, backfont, resumes, dash, dashColor }) => {
     )});
 
   return (
-    <section id="portfolio" >
+    <section id="portfolio" style={{wordBreak: "break-all"}}>
       <div className="row mt-80">
           <div className="col-md-12" >
             <div className="section-title text-center">
