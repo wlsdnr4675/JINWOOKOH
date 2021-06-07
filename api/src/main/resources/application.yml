@@ -31,9 +31,8 @@ security:
   jwt:
     secret: secret-value
 shop:
-  jinwookoh:
-    upload:
-      path: /Users/jinwookoh/Desktop/ResumeFile
+  upload:
+    path: /Users/jinwookoh/Desktop/ResumeFile
 
 UserController:
   signup: Creates user and returns its JWT token

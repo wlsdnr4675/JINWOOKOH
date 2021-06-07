@@ -49,7 +49,7 @@ public class ResumeFileController {
 
     }
 
-    @Value("${shop.jinwookoh.upload.path}")
+    @Value("${shop.upload.path}")
     private String uploadPath;
 
     @GetMapping("/display")

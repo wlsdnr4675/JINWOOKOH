@@ -28,7 +28,7 @@ import shop.jinwookoh.api.resume.repository.ResumeRepository;
 @Service
 @RequiredArgsConstructor
 public class ResumeFileServiceImpl implements ResumeFileService {
-    @Value("${shop.jinwookoh.upload.path}")
+    @Value("${shop.upload.path}")
     private String uploadPath;
     private final ResumeFileRepository repo;
 

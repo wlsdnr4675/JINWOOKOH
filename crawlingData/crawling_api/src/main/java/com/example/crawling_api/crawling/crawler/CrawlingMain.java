@@ -37,8 +37,8 @@ import com.google.gson.JsonObject;
 public class CrawlingMain {
     public static void main(String[] args) throws IOException {
 
-        String url = "http://www.yck.kr/html/contents/magazine02";
-        String cssQuery = ".txt > p.tit ";
+        String url = "http://www.yck.kr/html/contents/magazine01?cate_idx=2";
+        String cssQuery = ".img";
         Crawler crawler = new Crawler();
         Service service = new Service();
         crawler.setUrl(url);

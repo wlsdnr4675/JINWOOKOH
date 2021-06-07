@@ -1,7 +1,6 @@
 .img-wrap {
   width: 95%;
   margin: 0 auto;
-  background-color: black;
 }
 
 .img-wrap .img-box {
@@ -10,8 +9,4 @@
   overflow: hidden;
   margin-top: 0px;
   margin-left: 30px;
-}
-
-.img-width {
-  margin-top: 20px;
 }

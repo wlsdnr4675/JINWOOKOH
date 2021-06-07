@@ -58,7 +58,7 @@ const ResumeModify = () => {
     console.log("MODIFY DATA: " ,data)
     window.confirm("정말 수정하시겠습니까?")
     dispatch(modifyResume(data))
-    // window.history.back();
+    window.history.back();
   }
 
     return (<>

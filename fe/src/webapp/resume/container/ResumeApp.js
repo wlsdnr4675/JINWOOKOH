@@ -8,12 +8,10 @@ import dataTeam from "webapp/common/data/Team/team-data.json";
 
 import HeaderTwo from "webapp/common/Header/HeaderTwo";
 import FooterOne from "webapp/common/Footer/FooterOne";
-import WhatWeOfferSix from "webapp/resume/component/presentation/WhatWeOfferSix";
-import TeamOne from "webapp/common/Team/TeamOne";
-import { ResumeList, Paging, SearchBar, AboutFive,CounterRowOne, PresentationTwo} from "webapp/resume/index"
+import { ResumeList, Paging, SearchBar, AboutFive,CounterRowOne, PresentationTwo, TeamOne, WhatWeOfferSix} from "webapp/resume/index"
 import { useDispatch, useSelector } from "react-redux";
 import { listResume, searchResume } from "webapp/resume/reducer/resume.reducer";
-import { StarRate } from "@material-ui/icons";
+
 
 
 
@@ -38,7 +36,7 @@ const ResumeApp = () => {
       title="언제, 어디서나 <br/> 당신의 포트폴리오를 관리해보세요."
       text="포트폴리오를 등록해 놓으면 자동으로 당신의 작품이 포트폴리오에 등록이 됩니다."
       textBtn="REGISTER"
-      pathBtn={"/resume/register"}
+      textBtn2="LOGIN"
     />
     <WhatWeOfferSix
       tagline="Philo-Portfolio"
