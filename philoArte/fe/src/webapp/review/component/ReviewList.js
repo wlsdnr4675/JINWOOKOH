@@ -42,6 +42,9 @@ const ReviewList = () => {
     </div> <hr className="center_line default-bg"/>
 
         <div className="container" style={{marginTop:"75px"}}>
+        <div className="post-tags pull-left">
+                < Link to = "/">Home</ Link>
+            </div>
             <div className="post-tags pull-right">
                 < Link to = "/reviews/review_register">Register</ Link>
             </div> <br></br><ReviewSearch></ReviewSearch>

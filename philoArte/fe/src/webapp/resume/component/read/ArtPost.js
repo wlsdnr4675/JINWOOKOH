@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import Icofont from 'react-icofont';
 import { useDispatch, useSelector } from 'react-redux';
 import 'webapp/resume/css/ResumeCss.css';
-import { getArtForResume } from 'webapp/art/reducer/art.reducer';
+import { getArtPosts } from 'webapp/art/reducer/art.reducer';
 import { Link } from 'react-router-dom';
 const ArtPost = ({ data }) => {
     const settings = {
@@ -22,7 +22,7 @@ const ArtPost = ({ data }) => {
     const items = useSelector((state) => state.resumes.current);
     const artList = useSelector(state => state.arts.pageResult)
     useEffect(()=>{
-        dispatch(getArtForResume(items.artistId))
+        dispatch(getArtPosts(items.artistId))
     },[])
     return (
         <>

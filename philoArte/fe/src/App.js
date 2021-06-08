@@ -4,7 +4,7 @@ import ScrollIntoView from './webapp/common/helpers/ScrollIntoView';
 import ScrollToTop from './webapp/common/helpers/ScrollToTop';
 
 import { ArtistList, Signup, Signin, ArtistRead, ArtistUpdate, Logout, MyPage, AristPageContainer } from 'webapp/artist/index';
-import { ArtApp, ArtPage, ArtRegister, ArtDetail, ArtModify } from 'webapp/art';
+import { ArtApp, ArtRegister, ArtDetail, ArtModify } from 'webapp/art';
 import { ResumeApp, ResumeModify, ResumeRegister } from 'webapp/resume/index';
 import { FundingHome, FundingList, FundingUpdate, FundingRegister, FundingDetail } from 'webapp/funding/index';
 import { Review, ReviewModify, ReviewRead, ReviewRegister } from 'webapp/review/index';
@@ -12,14 +12,7 @@ import { Reply, ReplyModify, ReplyRegister } from 'webapp/reply';
 
 import { HomeVideoBg } from 'webapp/common/index';
 
-import Sidebar1 from 'webapp/_test/Sidebar1';
 
-
-// import ArtistRead from 'webapp/artist/component/ArtistRead';
-// import ArtistUpdate from 'webapp/artist/component/ArtistUpdate';
-// import ArtistList from 'webapp/artist/component/ArtistList';
-// import Signin from 'webapp/artist/component/Signin';
-// import Signup from 'webapp/artist/component/Signup';
 
 const App = () => {
     return (
@@ -45,7 +38,6 @@ const App = () => {
 
                         {/*art*/}
                         <Route exact path="/art" component={ArtApp} />
-                        <Route exact path="/art/list" component={ArtPage} />
                         <Route exact path="/art/register" component={ArtRegister} />
                         <Route exact path="/art/read/:id" component={ArtDetail} />
                         <Route exact path="/art/modify/:id" component={ArtModify} />
@@ -58,17 +50,16 @@ const App = () => {
                         <Route exact path="/funding/home" component={FundingHome} />
 
                         {/*Review*/}
-                    <Route exact path='/reviews/review_list' component={Review}/>
-                    <Route exact path='/reviews/review_modify/:reviewId' component={ReviewModify}/>
-                    <Route exact path='/reviews/review_read/:reviewId' component={ReviewRead}/>
-                    <Route exact path='/reviews/review_register' component={ReviewRegister}/>
+                        <Route exact path='/reviews/review_list' component={Review}/>
+                        <Route exact path='/reviews/review_modify/:reviewId' component={ReviewModify}/>
+                        <Route exact path='/reviews/review_read/:reviewId' component={ReviewRead}/>
+                        <Route exact path='/reviews/review_register' component={ReviewRegister}/>
 
-                           {/*Reply*/}
-                    <Route exact path='/replies/reply_list' component={Reply}/>
-                    <Route exact path='/replies/reply_modify/:replyId' component={ReplyModify}/>
-                    <Route exact path='/replies/reply_register' component={ReplyRegister}/>
+                        {/*Reply*/}
+                        <Route exact path='/replies/reply_list' component={Reply}/>
+                        <Route exact path='/replies/reply_modify/:replyId' component={ReplyModify}/>
+                        <Route exact path='/replies/reply_register' component={ReplyRegister}/>
 
-                        <Route exact path="/test/sidebar1" component={Sidebar1} />
 
                         <Switch>
                             <privateRoute exact path="/" component={HomeVideoBg} />
