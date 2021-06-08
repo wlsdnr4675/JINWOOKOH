@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import shop.philoarte.api.art.domain.ArtFile;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 @Repository
 public interface ArtFileRepository extends JpaRepository<ArtFile, Long> {
 
-    @EntityGraph(attributePaths = { "art" }, type = EntityGraph.EntityGraphType.FETCH)
+    @EntityGraph(attributePaths = {"art"}, type = EntityGraph.EntityGraphType.FETCH)
     @Query("SELECT f FROM ArtFile f WHERE f.art.artId = :artId")
     List<ArtFile> getFilesByArtId(@Param("artId") Long artId);
 

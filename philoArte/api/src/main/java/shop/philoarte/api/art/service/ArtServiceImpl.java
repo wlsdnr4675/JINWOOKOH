@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import shop.philoarte.api.art.domain.*;
 import shop.philoarte.api.art.repository.ArtFileRepository;
 import shop.philoarte.api.art.repository.ArtRepository;
@@ -61,10 +60,12 @@ public class ArtServiceImpl implements ArtService {
 
         log.info(pageRequestDTO);
 
-        Function<Object[], ArtDTO> fn = (entity -> entityToDto((Art) entity[0], (Artist) entity[1],
-                (Category) entity[2], (Resume) entity[3], getFilesByArtId(((Art) entity[0]).getArtId())));
+        Function<Object[], ArtDTO> fn = (entity ->
+                entityToDtoForList((Art) entity[0], (Artist) entity[1], (Category) entity[2], (Resume) entity[3], (ArtFile) entity[4]));
 
         Page<Object[]> result = artRepository.getArts(pageRequestDTO.getPageable(Sort.by("artId").descending()));
+
+        System.out.println("result: " + result);
 
         return new PageResultDTO<>(result, fn);
 
@@ -74,14 +75,21 @@ public class ArtServiceImpl implements ArtService {
     @Override
     public PageResultDTO<ArtDTO, Object[]> getSearch(PageRequestDTO pageRequestDTO) {
 
-        Function<Object[], ArtDTO> fn = (entity -> entityToDto((Art) entity[0], (Artist) entity[1],
-                (Category) entity[2], (Resume) entity[3], getFilesByArtId(((Art) entity[0]).getArtId())));
+        Function<Object[], ArtDTO> fn = (entity ->
+                entityToDtoForList((Art) entity[0], (Artist) entity[1], (Category) entity[2], (Resume) entity[3], (ArtFile) entity[4]));
+
+        // Page<Object[]> result = artRepository.getArts(pageRequestDTO.getPageable(Sort.by("artId").descending()));
 
         log.info("---------------------------");
         log.info(pageRequestDTO.toString());
 
-        Page<Object[]> result = artRepository.searchPage(pageRequestDTO.getType(), pageRequestDTO.getKeyword(),
-                pageRequestDTO.getPageable(Sort.by("artId").descending()));
+        Page<Object[]> result = artRepository.searchPage(
+                pageRequestDTO.getType(),
+                pageRequestDTO.getKeyword(),
+                pageRequestDTO.getPageable(Sort.by("artId").descending())
+        );
+
+        System.out.println("result: " + result);
 
         return new PageResultDTO<>(result, fn);
 
@@ -102,8 +110,10 @@ public class ArtServiceImpl implements ArtService {
 
         log.info("artFileList: " + artFileList);
 
-        return entityToDto((Art) result.get(0)[0], (Artist) result.get(0)[1], (Category) result.get(0)[2],
-                (Resume) result.get(0)[3], artFileList);
+        return entityToDto(
+                (Art) result.get(0)[0], (Artist) result.get(0)[1],
+                (Category) result.get(0)[2], (Resume) result.get(0)[3],
+                artFileList);
 
     }
 
@@ -111,19 +121,6 @@ public class ArtServiceImpl implements ArtService {
     public List<ArtFile> getFilesByArtId(Long artId) {
 
         return artFileRepository.getFilesByArtId(artId);
-
-    }
-
-    @Transactional
-    @Override
-    public Long delete(Long artId) {
-
-        // 파일 부터 삭제
-        artFileRepository.deleteByArtId(artId);
-
-        artRepository.deleteById(artId);
-
-        return artRepository.findById(artId).isPresent() ? 0L : 1L;
 
     }
 
@@ -161,6 +158,41 @@ public class ArtServiceImpl implements ArtService {
         }
 
         return art.getArtId();
+
+    }
+
+    @Transactional
+    @Override
+    public Long delete(Long artId) {
+
+        // 파일 부터 삭제
+        artFileRepository.deleteByArtId(artId);
+
+        artRepository.deleteById(artId);
+
+        return artRepository.findById(artId).isPresent() ? 0L : 1L;
+
+    }
+
+    @Override
+    public List<Object[]> countByArtistId(Long artistId) {
+        return artRepository.countByArtistId(artistId);
+    }
+
+    @Transactional
+    @Override
+    public PageResultDTO<ArtDTO, Object[]> getArtsByArtistId(PageRequestDTO pageRequestDTO, Long artistId) {
+
+        log.info(pageRequestDTO);
+
+        Function<Object[], ArtDTO> fn = (entity ->
+                entityToDtoForList((Art) entity[0], (Artist) entity[1], (Category) entity[2], (Resume) entity[3], (ArtFile) entity[4]));
+
+        Page<Object[]> result = artRepository.getArtsByArtistId(pageRequestDTO.getPageable(Sort.by("artId").descending()), artistId);
+
+        System.out.println("result: " + result);
+
+        return new PageResultDTO<>(result, fn);
 
     }
 

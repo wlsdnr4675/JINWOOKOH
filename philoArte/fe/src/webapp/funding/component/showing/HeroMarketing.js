@@ -1,7 +1,4 @@
 import React from "react";
-import imgBg1 from "webapp/images/background/sampleImg.jpg";
-import imgBg2 from "webapp/images/slides/home-bg-13.jpg";
-import imgBg3 from "webapp/images/slides/home-bg-14.jpg";
 
 const HeroMarketing = () => (
   <section className="remove-padding transition-none">
@@ -45,7 +42,7 @@ const HeroMarketing = () => (
             data-description=""
           >
             <img
-              src={imgBg1}
+              src=""
               alt=""
               data-bgposition="center center"
               data-bgfit="cover"
@@ -110,7 +107,7 @@ const HeroMarketing = () => (
                 borderWidth: "0px",
               }}
             >
-              Philo Arte 펀딩
+              Philo Arte
             </div>
 
             <div
@@ -170,7 +167,7 @@ const HeroMarketing = () => (
                 borderWidth: "0px",
               }}
             >
-              젊은 예술가들
+              Dedicated. Inspired. Passionate.
             </div>
 
             <div
@@ -211,7 +208,7 @@ const HeroMarketing = () => (
                 cursor: "pointer",
               }}
             >
-              지금 핫한 펀딩
+              ABOUT US
             </div>
 
             <div
@@ -313,7 +310,7 @@ const HeroMarketing = () => (
             data-description=""
           >
             <img
-              src={imgBg2}
+              src=""
               alt=""
               data-bgposition="center center"
               data-bgfit="cover"
@@ -583,7 +580,7 @@ const HeroMarketing = () => (
             data-description=""
           >
             <img
-              src={imgBg3}
+              src=""
               alt=""
               data-bgposition="center center"
               data-bgfit="cover"

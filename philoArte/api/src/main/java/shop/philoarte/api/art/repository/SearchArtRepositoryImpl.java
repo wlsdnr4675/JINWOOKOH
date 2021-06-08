@@ -20,7 +20,6 @@ import shop.philoarte.api.artist.domain.QArtist;
 import shop.philoarte.api.category.domain.QCategory;
 import shop.philoarte.api.resume.domain.QResume;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,7 +55,7 @@ public class SearchArtRepositoryImpl extends QuerydslRepositorySupport implement
         log.info(tuple); // JPQL
         log.info("---------------------------");
 
-        // List<Art> result = jpqlQuery.fetch();
+//        List<Art> result = jpqlQuery.fetch();
         List<Tuple> result = tuple.fetch();
 
         log.info(result); // 실행되는 SQL
@@ -95,11 +94,9 @@ public class SearchArtRepositoryImpl extends QuerydslRepositorySupport implement
         booleanBuilder.and(expression);
 
         if (type != null) {
-            log.info("타입 널 값 아님");
             String[] typeArr = type.split("");
 
-            log.info(Arrays.toString(typeArr));
-            // 검색 조건을 작성하기
+            // 검색 조건 작성하기
             BooleanBuilder conditionBuilder = new BooleanBuilder();
 
             for (String t : typeArr) {
@@ -145,8 +142,6 @@ public class SearchArtRepositoryImpl extends QuerydslRepositorySupport implement
 
         tuple.groupBy(art);
 
-        List<Tuple> result = tuple.fetch();
-
         // page 처리
         log.info("---------- Page ----------");
         log.info(pageable.getOffset());
@@ -155,14 +150,16 @@ public class SearchArtRepositoryImpl extends QuerydslRepositorySupport implement
         tuple.offset(pageable.getOffset()); // 현재 페이지
         tuple.limit(pageable.getPageSize()); // 페이지 크기
 
+        List<Tuple> result = tuple.fetch();
+
         log.info(result);
 
         long count = tuple.fetchCount();
 
         log.info("COUNT: " + count);
 
-        return new PageImpl<Object[]>(result.stream().map(t -> t.toArray()).collect(Collectors.toList()), pageable,
-                count);
+        return new PageImpl<Object[]>(
+                result.stream().map(Tuple::toArray).collect(Collectors.toList()), pageable, count);
 
     }
 }

@@ -1,6 +1,5 @@
 package shop.philoarte.api.art.service;
 
-import org.springframework.web.multipart.MultipartFile;
 import shop.philoarte.api.art.domain.*;
 import shop.philoarte.api.artist.domain.Artist;
 import shop.philoarte.api.artist.domain.dto.ArtistDto;
@@ -23,9 +22,13 @@ public interface ArtService {
 
         List<ArtFile> getFilesByArtId(Long artId);
 
+        Long modify(ArtDTO artDTO);
+
         Long delete(Long artId);
 
-        Long modify(ArtDTO artDTO);
+        List<Object[]> countByArtistId(Long artistId);
+
+        PageResultDTO<ArtDTO, Object[]> getArtsByArtistId(PageRequestDTO pageRequestDTO, Long resumeId);
 
         default Art dtoToEntity(ArtDTO artDTO) {
                 return Art.builder().title(artDTO.getTitle()).description(artDTO.getDescription())
@@ -48,14 +51,21 @@ public interface ArtService {
                                 .build();
         }
 
-        default ArtDTO entityToDtoForList(Art art, Artist artist, Category category, Resume resume) {
+        default ArtDTO entityToDtoForList(Art art, Artist artist, Category category, Resume resume, ArtFile artFile) {
                 return ArtDTO.builder().artId(art.getArtId()).title(art.getTitle()).description(art.getDescription())
                                 .mainImg(art.getMainImg())
                                 .artist(ArtistDto.builder().artistId(artist.getArtistId())
                                                 .username(artist.getUsername()).name(artist.getName()).build())
                                 .category(CategoryDto.builder().categoryId(category.getCategoryId())
                                                 .categoryName(category.getCategoryName()).build())
-                                .resume(ResumeDto.builder().resumeId(resume.getResumeId()).build()).build();
+                                .resume(ResumeDto.builder().resumeId(resume.getResumeId()).build())
+                                .file(ArtFileDTO.builder().fileId(artFile.getFileId()).uuid(artFile.getUuid())
+                                                .originalFileName(artFile.getOriginalFileName())
+                                                .savedFileName(artFile.getSavedFileName())
+                                                .workedDate(artFile.getWorkedDate()).repImg(artFile.getRepImg())
+                                                .art(ArtDTO.builder().artId(artFile.getArt().getArtId()).build())
+                                                .build())
+                                .build();
         }
 
         default ArtFile dtoToEntityFiles(ArtFileDTO artFileDTO) {

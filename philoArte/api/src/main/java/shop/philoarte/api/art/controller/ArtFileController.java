@@ -81,8 +81,7 @@ public class ArtFileController {
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteFiles(@RequestBody String uuid) {
         log.info(uuid);
-        // return new ResponseEntity<>(artFileService.deleteFiles(artFileDTO),
-        // HttpStatus.OK);
+//        return new ResponseEntity<>(artFileService.deleteFiles(artFileDTO), HttpStatus.OK);
         return null;
     }
 

@@ -36,6 +36,8 @@ public class ArtDTO {
     private ResumeDto resume;
 
     // ArtFile
+    private ArtFileDTO file;
+
     private List<ArtFileDTO> files;
 
 }

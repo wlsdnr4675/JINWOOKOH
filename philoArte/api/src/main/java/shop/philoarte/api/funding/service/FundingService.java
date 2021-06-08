@@ -74,16 +74,22 @@ public interface FundingService {
     default Funding pagedtoToEntity(FundingDto dto) {
         Funding entity = Funding.builder().fundingId(dto.getFundingId()).title(dto.getTitle()).content(dto.getContent())
                 .goalPrice(dto.getGoalPrice()).hashtag(dto.getHashtag())
-                // .artist(Artist.builder().artistId(dto.getFundingId()).build())
+                 .artist(Artist.builder().artistId(dto.getFundingId()).build())
                 .build();
         return entity;
     }
 
     default FundingDto pageentityToDto(Funding entity) {
-        return FundingDto.builder().fundingId(entity.getFundingId()).title(entity.getTitle())
-                .content(entity.getContent()).goalPrice(entity.getGoalPrice()).hashtag(entity.getHashtag())
-                .viewCnt(entity.getViewCnt()).artistId(entity.getArtist().getArtistId())
-                .name(entity.getArtist().getName()).fundingFiles(entity.getFundingFiles().stream()
+        return FundingDto.builder().
+                fundingId(entity.getFundingId()).
+                title(entity.getTitle())
+                .content(entity.getContent())
+                .goalPrice(entity.getGoalPrice())
+                .hashtag(entity.getHashtag())
+                .viewCnt(entity.getViewCnt())
+                .artistId(entity.getArtist().getArtistId())
+                .name(entity.getArtist().getName())
+                .fundingFiles(entity.getFundingFiles().stream()
                         .map(fundingFile -> FundingFileDto.of(fundingFile)).collect(Collectors.toList()))
                 .build();
     }

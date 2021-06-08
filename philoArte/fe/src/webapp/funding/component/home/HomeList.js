@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import parse from "html-react-parser";
 import LoadScript from "webapp/common/helpers/LoadScript";
 import ItemHandle from "./ItemHandle";
-import { currentFunding } from "webapp/funding/reducer/funding.reducer";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button} from "@material-ui/core";
 
-const HomeList = ({ title, tagline, backfont,data, hashtag,dash, dashColor, id }) => {
+const HomeList = ({ title, tagline, backfont,data, dash, dashColor, id }) => {
 
   LoadScript("js/portfolio/portfolio-grid.js");
     

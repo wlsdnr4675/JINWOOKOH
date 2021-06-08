@@ -3,7 +3,6 @@ package shop.philoarte.api.art.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import shop.philoarte.api.art.domain.ArtDTO;
 import shop.philoarte.api.art.domain.PageRequestDTO;
 import shop.philoarte.api.art.domain.PageResultDTO;
@@ -23,7 +22,9 @@ public class ArtController {
     public ResponseEntity<PageResultDTO<ArtDTO, Object[]>> list(PageRequestDTO pageRequestDTO) {
         System.out.println("list() : " + pageRequestDTO);
 
-        return ResponseEntity.ok(artService.getList(pageRequestDTO));
+        PageResultDTO<ArtDTO, Object[]> result = artService.getList(pageRequestDTO);
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search")
@@ -60,6 +61,21 @@ public class ArtController {
         System.out.println("delete() : " + artDTO);
 
         return ResponseEntity.ok(artService.delete(artDTO.getArtId()));
+    }
+
+    @GetMapping("/count/{artistId}")
+    public ResponseEntity<List<Object[]>> count(@PathVariable("artistId") Long artistId) {
+        System.out.println("count() : " + artistId);
+
+        return ResponseEntity.ok(artService.countByArtistId(artistId));
+    }
+
+    @GetMapping("/list/{artistId}")
+    public ResponseEntity<PageResultDTO<ArtDTO, Object[]>> listByArtistId(PageRequestDTO pageRequestDTO, @PathVariable("artistId") Long artistId) {
+        System.out.println("listByResumeId() : " + pageRequestDTO);
+        System.out.println("listByResumeId() : " + artistId);
+
+        return ResponseEntity.ok(artService.getArtsByArtistId(pageRequestDTO, artistId));
     }
 
 }

@@ -3,14 +3,15 @@ package shop.philoarte.api.art.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import shop.philoarte.api.art.domain.Art;
-import shop.philoarte.api.art.domain.ArtDTO;
 import shop.philoarte.api.art.domain.ArtFileDTO;
 import shop.philoarte.api.art.repository.ArtFileRepository;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -52,15 +53,19 @@ public class ArtFileServiceImpl implements ArtFileService {
                 // 원본 파일 저장
                 file.transferTo(savePath);
 
-                // 썸네일 생성 (파일 이름 "s_"로 시작)
-                String thumbnailSaveName = uploadPath + File.separator + "s_" + uuid + "_" + fileName;
+                Thumbnails.of(new File(savedFileName))
+                        .size(800, 800)
+                        .toFile(uploadPath + File.separator + "s_" + uuid + "_" + fileName);
 
-                File thumbnailFile = new File(thumbnailSaveName);
+                Thumbnails.of(new File(savedFileName))
+                        .scale(1)
+                        .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(uploadPath + File.separator + "watermark.png")), 0.5f)
+                        .toFile(uploadPath + File.separator + "w_" + uuid + "_" + fileName);
 
-                // 썸네일 생성
-                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 800, 800);
-
-                ArtFileDTO artFileDTO = ArtFileDTO.builder().uuid(uuid).originalFileName(fileName).build();
+                ArtFileDTO artFileDTO = ArtFileDTO.builder()
+                        .uuid(uuid)
+                        .originalFileName(fileName)
+                        .build();
 
                 resultDtoList.add(artFileDTO);
 
@@ -79,26 +84,26 @@ public class ArtFileServiceImpl implements ArtFileService {
 
     @Override
     public Long deleteFiles(ArtFileDTO artFileDTO) {
-        // File file = new File(
-        // uploadPath
-        // + File.separator
-        // + artFileRepository.findByUuid(artFileDTO.getUuid()).getSaveFileName()
-        // );
-        //
-        // File thumbnail = new File(
-        // uploadPath
-        // + File.separator
-        // + "s_" + artFileRepository.findById(fileId).get().getSaveFileName()
-        // );
-        //
-        // if (file.exists()) {
-        // file.delete();
-        // thumbnail.delete();
-        // }
-        //
-        // artFileRepository.deleteByFileId(fileId);
-        //
-        // return (artFileRepository.findById(fileId) == null) ? 1L : 0L;
+//        File file = new File(
+//                uploadPath
+//                        + File.separator
+//                        + artFileRepository.findByUuid(artFileDTO.getUuid()).getSaveFileName()
+//        );
+//
+//        File thumbnail = new File(
+//                uploadPath
+//                        + File.separator
+//                        + "s_" + artFileRepository.findById(fileId).get().getSaveFileName()
+//        );
+//
+//        if (file.exists()) {
+//            file.delete();
+//            thumbnail.delete();
+//        }
+//
+//        artFileRepository.deleteByFileId(fileId);
+//
+//        return (artFileRepository.findById(fileId) == null) ? 1L : 0L;
         return null;
     }
 }

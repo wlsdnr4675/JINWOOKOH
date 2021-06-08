@@ -58,17 +58,20 @@ public class FundingServiceImpl implements FundingService {
     @Override
     @Transactional
     public String save(FundingDto requestDto) {
-        Funding toEntityRequest = pagedtoToEntity(requestDto);
-        repository.save(toEntityRequest);
+        Funding funding = Funding.of(requestDto);
+        funding.saveRequest(requestDto);
+//        Funding toEntityRequest = pagedtoToEntity(requestDto);
+        log.warn("warn"+funding);
+
         List<FundingFileDto> fundingFiles = requestDto.getFundingFiles();
         if (!fundingFiles.isEmpty()) {
             fundingFiles.forEach(fundingFiledtos -> {
                 FundingFile f = dtoToEntityFundingFile(fundingFiledtos);
-                f.confirmFunding(toEntityRequest);
+                f.confirmFunding(funding);
                 frepo.save(f);
             });
         }
-        return (repository.save(toEntityRequest) != null) ? "success" : "Fail";
+        return (repository.save(funding) != null) ? "success" : "Fail";
     }
 
     @Transactional

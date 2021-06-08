@@ -5,10 +5,12 @@ import { getFundingList, searchSomething } from 'webapp/funding/reducer/funding.
 import HeaderSocial from 'webapp/common/Header/HeaderSocial';
 import dataNavbar from 'webapp/common/data/Navbar/main-navbar-data.json';
 import FooterOne from 'webapp/common/Footer/FooterOne';
-import HomeMarketingSlider from 'webapp/funding/component/showing/HeroMarketing';
+import {HeroMarketing} from 'webapp/funding';
 import FundingListForm from './FundingListForm';
 import { Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import { getLocalArtist } from 'webapp/artist/reducer/artist.reducer';
+import HeaderOneMain from 'webapp/common/component/Navbar/HeaderOneMain';
 
 const FundingList = () => {
     const pageResult = useSelector((state) => state.fundings.pageResult);
@@ -31,6 +33,18 @@ const FundingList = () => {
         },
         [page]
     );
+    useEffect(() => {
+        getLocalArtist();
+    }, []);
+    const [loginInfo, setLoginInfo] = useState({});
+
+    const checkLogin = () => {
+        const loginValue = JSON.parse(localStorage.getItem(loginInfo));
+
+        setLoginInfo(loginValue);
+    };
+
+    useEffect(checkLogin, []);
 
     const [keyword, setKeyword] = useState('');
     const handleChange = async () => {
@@ -80,8 +94,8 @@ const FundingList = () => {
     return (
         <>
             <div>
-                <HeaderSocial data={dataNavbar} />
-                <HomeMarketingSlider />
+            <HeaderOneMain />
+                <HeroMarketing />
                 <textarea type="text" placeholder="Philo-Arte 통합 검색" name="keyword" ref={keywordRef} style={{ color: 'black' }} />
                 <Button onClick={handleChange} style={{ marginLeft: 50 }} variant="outlined" size="large" color="primary">
                     검색하기
@@ -90,7 +104,7 @@ const FundingList = () => {
                 {totalList}
                 <Grid xs={8} style={{ marginLeft: 230 }}>
                     <Link to={'/funding/register'}>
-                        <Button variant="outlined" size="large" color="primary">
+                        <Button variant="outlined" size="large" color="primary" >
                             새로운 펀딩 등록하기
                         </Button>
                     </Link>

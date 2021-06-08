@@ -69,7 +69,7 @@ public class Funding extends BaseEntity {
         this.content = requestDto.getContent();
         this.goalPrice = requestDto.getGoalPrice();
         this.hashtag = requestDto.getHashtag();
-        // this.artist = Artist.builder().artistId(requestDto.getFundingId()).build();
+        this.artist = Artist.builder().artistId(requestDto.getArtistId()).build();
 
     }
 

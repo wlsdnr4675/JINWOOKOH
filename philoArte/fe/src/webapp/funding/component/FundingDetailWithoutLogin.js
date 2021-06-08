@@ -16,10 +16,8 @@ import Divider from '@material-ui/core/Divider';
 import ShareIcon from '@material-ui/icons/Share';
 import LaunchIcon from '@material-ui/icons/Launch';
 import Button from '@material-ui/core/Button';
-import HeaderOneMain from 'webapp/common/component/Navbar/HeaderOneMain';
-import { getLocalArtist } from 'webapp/artist/reducer/artist.reducer';
 
-const FundingDetail = () => {
+const FundingDetailWithoutLogin = () => {
     const dispatch = useDispatch();
     const { read } = useParams();
     const param = useSelector(currentFunding);
@@ -27,7 +25,6 @@ const FundingDetail = () => {
     useEffect(() => {
         dispatch(getFundingDetail(read));
     }, []);
-
     const useStyles = makeStyles((theme) => ({
         root: {
             background: 'linear-gradient(90deg, #D9DAEB, #EBE5E3)',
@@ -234,21 +231,9 @@ const FundingDetail = () => {
     }));
 
     const classes = useStyles();
-
-    // useEffect(() => {
-    //     getLocalArtist();
-    // }, []);
-    // const [loginInfo, setLoginInfo] = useState({});
-
-    // const checkLogin = () => {
-    //     const loginValue = JSON.parse(localStorage.getItem(loginInfo));
-
-    //     setLoginInfo(loginValue);
-    // };
-    // useEffect(checkLogin, []);
     return (
         <>
-        <HeaderOneMain />
+            <HeaderSocial data={dataNavbar} />
             <HomeMarketingSlider />
             <div className={classes.root}>
                 <Grid container spacing={4} className={classes.productgrid}>
@@ -373,9 +358,6 @@ const FundingDetail = () => {
                             </Button>
                         </Link>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        
-
-
                         <Link to={`/funding/modify/${param.fundingId}`}>
                             <Button variant="outlined" size="large" color="primary" key={param.fundingId} onClick={() => dispatch(getFundingDetail(param.fundingId))}>
                                 수정하기
@@ -395,4 +377,4 @@ const FundingDetail = () => {
         </>
     );
 };
-export default FundingDetail;
+export default FundingDetailWithoutLogin;

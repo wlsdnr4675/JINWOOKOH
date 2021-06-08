@@ -55,6 +55,12 @@ export const getCategoryList = createAsyncThunk('CATEGORY_LIST', async () => {
     return response.data;
 });
 
+export const getArtForResume = createAsyncThunk('GET_ARTS', async (args) => {
+    const response = await ArtService.getArtForResume(args);
+
+    return response.data;
+})
+
 const isRejectedAction = (action) => action.type.endsWith('rejected');
 
 const artSlice = createSlice({
@@ -117,6 +123,9 @@ const artSlice = createSlice({
             })
             .addCase(getCategoryList.fulfilled, (state, { payload }) => {
                 state.category = payload;
+            })
+            .addCase(getArtForResume.fulfilled, (state, { payload }) => {
+                state.pageResult = payload;
             })
             .addMatcher(isRejectedAction)
             .addDefaultCase()

@@ -9,7 +9,7 @@ import shop.philoarte.api.resume.domain.Resume;
 import javax.persistence.*;
 
 @Getter
-@ToString(exclude = { "artist", "category", "resume" })
+@ToString(exclude = {"artist", "category", "resume"})
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

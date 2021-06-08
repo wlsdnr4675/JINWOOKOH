@@ -29,7 +29,8 @@ const artDelete = (payload) => {
         data: payload,
     });
 };
+const getArtForResume = (payload) => axios.get(`http://localhost:8080/arts/list/${payload}`)
 
-const categoryList = () => axios.get(`http://localhost:8080/categories/list`);
+const categoryList = () => axios.get(`http://localhost:8080/category/findall`);
 
-export default { artList, artRegister, artUpload, artFileDelete, artRead, artModify, artDelete, artSearch, categoryList };
+export default { artList, artRegister, artUpload, artFileDelete, artRead, artModify, artDelete, artSearch, categoryList, getArtForResume };

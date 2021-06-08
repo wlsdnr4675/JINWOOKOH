@@ -2,9 +2,6 @@ import React, {useEffect, useState} from "react";
 import { useSelector , useDispatch} from "react-redux";
 import {Link, useHistory} from 'react-router-dom'
 import { getFundingDetail, currentFunding, dtoPath} from "webapp/funding/reducer/funding.reducer";
-import readFunding from "webapp/funding/component/FundingDetail"
-import { FundingDetail } from "webapp/funding";
-import { Height } from "@material-ui/icons";
 
 const ItemHandle = ({ title, hashtag, fundingId ,image}) => {
   
@@ -14,7 +11,8 @@ const ItemHandle = ({ title, hashtag, fundingId ,image}) => {
     const param = useSelector(currentFunding)
     const selectContent = fundingId =>{
         dispatch(getFundingDetail(fundingId))
-      }
+}
+
     
 
 

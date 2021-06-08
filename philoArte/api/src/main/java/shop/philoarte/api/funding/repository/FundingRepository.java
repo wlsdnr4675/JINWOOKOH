@@ -19,8 +19,14 @@ import shop.philoarte.api.funding.domain.Funding;
 @Repository
 @Transactional
 public interface FundingRepository extends JpaRepository<Funding,Long>{
+
     @Query("SELECT f FROM Funding f ORDER BY f.fundingId asc")
     List<Funding> getAllFundings();
+
+//    @EntityGraph(attributePaths = {"artist", "artist.roles"}, type = EntityGraph.EntityGraphType.FETCH)
+//    @Query("INSERT INTO Funding(fundingId, title, content, goalPrice, viewCnt, hashtag")
+//    String register();
+
     @EntityGraph(attributePaths = {"artist", "artist.roles"}, type = EntityGraph.EntityGraphType.FETCH)
     @Query("SELECT f FROM Funding f WHERE f.fundingId = :fundingId")
     ArrayList<Funding> getOneFunding(@Param("fundingId")Long id);
@@ -34,7 +40,7 @@ public interface FundingRepository extends JpaRepository<Funding,Long>{
     @EntityGraph(attributePaths = {"artist", "artist.roles"}, type = EntityGraph.EntityGraphType.FETCH)
     @Query("SELECT f FROM Funding f WHERE f.hashtag LIKE %:hashtag%")
     List<Funding> searchFundingByHashtag(@Param("hashtag") String hashtagName);
-   
+
     
     @Query("SELECT f.fundingFiles FROM Funding f WHERE f.fundingId =:fundingId")
     ArrayList<Funding> colFiles(@Param("fundingId") Long id);

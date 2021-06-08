@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState} from "react";
 // DATA Files
 import dataNavbar from "webapp/common/data/Navbar/main-navbar-data.json";
 import dataTestimonials from "webapp/common/data/Testimonials/testimonials-data.json";
@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { currentFunding, getFundingList } from "../reducer/funding.reducer";
 import HomeList from "../component/home/HomeList";
 import { Button, Grid } from "@material-ui/core";
+import { getLocalArtist } from "webapp/artist/reducer/artist.reducer";
+import HeaderOneMain from 'webapp/common/component/Navbar/HeaderOneMain';
 
 const FundingHome = () => {
   const pageResult= useSelector(state=>state.fundings.pageResult)
@@ -25,16 +27,23 @@ const FundingHome = () => {
   useEffect((e)=>{
     dispatch(getFundingList(page))
   },[])
+  useEffect(() => {
+    getLocalArtist();
+}, []);
+  const [loginInfo, setLoginInfo] = useState({});
 
+  const checkLogin = () => {
+      const loginValue = JSON.parse(localStorage.getItem(loginInfo));
+
+      setLoginInfo(loginValue);
+  };
   const fundings = useSelector(state => state.Fundings)
-
+console.log("login info는::::::::::::::::::::::::::::::",loginInfo)
   return(
   <>
- 
-    <HeaderSocial data={dataNavbar} />
+    <HeaderOneMain />
 
     <HomeMarketingSlider/>
-    {/* <button onClick={onCategoryClick()}>클릭</button> */}
     <HomeList
       tagline="Let's participate Funding"
       title="당신이 함께 할 수 있는 펀딩리스트"
@@ -44,10 +53,11 @@ const FundingHome = () => {
       filter={true}
       hashtag={[
         "전체보기",
-        "약",
-        "건강기능",
-        "운동",
-        "의류",
+        "그림",
+        "조형",
+        "조각",
+        "건축",
+        "의상",
         "소품",
       ]}
     />
@@ -56,7 +66,6 @@ const FundingHome = () => {
     <TestimonialsThree data={dataTestimonials} title="Our Artist Says">
       <ClientsGrid data={dataClients} classes="mt-100" />
     </TestimonialsThree>
-    <BlogSection title="종료 된 펀딩" data={fundings} />
    
     <FooterOne />
   </>
