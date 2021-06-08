@@ -31,17 +31,19 @@ const ReviewRead = () => {
         fetchRead()
     },[])
     
-
+    const history = useHistory()
     const deletes = async(reviewId)=>{
+
         const loginValue = JSON.parse(localStorage.getItem('artist'))
 
         if(loginValue){
             window.confirm("정말 삭제하시겠습니까?")
             alert("삭제가 완료되었습니다.")
             await dispatch(getReviewDelete(reviewId))
-            await dispatch(getReviewList(1))
+            history.push("/reviews/review_list")
         }else{
            alert("로그인해주세요")
+           
         }
     }
 
@@ -79,7 +81,7 @@ const ReviewRead = () => {
             <div className="post-tags pull-left">
                 <Link to="/reviews/review_list"> Review List</Link>
 
-                <Link to="/reviews/review_list">
+                <Link to={`/reviews/review_read/${reviewObj.reviewId}`}>
                 <div onClick={()=> deletes(params.reviewId)}>Review Remove</div></Link>
             </div>
 

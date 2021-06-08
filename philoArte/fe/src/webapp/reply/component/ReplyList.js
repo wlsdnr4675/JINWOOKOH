@@ -44,7 +44,7 @@ import Icofont from 'react-icofont';
 
 
 const ReplyList=({reviewId, changeFlag, flag})=>{
-  const loginValue = JSON.parse(localStorage.getItem('artist'))
+
   const classes = useStyles();
 
   const [modalStyle] = React.useState(getModalStyle); 
@@ -62,14 +62,12 @@ const ReplyList=({reviewId, changeFlag, flag})=>{
 
     const imgRef = useRef()
 
-    const reviewObj = useSelector(currentReview)
-
     const replies = useSelector(state =>{
 
         return state.replies.reply;
     })
 
-    
+    const reviewObj = useSelector(currentReview)
   
     const fetchRead =()=>{
       dispatch(getReviewRead(params.reviewId))
@@ -97,12 +95,12 @@ const ReplyList=({reviewId, changeFlag, flag})=>{
     const [modalTitle, setModalTitle] = useState({}) 
 
     const handleOpen = (targetReply) => {  
-      // 수정버튼을 클릭할 때 reply에 있는 데이터를 가져와 setModalTitle에 담아서 열어 준다. 
+
         setModalTitle(targetReply)
         setOpen(true);
       };
 
-     // 썸네일 -> 원본 이미지  url 변경
+
     const getOriginImg = (str) => {
 
         const idx = str.lastIndexOf("_")
@@ -115,7 +113,7 @@ const ReplyList=({reviewId, changeFlag, flag})=>{
 
     }  
 
-    // 댓글 이미지 모달창 open
+
     const handleOpen2 = (e) => { 
       const srcTarget = getOriginImg(e.target.src)
       setModalImage(srcTarget)
@@ -134,8 +132,8 @@ const ReplyList=({reviewId, changeFlag, flag})=>{
       const handleChangeText =(e)=>{
 
         const renew = {...modalTitle}
-        // 새롭게 객체 분해 
-        renew.text = e.target.value // text 부분만 변경 
+
+        renew.text = e.target.value 
         
         console.log("renew", renew)
 
@@ -159,13 +157,13 @@ const ReplyList=({reviewId, changeFlag, flag})=>{
       formData.append("rno", modalTitle.rno)
       formData.append("imgName", modalTitle.imgName)
       formData.append("uuid", modalTitle.uuid)
-      formData.append("text", modalTitle.text)
+      formData.append("text",  modalTitle.text)
       formData.append("reviewId", modalTitle.reviewId)
       
       await dispatch(getReplyModify(formData))
 
-      changeFlag() // 수정한 후 바꾸게 하는 것
-      handleClose() //  모달을 종료 호출
+      changeFlag() 
+      handleClose() 
     }
 
     const handleChangeFile=(e)=>{
@@ -174,13 +172,6 @@ const ReplyList=({reviewId, changeFlag, flag})=>{
       setFiles(fileObj.files)
     }
 
-    const replyFileDelete=(e)=>{
-      e.stopPropagation()
-      e.preventDefault()
-      dispatch(delReplyFileList(files))
-    }
- 
-    //댓글 수정 모달 창 jsx
     const replyBody = (
       <div style={modalStyle} className={classes.paper} >
         <h2 className="text-center">Reply Modify</h2><hr className="center_line default-bg" style={{marginBottom:"50px"}}/>
@@ -223,14 +214,10 @@ const ReplyList=({reviewId, changeFlag, flag})=>{
                     <input type="file" name="file" id="input-file" style={{display:"none"}} multiple={true} onChange={(e) =>handleChangeFile(e)}/>
                 <Link className="btn btn-success btn-md btn-default remove-margin pull-right" onClick={fileModify}>Modify</Link>
                 </div>
-                {/* <button className="btn btn-success btn-md btn-default remove-margin pull-right"
-         data-uuid={files.uuid} onClick={(e)=>replyFileDelete(e)}>
-        Upload Cancel</button> */}
                 </div>
                   </div>
     );
-    
-    //댓글 이미지 클릭 시 모달창 오픈
+
     const replyFileBody=(
       <div style={modalStyle} className={classes.paper2} >
       <div className="display-flex">

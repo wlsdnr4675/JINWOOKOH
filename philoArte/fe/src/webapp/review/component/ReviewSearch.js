@@ -52,6 +52,7 @@ const ReviewSearch =()=>{
                             type="text"
                             name="keyword"
                             ref ={refKeyword}
+                            style={{border:"1px solid #9e9e9e", background:"white"}}
                             placeholder="검색으로 내가 응원하는 아티스트의 리뷰를 찾아보세요"/>
 
                         <span className="h-100 w-px-50 pos-abs-tl d-flex align-items-center justify-content-center font-size-6">

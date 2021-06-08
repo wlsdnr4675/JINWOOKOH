@@ -11,7 +11,7 @@ const ReplyRegister=()=>{
     const loginValue = JSON.parse(localStorage.getItem('artist'))
     const [input, setInput] = useState({
         text : '',
-        replyer : '',
+        replyer : !loginValue? '' : loginValue.name,
         uuid: "",
         path: "",
         imgName : "",
@@ -43,7 +43,7 @@ const ReplyRegister=()=>{
       formData.append("imgName", input.imgName)
       formData.append("uuid", input.uuid)
       formData.append("text", input.text)
-      formData.append("replyer", loginValue?.name)
+      formData.append("replyer", input.replyer)
       formData.append("reviewId", input.reviewId)
       await dispatch(getReplyRegister(formData))
       history.replace(`/reviews/review_read/${input.reviewId}`)
