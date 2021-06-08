@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // DATA Files
-import dataNavbar from "webapp/common/data/Navbar/main-navbar-data.json";
 import dataServices from "webapp/resume/data/services-studio-data.json";
 import dataSkills from "webapp/common/data/Skills/skills-data.json";
 import dataCounters from "webapp/common/data/Counters/counters-data.json";
 import dataTeam from "webapp/common/data/Team/team-data.json";
 
-import HeaderTwo from "webapp/common/Header/HeaderTwo";
 import FooterOne from "webapp/common/Footer/FooterOne";
 import { ResumeList, Paging, SearchBar, AboutFive,CounterRowOne, PresentationTwo, TeamOne, WhatWeOfferSix} from "webapp/resume/index"
 import { useDispatch, useSelector } from "react-redux";
 import { listResume, searchResume } from "webapp/resume/reducer/resume.reducer";
+import HeaderOneMain from "webapp/common/component/Navbar/HeaderOneMain";
+import { getLocalArtist } from "webapp/artist/reducer/artist.reducer";
 
 
 
@@ -27,11 +27,19 @@ const ResumeApp = () => {
   
   useEffect((e)=>{
     (!searchType && !searchKeyword) ? dispatch(listResume(page)): dispatch(searchResume(param))
+    dispatch(getLocalArtist());
   },[])  
 
+  const [loginInfo, setLoginInfo] = useState({});
+
+  const checkLogin = () => {
+    const loginValue = JSON.parse(localStorage.getItem(loginInfo));
+    setLoginInfo(loginValue);
+};
+   console.log(checkLogin)
 
   return(<>
-    <HeaderTwo data={dataNavbar} />
+    <HeaderOneMain/>
     <PresentationTwo
       title="언제, 어디서나 <br/> 당신의 포트폴리오를 관리해보세요."
       text="포트폴리오를 등록해 놓으면 자동으로 당신의 작품이 포트폴리오에 등록이 됩니다."

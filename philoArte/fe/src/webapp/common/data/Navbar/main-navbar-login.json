@@ -8,7 +8,7 @@
   {
     "id": 2,
     "title": "Art",
-    "path": "/funding/funding-list"
+    "path": "/art"
   },
   {
     "id": 3,
@@ -18,13 +18,13 @@
   {
     "id": 4,
     "title": "Funding",
-    "path": "/item/item_list"
+    "path": "/funding/list"
   },
 
   {
     "id": 5,
     "title": "Review",
-    "path": "/artist/artist_list"
+    "path": "/reviews/review_list"
   },
   {
     "id": 6,

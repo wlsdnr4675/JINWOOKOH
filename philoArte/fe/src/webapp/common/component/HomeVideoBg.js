@@ -1,35 +1,23 @@
 import React, { useEffect, useState } from 'react';
-// DATA Files
-// import dataNavbar from 'webapp/common/data/Navbar/main-navbar-data.json';
-// import dataNavbarMain from 'webapp/common/component/Navbar/dataNavbarMain';
+
 
 import dataCounters from 'webapp/common/data/Counters/counters-data.json';
-import dataPortfolio from 'webapp/common/data/Portfolio/main-portfolio-data.json';
 import dataServices from 'webapp/common/data/Services/services-minimal-data.json';
 import dataTestimonials from 'webapp/common/data/Testimonials/testimonials-data.json';
 import dataTeam from 'webapp/common/data/Team/team-data.json';
-import dataPricings from 'webapp/common/data/Pricings/pricings-data.json';
-import dataClients from 'webapp/common/data/Clients/clients-data.json';
+
 
 // Images
 import homeHockney from 'webapp/images/home/homeHockney.jpg';
-// import imgWhatWeDo from 'webapp/images/bg-right-img.jpg';
 import imgWhatWeDo from 'webapp/images/EYE.jpg';
-import imgParallax from 'webapp/images/background/parallax_bg.jpg';
 // Components
-// import HeaderOne from 'webapp/common/Header/HeaderOne';
-import HeaderOneMain from 'webapp/common/component/Navbar/HeaderOneMain';
 
+import HeaderOneMain from 'webapp/common/component/Navbar/HeaderOneMain';
 import HeroHomeVideo from 'webapp/common/HeroSlider/HeroHomeVideo';
 import WhatWeOfferEleven from '../WhatWeOffer/WhatWeOfferEleven';
 import WhatWeDoOne from '../WhatWeDo/WhatWeDoOne';
-import PortfolioOne from '../Portfolio/PortfolioOne';
 import TestimonialsOne from '../Testimonials/TestimonialsOne';
 import TeamOne from '../Team/TeamOne';
-import ParallaxOne from '../ParallaxSection/ParallaxOne';
-import PricingsOne from '../Pricings/PricingsOne';
-import ContactOne from '../Contact/ContactOne';
-import ClientsCarousel from '../Carousel/ClientsCarousel';
 import FooterOne from '../Footer/FooterOne';
 import CountersOne from '../Counters/CountersOne';
 import Loader from '../Loader/Loader';

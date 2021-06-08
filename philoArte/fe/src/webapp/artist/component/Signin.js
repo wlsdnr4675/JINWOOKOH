@@ -45,14 +45,14 @@ const Signin = () => {
                 <label htmlFor="username">
                     <b>ID</b>
                 </label>
-                <input type="text" placeholder="Enter Username" name="username" value={signin.username || ''} onChange={handleChange} />
+                <input type="text" style={{color:"black"}} placeholder="Enter Username" name="username" value={signin.username || ''} onChange={handleChange} />
 
                 <label htmlFor="password">
                     <b>비밀번호</b>
                 </label>
-                <input type="password" placeholder="Enter Password" name="password" value={signin.password || ''} onChange={handleChange} />
+                <input type="password"  style={{color:"black"}}  placeholder="Enter Password" name="password" value={signin.password || ''} onChange={handleChange} />
 
-                <button type="submit" onClick={(e) => goSignin(e)}>
+                <button type="submit" className="artistBtn" onClick={(e) => goSignin(e)}>
                     Login
                 </button>
             </div>
