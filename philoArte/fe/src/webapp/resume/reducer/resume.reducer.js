@@ -99,7 +99,7 @@ const resumeSlice = createSlice({
             state.current.resumeFiles.push(payload)
         },
         delFileList : (state, {payload}) => {
-            const idx = state.current.resumeFiles.findIndex(file => file.uuid === payload.uuid)
+            const idx = state.current.resumeFiles.filter(file => file.uuid === payload.uuid)
             state.current.resumeFiles.splice(idx, 1)
         },
         changeFileList : (state, {payload}) => {
