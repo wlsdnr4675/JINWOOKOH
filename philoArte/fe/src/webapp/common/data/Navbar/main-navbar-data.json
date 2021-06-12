@@ -14,6 +14,7 @@
     "id": 3,
     "title": "Resume",
     "path": "/resume/home"
+    
   },
   {
     "id": 4,
@@ -25,6 +26,7 @@
     "id": 5,
     "title": "Review",
     "path": "/reviews/review_list"
+    
   },
   {
     "id": 6,

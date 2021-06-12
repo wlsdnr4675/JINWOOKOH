@@ -5,10 +5,10 @@ import dataNavbar from 'webapp/common/data/Navbar/main-navbar-data.json';
 import dataClients from 'webapp/art/component/Presentation/clients-data.json';
 // Images
 // Components
-import HeaderOne from 'webapp/common/Header/HeaderOne'
 import FooterOne from 'webapp/common/Footer/FooterOne';
+import HeaderOne from 'webapp/common/Header/HeaderOne'
 import ClientsCarousel from 'webapp/common/Carousel/ClientsCarousel';
-import { HeroMarketing, PresentationTwo, ArtList, SearchBar } from 'webapp/art';
+import { PageTitle, ArtList, SearchBar } from 'webapp/art';
 
 import { getArtList, getArtSearch } from 'webapp/art/reducer/art.reducer';
 
@@ -30,8 +30,7 @@ const ArtPage = () => {
     return (
         <>
             <HeaderOne data={dataNavbar} />
-            <HeroMarketing />
-            <PresentationTwo title="Superb Website Template <br /> for Startups & Small Businesses." text="당신의 작품을 등록해 보세요." textBtn="작품 등록" pathBtn={process.env.PUBLIC_URL} />
+            <PageTitle title="작품 목록" image={''} />
             <ArtList data={pageResult.dtoList} filter={true} categories={['예술', '사진', '연극']} />
             <SearchBar />
             <ClientsCarousel data={dataClients} />
