@@ -5,18 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getArtPosts } from 'webapp/art/reducer/art.reducer';
 import 'webapp/resume/css/ResumeCss.css';
 const ArtPost = ({ data }) => {
-    const settings = {
-        dots: false,
-        infinite: true,
-        centerMode: true,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        centerPadding: '0',
-        className: 'blog-grid-slider slick',
-    };
+
     const dispatch = useDispatch()
+   
     const items = useSelector((state) => state.resumes.current);
     const artList = useSelector(state => state.arts.pageResult)
     useEffect(()=>{
@@ -47,9 +38,11 @@ const ArtPost = ({ data }) => {
                             </div>
                         ))}
                     </div>
+
                 </div>
             </section>
         </>
     );
 };
+
 export default ArtPost;

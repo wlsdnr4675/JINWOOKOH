@@ -4,13 +4,13 @@ import axios from 'axios';
 const list = (page) => {
     console.log('page :: ', page);
     const str = 'page=' + (!page.page ? 1 : page.page) + '&type=' + (page.type ? page.type : '') + '&keyword=' + (page.keyword ? page.keyword : '');
-    return axios.get(`/api/artists/list/pages?` + str);
+    return axios.get(`/artists/list/pages?` + str);
 };
 
 const imgList = (imgList) => {
     console.log('imgList :: ', imgList);
     const str = 'page=' + (!imgList.page ? 1 : imgList.page) + '&type=' + (imgList.type ? imgList.type : '') + '&keyword=' + (imgList.keyword ? imgList.keyword : '') + '&pageFileDto=' + (imgList.pageFileDto ? imgList.pageFileDto : '');
-    return axios.get(`/api/artist_files/imgList/pages` + str);
+    return axios.get(`/artist_files/imgList/pages` + str);
 };
 // , {
 //     page: imgList.page,
@@ -19,7 +19,7 @@ const imgList = (imgList) => {
 // }
 
 const signin = (signin) => {
-    return axios.post(`/api/artists/signin`, {
+    return axios.post(`/artists/signin`, {
         username: signin.username,
         password: signin.password,
     });
@@ -28,7 +28,7 @@ const signin = (signin) => {
 const signup = (param) => {
     alert('안올껄?');
     console.log('sevice param : ', param);
-    return axios.post(`/api/artists/signup`, param, {
+    return axios.post(`/artists/signup`, param, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -37,7 +37,7 @@ const signup = (param) => {
 
 const mypage = (artist) => {
     return axios
-        .put(`/api/artists/mypage`, artist, {
+        .put(`/artists/mypage`, artist, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -48,15 +48,15 @@ const mypage = (artist) => {
 };
 
 const deleteSelect = (deleteSelect) => {
-    return axios.put(`/api/artists/delete`, deleteSelect);
+    return axios.put(`/artists/delete`, deleteSelect);
 };
 
 const totalSearchBar = (totalSearchBar) => {
-    return axios.put(`/api/page/totalSearchBar`, totalSearchBar);
+    return axios.put(`/page/totalSearchBar`, totalSearchBar);
 };
 
 const imgDel = (imgDel) => {
-    return axios.put(`/api/page/imgDel`, imgDel);
+    return axios.put(`/page/imgDel`, imgDel);
 };
 
 export default { list, signin, signup, mypage, totalSearchBar, deleteSelect, imgDel, imgList };

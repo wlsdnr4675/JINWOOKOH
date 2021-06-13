@@ -1,10 +1,9 @@
 import axios from 'axios';
-const SERVER = 'http://localhost:8080';
 const register = (fd) => {
     console.log(fd);
 
     return axios
-        .post(`/api/replies/register`, fd, {
+        .post(`/replies/register`, fd, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -15,13 +14,13 @@ const register = (fd) => {
 };
 
 const list = (reviewId) => {
-    return axios.get(`/api/replies/list/${reviewId}`);
+    return axios.get(`/replies/list/${reviewId}`);
 };
 
 const modify = (reply) => {
     console.log('modify');
     return axios
-        .put(`/api/replies/modify/` + reply.rno, reply, {
+        .put(`/replies/modify/` + reply.rno, reply, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -33,7 +32,7 @@ const modify = (reply) => {
 
 const deletes = (rno) => {
     console.log('Delete reply');
-    return axios.delete(`/api/replies/remove/${rno}`, { data: { ...rno } });
+    return axios.delete(`/replies/remove/${rno}`, { data: { ...rno } });
 };
 
 export default { register, list, modify, deletes };
