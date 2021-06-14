@@ -55,7 +55,7 @@ public class SearchArtRepositoryImpl extends QuerydslRepositorySupport implement
         log.info(tuple); // JPQL
         log.info("---------------------------");
 
-//        List<Art> result = jpqlQuery.fetch();
+        // List<Art> result = jpqlQuery.fetch();
         List<Tuple> result = tuple.fetch();
 
         log.info(result); // 실행되는 SQL
@@ -158,8 +158,8 @@ public class SearchArtRepositoryImpl extends QuerydslRepositorySupport implement
 
         log.info("COUNT: " + count);
 
-        return new PageImpl<Object[]>(
-                result.stream().map(Tuple::toArray).collect(Collectors.toList()), pageable, count);
+        return new PageImpl<Object[]>(result.stream().map(Tuple::toArray).collect(Collectors.toList()), pageable,
+                count);
 
     }
 }
