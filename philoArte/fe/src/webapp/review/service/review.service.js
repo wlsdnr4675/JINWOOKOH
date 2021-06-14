@@ -1,48 +1,70 @@
 import axios from 'axios'
 import { useRef } from 'react';
 
+const userInfo = typeof window !== `undefined` ? JSON.parse(localStorage.getItem('artist')) : null;
 
 const register=(fd)=>{
 
-    console.log(fd)
-
-    return axios.post(`/reviews/register`, fd,{
+    return axios({
+        url: `/reviews/register`,
+        method:'post',
+        data: fd,
         headers:{
+            Authorization: `Bearer ${userInfo.token}`,
             'Content-Type': 'multipart/form-data'
         }
-    })
-    .then(response=>{
-        return response.data
     })
 }
 
 const list=(pageResult)=>{
-    console.log('service hireList pageRequest: ' + JSON.stringify(pageResult));
 
     const str = "page=" + (!pageResult.page?1:pageResult.page) +"&type="+ (pageResult.type) +"&keyword=" + (pageResult.keyword)
+
+    return axios({
+        url : `/reviews/list/pages?`+str,
+        method : 'get',
+        headers:{
+            Authorization : 'JWT fefefg...'
+        }
+    })
     
-    return axios.get(`/reviews/list/pages?` + str)
 }
 
 const read=(reviewId)=>{
-    return axios.get(`/reviews/read/${reviewId}`)
+    return axios({
+        url : `/reviews/read/${reviewId}`,
+        method:'get',
+        headers:{
+            Authorization : 'JWT fefefg...'
+        }
+    })
 }
 
 const modify=(review)=>{
 
-    return axios.put(`/reviews/modify/`+review.reviewId, review,{
+    return axios({
+        url : `/reviews/modify/`+review.reviewId,
+        method : "put",
+        data : review,
         headers:{
+            Authorization: `Bearer ${userInfo.token}`,
             'Content-Type': 'multipart/form-data'
         }
     })
-    .then(response=>{
-        return response.data
-})
+
 }
 
 const deletes=(reviewId)=>{
-    console.log("Delete Review")
-    return axios.delete(`/reviews/remove/${reviewId}`, {data:{...reviewId}})
+
+    return axios({
+        url : `/reviews/remove/${reviewId}`,
+        method : 'delete',
+        data : {...reviewId},
+        headers :{
+            Authorization : 'JWT fefefg...'
+        }
+    })
+
 }
 
 export default{register, list, read, modify, deletes}
