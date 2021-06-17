@@ -4,6 +4,7 @@ import img from 'webapp/resume/image/portfolio_first.jpeg';
 import { Link } from 'react-router-dom';
 const PresentationTwo = ({ title, text, textBtn, textBtn2, backfont}) => {
     const loginValue = JSON.parse(localStorage.getItem('artist'))
+    console.log("loginValue: ", loginValue)
     return (
     <section style={{ background: `url(${img}) center center no-repeat #24182e` }} className="height-600px">
         <div className="container">
