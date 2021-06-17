@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable(); // csrf 기능 비활성화
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/js/**").permitAll().antMatchers("/public/**").permitAll()
+        http.authorizeRequests().antMatchers("**").permitAll().antMatchers("/js/**").permitAll().antMatchers("/public/**").permitAll()
                 .antMatchers("/manifest.json").permitAll().antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/image/**").permitAll().antMatchers("/logo192.png").permitAll().antMatchers("/page/**/**")
                 .permitAll().antMatchers("/h2-console/**/**").permitAll().antMatchers("/artists/**/**").permitAll()
