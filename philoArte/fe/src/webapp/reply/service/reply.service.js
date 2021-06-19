@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const userInfo = typeof window !== `undefined` ? JSON.parse(localStorage.getItem('artist')) : null;
-
+const SERVER = 'http://13.209.194.227:8080'
 const register = (fd) => {
 
     return axios({
-        url : `/replies/register`,
+        url : `${SERVER}/replies/register`,
         method : 'post',
         data : fd,
         headers:{
@@ -18,7 +18,7 @@ const register = (fd) => {
 
 const list = (reviewId) => {
     return axios({
-        url : `/replies/list/${reviewId}`,
+        url : `${SERVER}/replies/list/${reviewId}`,
         method : 'get',
         headers:{
             Authorization: 'JWT fefege..'
@@ -28,7 +28,7 @@ const list = (reviewId) => {
 
 const modify = (reply) => {
     return axios({
-        url : '/replies/modify/'+reply.rno,
+        url : '${SERVER}/replies/modify/'+reply.rno,
         method : 'put',
         data : reply,
         headers :{
@@ -40,7 +40,7 @@ const modify = (reply) => {
 
 const deletes = (rno) => {
     return axios({
-        url : `/replies/remove/${rno}`,
+        url : `${SERVER}/replies/remove/${rno}`,
         method: 'delete',
         data : {...rno},
         headers:{

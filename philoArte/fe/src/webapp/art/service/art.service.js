@@ -1,9 +1,9 @@
 import axios from 'axios'
 const userInfo = typeof window !== `undefined` ? JSON.parse(localStorage.getItem('artist')) : null;
-
+const SERVER = 'http://13.209.194.227:8080'
 const artList = (page) => {
   return axios({
-    url : `/arts/list?page=${page}`,
+    url : `${SERVER}/arts/list?page=${page}`,
     method: 'get',
     headers:{
       Authorization : 'JWT fefefg...'
@@ -15,7 +15,7 @@ const artSearch = (param) => {
   const str = "page=" + (!param.page ? 1 : param.page) + "&type=" + (param.type) + "&keyword=" + (param.keyword)
 
   return axios({
-        url : `/arts/search?`+str,
+        url : `${SERVER}/arts/search?`+str,
         method : 'get',
         headers:{
             Authorization : 'JWT fefefg...'
@@ -25,7 +25,7 @@ const artSearch = (param) => {
 const artRegister = (payload) => {
 
   return axios({
-         url:`/arts/register`,
+         url:`${SERVER}/arts/register`,
          method:'post',
          data: payload,
          headers:{
@@ -36,7 +36,7 @@ const artRegister = (payload) => {
 
 const artUpload=(formData)=>{
   return axios({
-    url:`/art_files/upload`,
+    url:`${SERVER}/art_files/upload`,
     method:'post',
     data: formData,
     headers:{
@@ -48,7 +48,7 @@ const artUpload=(formData)=>{
 
 const artFileDelete=(payload)=>{
   return axios({
-    url : '/art_files/delete',
+    url : '${SERVER}/art_files/delete',
     method : 'delete',
     data: payload,
     headers:{
@@ -60,7 +60,7 @@ const artFileDelete=(payload)=>{
 
 const artRead=(payload)=>{
   return axios({
-    url : `/arts/read/${payload}`,
+    url : `${SERVER}/arts/read/${payload}`,
     method : 'get',
     headers:{
       Authorization : 'JWT fefefg...'
@@ -70,7 +70,7 @@ const artRead=(payload)=>{
 
 const artModify=(payload)=>{
   return axios({
-    url : '/arts/modify',
+    url : `${SERVER}/arts/modify`,
     method : 'put',
     data: payload,
     headers:{
@@ -82,7 +82,7 @@ const artModify=(payload)=>{
 
 const artDelete = (payload) => {
   return axios({
-    url: `/arts/delete`,
+    url: `${SERVER}/arts/delete`,
     method: 'delete',
     data: payload,
     headers:{
@@ -93,7 +93,7 @@ const artDelete = (payload) => {
 
 const artCount=(payload)=>{
   return axios({
-    url : `/arts/count/${payload}`,
+    url : `${SERVER}/arts/count/${payload}`,
     method:'get',
     headers:{
       Authorization : 'JWT fefefg...'
@@ -103,7 +103,7 @@ const artCount=(payload)=>{
 
 const artPosts=(payload)=>{
   return axios({
-    url : `/arts/list/${payload}`,
+    url : `${SERVER}/arts/list/${payload}`,
     method:'get',
     headers:{
       Authorization : 'JWT fefefg...'
@@ -113,7 +113,7 @@ const artPosts=(payload)=>{
 
 const categoryList=()=>{
   return axios({
-    url : `/category/findall`,
+    url : `${SERVER}/category/findall`,
     method:'get',
     headers:{
       Authorization : 'JWT fefefg...'
@@ -122,4 +122,4 @@ const categoryList=()=>{
 }
 
 
-export default { artList, artRegister, artUpload, artFileDelete, artRead, artModify, artDelete, artSearch, artCount, artPosts, categoryList }
+export default { artList, artRegister, artUpload, artFileDelete, artRead, artModify, artDelete,artSearch, artCount, artPosts, categoryList }
