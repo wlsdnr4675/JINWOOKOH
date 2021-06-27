@@ -49,7 +49,7 @@ const ResumeRegister = () => {
             alert('사진 등록과 모든 항목을 작성해 주세요');
         } else {
             dispatch(registerResume(data));
-            // window.history.back();
+            window.history.back();
         }
     };
 
